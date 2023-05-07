@@ -11,6 +11,7 @@ def home(request):
 def listClients(request):
     
     clients = Clients.objects.all()
+ 
     
     
-    return render(request, 'company/listclients.html', {clients : clients})
+    return render(request, 'company/listclients.html', {'clients': clients})
