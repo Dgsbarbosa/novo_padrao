@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div class="container dashboard">
+
+
+
+
+    <div class="dashboard-box">
+        <a href="#" class="myButton">
+
+            <i class=" fas fa-file-alt " id=" search-btn"></i>
+            <br>
+            Novo Pedido
+        </a>
+        <a href="#" class="myButton">
+            <i class=" fas fa-user-tie " id=" search-btn"></i>
+            <br>
+            Novo Cliente</a>
+
+    </div>
+
+
+
+    <div class="dashboard-box">
+
+        <a href="#" class="myButton">
+
+
+            <i class=" fas fa-folder " id=" search-btn"></i>
+            <br>
+            Pedidos
+        </a>
+
+        <a href="/clients/" class="myButton">
+            <i class=" fas fa-users  " id=" search-btn"></i>
+            <br>
+            Clientes</a>
+
+    </div>
+
+    <div class="dashboard-box">
+
+        <a href="#" class="myButton">
+            <i class=" fas fa-hourglass-half   " id=" search-btn"></i>
+            <br>
+            Em andamento
+        </a>
+
+        <a href="#" class="myButton">
+            <i class=" fas  fa-check-circle   " id=" search-btn"></i>
+            <br>
+            Finalizadas
+        </a>
+    </div>
+
+
+    <div class="dashboard-box">
+
+        <a href="#" class="myButton">
+            <i class=" fas  fa-address-card" id=" search-btn"></i>
+            <br>
+            Perfis
+        </a>
+        <a href="#" class="myButton">
+            <i class=" fas  fa-hand-holding-usd" id=" search-btn"></i>
+            <br>
+            Financeiro
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

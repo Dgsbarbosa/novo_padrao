@@ -1,0 +1,144 @@
+/* Container base*/
+.container-fluid{
+  padding: 0%;
+  width: 100%;
+  /* border: 5px solid #000000; */
+ 
+  background-image: url("img\logo3.png");
+  background-color: #000000;
+  /* text-align: center; */
+
+
+}
+
+/* Base */
+#title {
+  /* border: 5px solid #000000; */
+
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #1a1169;
+  width: 100%;
+  color: #d0ff00;
+  padding-right: 10px;
+  /* border: 5px solid #fd0000; */
+
+}
+
+
+.navbar-toggler{
+  
+  background-color: #d0ff00;
+  color: #d0ff00;
+  /* border: 2px solid #000000; */
+  
+} 
+.navbar a {
+  padding-left: 30px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #d0ff00;
+}
+
+button {
+  color: #d0ff00;
+}
+
+.list-dropdown {
+
+  justify-content: space-around;
+
+}
+
+
+/* dashboard */
+
+.dashboard {
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+  height: 100%;
+  /* border: 5px solid #000000; */
+
+
+}
+
+.dashboard-box {
+
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  /* border: 10px solid rgb(112, 4, 4); */
+  padding: 20px;
+  height: 100%;
+
+
+
+}
+
+.dashboard-box a {
+  /* border: 10px solid rgb(181, 194, 3); */
+  width: 45%;
+  height: 100%;
+  font-size: 100%;
+  height: 100px;
+
+
+}
+
+.myButton {
+  box-shadow: inset 0px 1px 0px 0px #97c4fe;
+  background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+  background-color: #3d94f6;
+  border-radius: 6px;
+  border: 1px solid #337fed;
+  /* display:inline-block; */
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 28px;
+  font-weight: bold;
+  padding-top: 20px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #1570cd;
+  text-align: center;
+}
+
+.myButton:hover {
+  background: linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+  background-color: #1e62d0;
+  color: #d0ff00;
+  font-weight: bold;
+}
+
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.myButton i {
+  color: rgb(7, 0, 94);
+  ;
+  font-size: 40px;
+}
+
+/* Footer */
+
+footer.fixar-rodape {
+  border-top: 1px solid #333;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  background-color: #1a1169;
+  color: #d0ff00;
+  font-size: 15px;
+
+}
