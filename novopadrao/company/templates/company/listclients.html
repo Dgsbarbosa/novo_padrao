@@ -6,18 +6,10 @@
 
 <div class="offset-1 col-10 list-div">
 
-    <div class="div-topo">
-        <h1>Clientes</h1>
 
-        <a id="add-link" href="newclient/">
-            <div class="col-2 add-div">
-                <i class="fas fa-plus"></i> Adicionar Cliente
-            </div>
-        </a>
-    </div>
+    <h1>Clientes</h1>
 
-
-    <div class="container dashboard-client">
+    <div class="flex-container dashboard-client">
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-lastdays">
             <h4>Últimos 30 dias</h4>
@@ -31,19 +23,35 @@
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-doing">
             <h4>Clientes</h4>
-            <span>50</span>
+            <span>{{ clients.count }}</span>
         </div>
 
     </div>
 
-    
-
-        
 
 
-    
+    <div class="flex-container filter-div">
 
-    <div class=" container search-div">
+        <div id="add-link">
+            <a href="newclient/">
+                <div class="col-2 add-div">
+                    <i class="fas fa-plus"></i> Adicionar Cliente
+                </div>
+            </a>
+        </div>
+
+        <div id="div-filter-span">
+            <span>Filtrar por:</span>
+
+            <select name="filter" id="filter" class="form-control">
+                <option value="">Escolha uma opção...</option>
+                <option value="done">Pessoa Fisica</option>
+                <option value="doing">Pessoa Jurídica</option>
+            </select>
+        </div>
+    </div>
+
+    <div class=" flex-container search-div">
         <form method="GET" id="search-form">
 
             <input class="form-control" type="text" id="search" name="search"
@@ -51,15 +59,6 @@
 
             <i class="fas fa-search" id="search-btn"></i>
         </form>
-    </div>
-
-    <div class="col-12 filter-div">
-        <span>Filtrar por:</span>
-        <select name="filter" id="filter" class="form-control">
-            <option value="">Escolha uma opção...</option>
-            <option value="done">Pessoa Fisica</option>
-            <option value="doing">Pessoa Jurídica</option>
-        </select>
     </div>
 
 

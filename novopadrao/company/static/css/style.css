@@ -64,18 +64,8 @@ h1 {
 
 }
 
-/* Div topo */
-.div-topo{
-  width: 100%;
-  display: flex;
-  justify-content:space-between;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 30px;
-  
-  /* border: 5px solid #000000; */
 
-}
+
 
 /* dashboard-client-clients */
 
@@ -188,6 +178,14 @@ h1 {
   padding: 10px;
   align-items: center;
   border-radius: 10px;
+
+  /* border: 10px solid rgb(247, 0, 0); */
+
+}
+
+.dashboard-client-box span {
+  font-size: 20px;
+
   /* border: 10px solid rgb(247, 0, 0); */
 
 }
@@ -213,61 +211,83 @@ h1 {
 
 .search-div {
   padding: 0;
-  margin-top: 15px;
+  margin-top: 30px;
   margin-bottom: 15px;
-  
-  
   width: 100%;
-  /* border: 10px solid magenta; */
+
+  /* border: 10px solid rgb(0, 0, 0); */
 }
 
 #search-form {
   display: flex;
+  position: relative;
   align-items: center;
+  width: 100%;
+  text-align: center;
+
+
+  /* border: 10px solid rgb(189, 22, 189); */
 }
-#search-form input{
- 
-  /* border: 10px solid rgb(22, 21, 22); */
+
+#search-form input {
+  width: 80%;
+ text-align: center;
+  /* border: 10px solid rgb(189, 22, 189); */
 }
 
 #search-btn {
   width: 50px;
   font-size: 20px;
+  position: absolute;
+
+
   /* border: 10px solid rgb(22, 21, 22); */
 }
 
 .fas.fa-search {
-  
+
   cursor: pointer;
-  
+
 }
 
 
 /* Botão de adicionar */
-
-
 #add-link {
+  width: 30%;
   text-decoration: none;
+  align-items: center;
+
+  /* border: 10px solid black; */
+
 }
+
+
 
 .add-div {
   background-color: #3476e2;
   cursor: pointer;
-
   color: #FFF;
   text-align: center;
   border-radius: 5px;
   width: 100%;
   height: 50px;
-  padding-top: 10px;
+  display: flex;
   font-size: 100%;
-  
+  align-items: center;
+  justify-content: center;
+
+
+
+  /* border: 10px solid black; */
+
 }
 
 .fas.fa-plus {
   color: #FFF;
-  
+  font-size: 100%;
+  text-align: center;
 
+  /* border: 10px solid black; */
 }
 
 
@@ -275,12 +295,30 @@ h1 {
 .filter-div {
   margin-bottom: 15px;
   padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+
+  /* border: 10px solid black; */
 }
 
 #filter {
   display: inline-block;
-  width: 200px;
+  width: 70%;
   margin-left: 10px;
+  margin-left: 0;
+  /* border: 10px solid black; */
+}
+
+#div-filter-span {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  /* border: 10px solid black; */
+
 }
 
 /* Lista de clientes */
@@ -350,5 +388,40 @@ footer.fixar-rodape {
   background-color: #1a1169;
   color: #d0ff00;
   font-size: 15px;
+
+}
+
+
+/* Responsivo*/
+
+@media screen and (max-width: 600px) {
+  .col-25,
+  .col-75,
+
+  input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .filter-div {
+
+    display: flex;
+    flex-direction: column;
+
+    /* border: 10px solid black; */
+  }
+
+  #add-link {
+    width: 100%;
+    align-items: center;
+  }
+
+  #div-filter-span {
+    width: 100%;
+    margin-top: 20px;
+
+    /* border: 10px solid black; */
+
+  }
 
 }

@@ -11,6 +11,8 @@ def home(request):
 def listClients(request):
     
     clients = Clients.objects.all()
+    # print("count: ",clients.count())
+    
  
     
     
