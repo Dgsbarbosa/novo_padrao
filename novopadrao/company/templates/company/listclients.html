@@ -75,13 +75,12 @@
 
         {% for client in clients %}
 
-        <li class="client-item">
+        <li class="client-item">           
 
-            <span><a href="clients/{{client.id}}">{{client.id}}</a></span>
-
-            <span class="client-name"><a href="clients/{{client.id}}">{{client.nome}}</a></span>
+            <span class="client-name"><a href="client/{{client.id}}">{{client.nome}} {{client.sobrenome}}</a></span>
 
             <a href="delete/{{task.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+
             <a href="edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
 
 

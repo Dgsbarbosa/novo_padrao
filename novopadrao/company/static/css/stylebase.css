@@ -1,0 +1,17 @@
+/* Base */
+/* Container base*/
+.container-fluid {
+    padding: 0%;
+    
+    /* border: 5px solid #000000; */
+    /* text-align: center; */
+  }
+
+h1{
+  /* color: brown; */
+  font-weight: bold;
+}
+  
+.div-base{
+  padding: 10px;
+}

@@ -1,0 +1,179 @@
+/* Conteudo */
+.client-view {
+
+    /* border: 10px solid rgb(167, 0, 0); */
+}
+
+/* Botões */
+
+
+.dashboard-box-client {
+
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+
+
+    /* border: 10px solid rgb(112, 4, 4); */
+
+
+}
+
+.dashboard-box-client a {
+    width: 50px;
+    font-size: 100%;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    /* border: 10px solid rgb(0, 0, 0); */
+
+}
+
+.dashboard-box-client i {
+
+    padding-right: 10px;
+    /* border: 10px solid rgb(0, 0, 0); */
+
+
+}
+
+.myButton-client {
+    box-shadow: inset 0px 1px 0px 0px #97c4fe;
+    background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+    background-color: #3d94f6;
+    border-radius: 6px;
+    border: 1px solid #337fed;
+    /* display:inline-block; */
+    cursor: pointer;
+    color: #000000;
+    font-family: Arial;
+    font-size: 100%;
+    font-weight: bold;
+
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #1570cd;
+    text-align: center;
+
+    width: 100%;
+
+
+    /* border: 10px solid rgb(181, 194, 3); */
+
+}
+
+.myButton-client:hover {
+    background: linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+    background-color: #1e62d0;
+    color: #d0ff00;
+    font-weight: bold;
+}
+
+.myButton-client:active {
+    position: relative;
+    top: 1px;
+}
+
+.myButton-client i {
+    color: rgb(0, 0, 0);
+
+    font-size: 100%;
+
+    /* border: 10px solid rgb(181, 194, 3); */
+
+}
+
+#back-client {
+    background: linear-gradient(to bottom, #3aff6b 5%, #00f014 100%);
+
+}
+
+#delete-client {
+
+    background: linear-gradient(to bottom, #fa3f3f 5%, #ff0000 100%);
+
+    /* border: 10px solid rgb(181, 194, 3); */
+
+}
+
+
+
+
+/*Fomulario  */
+.client-view form {
+    margin-bottom: 20px;
+    padding: 20px;
+
+    /* border: 2px solid rgb(255, 238, 0); */
+
+}
+
+.container-item1 {
+
+    display: flex;
+    justify-content: space-between;
+
+
+    /* border: 10px solid rgb(2, 1, 1); */
+
+}
+
+
+
+#div-name {
+    width: 60%;
+
+    /* border: 10px solid rgb(170, 0, 105); */
+
+}
+
+#div-type {
+    width: 30%;
+    /* border: 10px solid rgb(170, 0, 105); */
+
+}
+
+.client-view input[type=text],
+select {
+    width: 100%;
+    padding: 5px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+    .client-view form {
+        font-size: 80%;
+
+        /* border: 10px solid rgb(7, 7, 7); */
+
+    }
+
+    #fname {
+        font-size: 100%;
+        /* border: 10px solid rgb(238, 9, 9); */
+
+
+    }
+
+
+
+
+}
