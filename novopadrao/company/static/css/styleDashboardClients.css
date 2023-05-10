@@ -5,12 +5,13 @@
     width: 100%;
     display: flex;
     margin-bottom: 20px;
-  
+
+    justify-content: space-around;
     /* border: 10px solid rgb(2, 2, 2); */
   }
   
   .dashboard-client h4 {
-    font-size: 100%;
+    font-size: 20px
   }
   
   .dashboard-client span {
@@ -32,11 +33,12 @@
     justify-content: space-around;
     box-sizing: border-box;
     height: 100px;
-    width: 32%;
+    width: 250px;
     text-align: center;
     padding: 10px;
     align-items: center;
     border-radius: 10px;
+    
   
     /* border: 10px solid rgb(247, 0, 0); */
   
@@ -55,6 +57,7 @@
   }
   
   #dashboard-client-lastdays {
+    
     background-color: #3476e2;
   }
   
@@ -167,7 +170,7 @@
   }
   
   #search-form input {
-  
+    
     text-align: center;
     /* border: 10px solid rgb(189, 22, 189); */
   }
@@ -189,7 +192,11 @@
   }
   
   
-  
+.messages{
+  list-style:  none;
+      /* border: 10px solid rgb(22, 21, 22); */
+
+}
   
   /* Lista de clientes */
   
@@ -213,9 +220,7 @@
   
   }
   
-  .client-name {
-    
-  }
+
   
   .client-item.done {
     background-color: #CCC;
@@ -240,6 +245,22 @@
     font-size: 20px;
     float: right;
   }
+
+  /* Paginação */
+.pagination {
+  margin-bottom: 50px;
+}
+
+.step-links {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.step-links .current {
+  margin-left: 5px;
+  margin-right: 5px;
+}
   
   
   

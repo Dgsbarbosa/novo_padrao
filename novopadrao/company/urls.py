@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
@@ -11,4 +11,11 @@ urlpatterns = [
     path('clients/newclient/', views.newClient, name="new-client"),
     
     path('newclient/', views.newClient, name="new-client"),
+    
+    path('clients/edit/<int:id>', views.editClient, name = 'edit-client'),
+    
+    path('clients/delete/<int:id>', views.deleteClient, name="delete-client"),
+    
+    
+    
 ]   

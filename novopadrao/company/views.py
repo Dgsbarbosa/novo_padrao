@@ -15,20 +15,35 @@ def home(request):
 
 def listClients(request):
     
-    clients = Clients.objects.all()
-    # print("count: ",clients.count())
+    search = request.GET.get('search')
     
-    return render(request, 'company/listclients.html', {'clients': clients})
+    if search:
+        
+        clients = Clients.objects.filter(nome__icontains=search)
+        
+    else:
+        clients_list = Clients.objects.all().order_by('-create_at')
+        paginator = Paginator(clients_list,3)
+        page = request.GET.get('page')
+        
+        clients = paginator.get_page(page)
+    
+    clientsCount = Clients.objects.all().count()
+    
+    print
+    
+    return render(request, 'company/listclients.html', {'clients': clients , 'clientsCount':clientsCount})
 
 
 def  clientView(request, id):
-    client = Clients.objects.get(pk=id)
-    if client.tipo == "1":
-        client.tipo = "Fisica"   
-    elif client.tipo == "2":
-        client.tipo = "Juridica"
-    print(client.tipo)
-    return render(request, 'company/client.html', {'client': client})
+    
+    client = get_object_or_404(Clients, pk=id)
+    form = ClientForm(instance=client)
+    
+    
+    
+                 
+    return render(request, 'company/client.html', {'form': form, 'client': client })
 
 
 def newClient(request):
@@ -38,9 +53,36 @@ def newClient(request):
     if form.is_valid():
         client = form.save(commit=False)
         client.save()
-        return redirect('/')
+        return redirect('/clients')
     
     else:
         form = ClientForm()
         
     return render(request, 'company/addclient.html', {'form':form} )
+
+
+def editClient(request, id):
+    client = get_object_or_404(Clients, pk=id)
+    form = ClientForm(instance=client)
+    
+    if(request.method == 'POST'):
+        
+        form = ClientForm(request.POST, instance=client)
+        
+        if(form.is_valid()):
+            client.save()
+            return redirect('/clients')
+        else:
+            return render(request, 'company/editclient.html', {'form': form, 'client' :client })
+        
+    
+                 
+    return render(request, 'company/editclient.html', {'form': form, 'client': client })
+
+
+def deleteClient(request, id):
+    client = get_object_or_404(Clients, pk=id)
+    client.delete()
+    messages.info(request, 'Tarefa deletada com sucesso.')
+
+    return redirect('/clients')

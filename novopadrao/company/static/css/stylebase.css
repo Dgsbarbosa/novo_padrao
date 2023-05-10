@@ -1,17 +1,29 @@
 /* Base */
 /* Container base*/
 .container-fluid {
-    padding: 0%;
-    
-    /* border: 5px solid #000000; */
-    /* text-align: center; */
-  }
+  padding: 0;
+  margin: 0;
 
-h1{
+  /* border: 5px solid #000000; */
+  /* text-align: center; */
+}
+
+h1 {
   /* color: brown; */
   font-weight: bold;
 }
-  
-.div-base{
+
+.div-base {
   padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 5px solid #000000; */
+
 }
+
+.div-base-2 {
+ padding-top: 100px;
+  /* border: 5px solid #000000; */
+}
+

@@ -12,7 +12,7 @@
     <div class="flex-container dashboard-client">
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-lastdays">
-            <h4>Últimos 30 dias</h4>
+            <h4>Orçamentos dos <br> Últimos 30 dias</h4>
             <span>30</span>
         </div>
 
@@ -23,7 +23,7 @@
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-doing">
             <h4>Clientes</h4>
-            <span>{{ clients.count }}</span>
+            <span>{{ clientsCount }}</span>
         </div>
 
     </div>
@@ -79,9 +79,9 @@
 
             <span class="client-name"><a href="client/{{client.id}}">{{client.nome}} {{client.sobrenome}}</a></span>
 
-            <a href="delete/{{task.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
+            <a href="delete/{{client.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
 
-            <a href="edit/{{task.id}}"><span><i class="fas fa-edit"></i></span></a>
+            <a href="edit/{{client.id}}"><span><i class="fas fa-edit"></i></span></a>
 
 
         </li>

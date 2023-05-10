@@ -1,6 +1,6 @@
 .form-add {
 
-    padding: 20px;
+
     /* border: 10px solid black; */
 }
 
@@ -8,6 +8,28 @@
 
 
 .form-group {
+    /* border: 10px solid rgb(212, 0, 0); */
+
+}
+
+
+
+.btn-form {
+    margin-top: 10px;
+    margin-bottom: 50px;
+
+    float: right;
+    /* border: 10px solid rgb(212, 0, 0); */
+
+}
+.btn-form[type="submit"]{
+    width: 100px;
+    /* border: 10px solid rgb(212, 0, 0); */
+
+}
+.div-btn {
+    display: flex;
+    justify-content: space-around;
     /* border: 10px solid rgb(212, 0, 0); */
 
 }

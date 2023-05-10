@@ -4,6 +4,12 @@
     /* border: 10px solid rgb(167, 0, 0); */
 }
 
+#client-name {
+    font-weight: lighter;
+    /* border: 10px solid rgb(167, 0, 0); */
+
+}
+
 /* Botões */
 
 
@@ -11,8 +17,8 @@
 
     text-align: center;
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    margin-bottom: 50px;
 
 
     /* border: 10px solid rgb(112, 4, 4); */
@@ -42,24 +48,16 @@
 }
 
 .myButton-client {
-    box-shadow: inset 0px 1px 0px 0px #97c4fe;
+
     background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
     background-color: #3d94f6;
-    border-radius: 6px;
-    border: 1px solid #337fed;
-    /* display:inline-block; */
+    border-radius: 6px;    
     cursor: pointer;
-    color: #000000;
-    font-family: Arial;
+    color: #ffffff;
     font-size: 100%;
-    font-weight: bold;
-
     text-decoration: none;
-    text-shadow: 0px 1px 0px #1570cd;
     text-align: center;
-
     width: 100%;
-
 
     /* border: 10px solid rgb(181, 194, 3); */
 
@@ -68,8 +66,10 @@
 .myButton-client:hover {
     background: linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
     background-color: #1e62d0;
-    color: #d0ff00;
+    color: #ffffff;
     font-weight: bold;
+    text-shadow: 2px 1px #000000;
+
 }
 
 .myButton-client:active {
@@ -78,13 +78,18 @@
 }
 
 .myButton-client i {
-    color: rgb(0, 0, 0);
-
+    color: rgb(255, 255, 255);
+    text-shadow: black;
     font-size: 100%;
+
 
     /* border: 10px solid rgb(181, 194, 3); */
 
+
 }
+
+
+
 
 #back-client {
     background: linear-gradient(to bottom, #3aff6b 5%, #00f014 100%);
@@ -104,7 +109,7 @@
 
 /*Fomulario  */
 .client-view form {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     padding: 20px;
 
     /* border: 2px solid rgb(255, 238, 0); */
@@ -147,6 +152,13 @@ select {
     box-sizing: border-box;
 }
 
+#form-client {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    /* border: 10px solid rgb(170, 0, 105); */
+
+}
+
 
 
 
@@ -172,6 +184,16 @@ select {
 
 
     }
+
+    .dashboard-box-client {
+        padding: 0;
+        margin-top: 5px;
+        width: 100%;
+        border: 10px solid rgb(238, 9, 9);
+
+    }
+
+
 
 
 

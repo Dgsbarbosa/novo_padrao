@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %} Novo Cliente {% endblock %}
+{% block title %} Editar Cliente {% endblock %}
 
 {% block content %}
-<div class="container form-add">
 
-    <h1>Adicione um cliente</h1>
-
+<div class="offset-1 col-10 list-div">
+    <h1>Editando '{{client.nome}}'</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-
         <div class="container div-btn">
             <a href="/clients/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">
@@ -20,5 +18,4 @@
         </div>
     </form>
 </div>
-
 {% endblock %}

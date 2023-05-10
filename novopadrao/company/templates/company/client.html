@@ -1,15 +1,25 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 
 {% block title %} Cliente {% endblock %}
 
 {% block content %}
-<div class="flex-container offset-1 col-10 client-view">
 
-    <h1>Cliente: {{ client.nome }} {{ client.sobrenome }} </h1>
+<div class="offset-1 col-10 list-div">
+    <h1>Visualisando: <span id="client-name"> {{ client.nome }} {{ client.sobrenome }} </span></h1>
+
+
+    <form method="GET" id="form-client">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+    </form>
 
     <div class=" container dashboard-box-client">
+
         <div>
-            <a href="#" class="myButton-client" id="back-client">
+            <a href="/clients/" class="myButton-client" id="back-client">
 
                 <i class=" fas fas fa-undo-alt "></i>
 
@@ -18,7 +28,7 @@
         </div>
 
         <div>
-            <a href="#" class="myButton-client" id="edit-client">
+            <a href="/clients/edit/{{client.id}}" class="myButton-client" id="edit-client">
                 <i class=" fas fas fa-user-edit "></i>
 
                 Editar</a>
@@ -32,80 +42,8 @@
         </div>
     </div>
 
-
-    <div>
-        <form action="/action_page.php" class="container">
-
-            <div class="container-item1">
-                <div id="div-name">
-                    <label for="fname">Nome</label>
-                    <input type="text" id="fname" name="firstname" value="{{client.nome}}">
-                </div>
-
-                <div id="div-type">
-                    <label for="type">Tipo</label>
-                    <input type="text" id="type" name="type" value="{{client.tipo}}">
-                </div>
-            </div>
-
-
-            <label for="email">Email</label>
-            <input type="text" id="email" name="lastname" placeholder="Your email..">
-
-            <div class="container-item1">
-                <div class="div-pattern">
-                    <label for="telefone1">Telefone</label>
-                    <input type="text" id="telefone1" name="telefone1" value="{{client.telefone}}">
-                </div>
-
-                <div class="div-pattern">
-                    <label for="telefone2">Telefone</label>
-                    <input type="text" id="telefone2" name="telefone2" value="telefone 2 vai aqui">
-                </div>
-
-            </div>
-
-
-            <div class="container-item1">
-
-                <div class="div-pattern">
-                    <label for="address">Endereço</label>
-                    <input type="text" id="address" name="address" value="{{client.endereco}}">
-                </div>
-
-                <div class="div-pattern">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" id="bairro" name="bairro" value="telefone 2 vai aqui">
-                </div>
-
-
-            </div>
-
-            <div class="container-item1">
+</div>
 
 
 
-                <div class="div-pattern">
-                    <label for="city">Cidade</label>
-                    <input type="text" id="city" name="city" value="{{client.telefone}}">
-                </div>
-
-                <div class="div-pattern">
-                    <label for="estado">Estado</label>
-                    <input type="text" id="estado" name="estado" value="">
-                </div>
-
-
-            </div>
-
-
-            <label for="annotation">Anotações</label>
-            <input type="text" id="annotation" name="annotation" value="as anotações vão aqui">
-        </form>
-
-
-    </div>
-
-
-
-    {% endblock %}
+{% endblock %}

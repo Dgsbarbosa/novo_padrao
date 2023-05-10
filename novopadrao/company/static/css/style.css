@@ -1,9 +1,9 @@
 @import url(../css/stylebase.css);
 @import url(../css/styleNavbar.css);
-@import url(../css/styleDashboardHome.css); 
+@import url(../css/styleDashboardHome.css);
 @import url(../css/styleDashboardClients.css);
 
-@import url(../css/styleClient.css);
+@import url(../css/styleViewClient.css);
 
 @import url(../css/styleNewClient.css);
 
@@ -29,12 +29,14 @@ footer.fixar-rodape {
 /* Responsivo*/
 
 @media screen and (max-width: 600px) {
+
   .col-25,
   .col-75,
+  
+  
 
-  input[type=submit] {
-    width: 100%;
-    margin-top: 0;
+  .dashboard-client h4 {
+    font-size: 10px
   }
 
   .filter-div {
@@ -65,11 +67,16 @@ footer.fixar-rodape {
     /* border: 10px solid rgb(189, 22, 189); */
   }
 
-  .client-list span{
+  .client-list span {
 
     font-size: small;
-        /* border: 10px solid rgb(189, 22, 189); */
+    /* border: 10px solid rgb(189, 22, 189); */
 
+  }
+
+  .dashboard-client-box {
+
+    width: 100px;
   }
 
 }

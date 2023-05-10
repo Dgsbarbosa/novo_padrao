@@ -32,7 +32,10 @@
             </button>
 
             <div class="collapse navbar-collapse list-dropdown" id="conteudoNavbarSuportado">
+
                 <ul class="navbar-nav mr-auto">
+
+                    {% if user.is_authenticated %}
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home </a>
                     </li>
@@ -54,9 +57,19 @@
                             <a class="dropdown-item" href="#">Algo mais aqui</a>
                         </div>
                     </li>
+                    {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Desativado</a>
+                        <a class="nav-link" href="/accounts/login">Entrar</a>
                     </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sobre Nós</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                            <a class="nav-link" href="/accounts/logout">Sair</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
             </div>
@@ -65,12 +78,17 @@
 
 
         <div class="div-base">
+            
             {% block content %}
 
 
 
             {% endblock %}
+
         </div>
+
+       
+
 
         <footer class="fixar-rodape">
             <p>&copy New Standard Development</p>
@@ -83,7 +101,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
         integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
         crossorigin="anonymous"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
 
 </body>
 
