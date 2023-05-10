@@ -1,11 +1,17 @@
 /* Conteudo */
-.client-view {
 
-    /* border: 10px solid rgb(167, 0, 0); */
+.list-div h1 {
+    margin-bottom: 0;
+    margin-bottom: 20px;
+
 }
 
 #client-name {
+    text-align: center;
     font-weight: lighter;
+    padding: 0;
+    font-size: large;
+
     /* border: 10px solid rgb(167, 0, 0); */
 
 }
@@ -51,7 +57,7 @@
 
     background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
     background-color: #3d94f6;
-    border-radius: 6px;    
+    border-radius: 6px;
     cursor: pointer;
     color: #ffffff;
     font-size: 100%;
@@ -87,24 +93,6 @@
 
 
 }
-
-
-
-
-#back-client {
-    background: linear-gradient(to bottom, #3aff6b 5%, #00f014 100%);
-
-}
-
-#delete-client {
-
-    background: linear-gradient(to bottom, #fa3f3f 5%, #ff0000 100%);
-
-    /* border: 10px solid rgb(181, 194, 3); */
-
-}
-
-
 
 
 /*Fomulario  */
@@ -160,6 +148,18 @@ select {
 }
 
 
+#back-client {
+    background: linear-gradient(to bottom, #3aff6b 5%, #00f014 100%);
+
+}
+
+#delete-client {
+
+    background: linear-gradient(to bottom, #fa3f3f 5%, #ff0000 100%);
+
+    /* border: 10px solid rgb(181, 194, 3); */
+
+}
 
 
 
@@ -189,7 +189,8 @@ select {
         padding: 0;
         margin-top: 5px;
         width: 100%;
-        border: 10px solid rgb(238, 9, 9);
+
+        /* border: 10px solid rgb(238, 9, 9); */
 
     }
 

@@ -45,8 +45,8 @@
 
             <select name="filter" id="filter" class="form-control">
                 <option value="">Escolha uma opção...</option>
-                <option value="done">Pessoa Fisica</option>
-                <option value="doing">Pessoa Jurídica</option>
+                <option value="1">Pessoa Fisica</option>
+                <option value="2">Pessoa Jurídica</option>
             </select>
         </div>
     </div>
@@ -77,11 +77,13 @@
 
         <li class="client-item">           
 
-            <span class="client-name"><a href="client/{{client.id}}">{{client.nome}} {{client.sobrenome}}</a></span>
-
+            <span class="client-name"><a href="client/{{client.id}}">{{client.nome}}</a></span>
+            
+           
             <a href="delete/{{client.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
 
-            <a href="edit/{{client.id}}"><span><i class="fas fa-edit"></i></span></a>
+            <a href="edit/{{client.id}}"><span><i class="fas fa-edit "></i></span></a>
+<br>
 
 
         </li>

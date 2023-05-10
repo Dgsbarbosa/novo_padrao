@@ -14,16 +14,89 @@ h1 {
 }
 
 .div-base {
-  padding: 10px;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   /* border: 5px solid #000000; */
 
 }
 
 .div-base-2 {
- padding-top: 100px;
-  /* border: 5px solid #000000; */
+ 
+width: 100%;
+
+  /* border: 5px solid #d31111; */
 }
 
+.div-base-2-item {
+  padding-top: 400px;
+  background-image: url("../img/Logo2.png");
+  height: 300px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  
+
+
+
+
+  /* border: 5px solid #000000; */
+
+}
+
+.div-base-2-item div {
+  height: 20px;
+  margin: 20px;
+  /* border: 5px solid #e70707; */
+
+}
+
+
+/* login */
+
+.auth-card {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.auth-card h4{
+  font-size: 20px;
+    /* border: 5px solid #e70707; */
+
+}
+
+.change-form-p {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.form-login {
+display: flex;
+flex-direction: column;
+align-items: center;
+
+  /* border: 5px solid #e70707; */
+
+}
+
+form .form-group {
+  
+  padding-top: 20px;
+  width: 100%;
+  /* border: 5px solid #e70707; */
+
+}
+
+.form-login button {
+  margin-top: 30px;
+ 
+  
+  
+  /* border: 5px solid #e70707; */
+
+}

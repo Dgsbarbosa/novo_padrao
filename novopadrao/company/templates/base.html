@@ -41,34 +41,50 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="#">Perfis</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Orçamentos
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Novo Orçamento</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Orçamentos</a>
+                            
+                            
+                        </div>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
+                            Clientes
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Ação</a>
-                            <a class="dropdown-item" href="#">Outra ação</a>
+                            <a class="dropdown-item" href="newclient/">Novo Cliente</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Algo mais aqui</a>
+                            <a class="dropdown-item" href="/clients/">Clientes</a>
+                            
+                           
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Financeiro</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/accounts/login">Entrar</a>
                     </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sobre Nós</a>
-                    </li>
+                    
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                            <a class="nav-link" href="/accounts/logout">Sair</a>
-                        </li>
+                        <a class="nav-link" href="/accounts/logout">Sair</a>
+                    </li>
                     {% endif %}
                 </ul>
 
@@ -76,9 +92,9 @@
         </nav>
 
 
-
+        {% if user.is_authenticated %}
         <div class="div-base">
-            
+
             {% block content %}
 
 
@@ -87,7 +103,39 @@
 
         </div>
 
-       
+        {% else %}
+
+        <div class="div-base-2 container">
+            {% if request.path == '/'%}
+
+            <div class="div-base-2-item">
+                <div>
+                    <a href="/accounts/login">
+                        <button  type="button" class="btn btn-primary">Entrar</button>
+                </div></a>
+                <a href="/accounts/register">
+                    <div>
+                        <button type="button" class="btn btn-secondary">Registro</button>
+                    </div>
+                </a>
+            </div>
+
+            {% else %}
+
+            {% block authentic %}
+
+
+
+            {% endblock %}
+
+            {% endif %}
+        </div>
+
+        {% endif %}
+
+
+
+
 
 
         <footer class="fixar-rodape">

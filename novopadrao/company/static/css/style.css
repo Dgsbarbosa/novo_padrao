@@ -10,7 +10,7 @@
 
 /* Footer */
 
-footer.fixar-rodape {
+.fixar-rodape {
   border-top: 1px solid #333;
   bottom: 0;
   left: 0;
@@ -18,8 +18,8 @@ footer.fixar-rodape {
   position: fixed;
   width: 100%;
   text-align: center;
-  background-color: #1a1169;
-  color: #d0ff00;
+  background-color:  #1a1169;
+  color: #ffe600;
   font-size: 15px;
   margin-top: 10px;
 
@@ -77,6 +77,28 @@ footer.fixar-rodape {
   .dashboard-client-box {
 
     width: 100px;
+    height: 80px;
+  }
+
+  .search-div {
+  
+    margin-top: 10px;
+    
+    
+  
+    /* border: 10px solid rgb(0, 0, 0); */
+  }
+
+  .div-base-2-item {
+    
+    background-size: 100%;
+    
+    /* border: 5px solid #000000; */
+  
+  }
+
+  .dashboard-box a {
+    width: 45%;
   }
 
 }

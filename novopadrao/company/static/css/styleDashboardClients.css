@@ -30,12 +30,13 @@
     color: #FFF;
     display: flex;
     flex-direction: column;
+    
     justify-content: space-around;
     box-sizing: border-box;
     height: 100px;
     width: 250px;
     text-align: center;
-    padding: 10px;
+    
     align-items: center;
     border-radius: 10px;
     
@@ -119,7 +120,7 @@
   
   /* filter */
   .filter-div {
-    margin-bottom: 15px;
+    margin-bottom: 0;
     padding: 0;
     display: flex;
     justify-content: space-around;
@@ -202,6 +203,7 @@
   
   .list-div {
     padding: 0;
+    margin-left: 0;
   }
   
   .client-list {

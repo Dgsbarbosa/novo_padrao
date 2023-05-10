@@ -9,20 +9,30 @@ import datetime
 from .models import Clients
 
 # Create your views here.
+
 def home(request):
+    
     return render(request, 'company/home.html')
 
-
+@login_required
 def listClients(request):
     
     search = request.GET.get('search')
+    filter = request.GET.get('filter')
+   
+
     
     if search:
         
-        clients = Clients.objects.filter(nome__icontains=search)
+        clients = Clients.objects.filter(nome__icontains=search, user=request.user)
+        
+    elif filter:
+        clients = Clients.objects.filter(tipo=filter, user=request.user)
+        
+        print("filter:", clients)
         
     else:
-        clients_list = Clients.objects.all().order_by('-create_at')
+        clients_list = Clients.objects.all().order_by('-create_at').filter(user=request.user)
         paginator = Paginator(clients_list,3)
         page = request.GET.get('page')
         
@@ -34,7 +44,7 @@ def listClients(request):
     
     return render(request, 'company/listclients.html', {'clients': clients , 'clientsCount':clientsCount})
 
-
+@login_required
 def  clientView(request, id):
     
     client = get_object_or_404(Clients, pk=id)
@@ -45,13 +55,14 @@ def  clientView(request, id):
                  
     return render(request, 'company/client.html', {'form': form, 'client': client })
 
-
+@login_required
 def newClient(request):
     
     form = ClientForm(request.POST)
     
     if form.is_valid():
         client = form.save(commit=False)
+        client.user = request.user
         client.save()
         return redirect('/clients')
     
@@ -60,26 +71,27 @@ def newClient(request):
         
     return render(request, 'company/addclient.html', {'form':form} )
 
-
+@login_required
 def editClient(request, id):
     client = get_object_or_404(Clients, pk=id)
     form = ClientForm(instance=client)
-    
+    print("id:", id)
     if(request.method == 'POST'):
         
         form = ClientForm(request.POST, instance=client)
         
         if(form.is_valid()):
             client.save()
+            messages.info(request, 'Cliente alterado com sucesso.')
             return redirect('/clients')
         else:
             return render(request, 'company/editclient.html', {'form': form, 'client' :client })
         
     
-                 
+    
     return render(request, 'company/editclient.html', {'form': form, 'client': client })
 
-
+@login_required
 def deleteClient(request, id):
     client = get_object_or_404(Clients, pk=id)
     client.delete()
