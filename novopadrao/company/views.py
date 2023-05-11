@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from .forms import ClientForm
+from .forms import  ClientForm
 from django.contrib import messages
 import datetime
 
-from .models import Clients
+from .models import Address, Clients
 
 # Create your views here.
 
@@ -19,20 +19,20 @@ def listClients(request):
     
     search = request.GET.get('search')
     filter = request.GET.get('filter')
-   
-
     
     if search:
-        
+                
         clients = Clients.objects.filter(nome__icontains=search, user=request.user)
         
     elif filter:
         clients = Clients.objects.filter(tipo=filter, user=request.user)
         
-        print("filter:", clients)
+        
         
     else:
         clients_list = Clients.objects.all().order_by('-create_at').filter(user=request.user)
+        
+        
         paginator = Paginator(clients_list,3)
         page = request.GET.get('page')
         
@@ -40,7 +40,7 @@ def listClients(request):
     
     clientsCount = Clients.objects.all().count()
     
-    print
+   
     
     return render(request, 'company/listclients.html', {'clients': clients , 'clientsCount':clientsCount})
 
@@ -50,26 +50,32 @@ def  clientView(request, id):
     client = get_object_or_404(Clients, pk=id)
     form = ClientForm(instance=client)
     
-    
-    
-                 
     return render(request, 'company/client.html', {'form': form, 'client': client })
+
 
 @login_required
 def newClient(request):
     
-    form = ClientForm(request.POST)
+    form_clients = ClientForm(request.POST)    
     
-    if form.is_valid():
-        client = form.save(commit=False)
-        client.user = request.user
-        client.save()
+    
+    # print("cliente:",form_clients)
+    
+    if form_clients.is_valid()  :
+        
+        ...
+        
         return redirect('/clients')
     
     else:
-        form = ClientForm()
+        form_clients = ClientForm()
         
-    return render(request, 'company/addclient.html', {'form':form} )
+    
+    context = {
+               'form_clients':form_clients,
+               }
+    
+    return render(request, 'company/addclient.html', context )
 
 @login_required
 def editClient(request, id):

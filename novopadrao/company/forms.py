@@ -1,7 +1,15 @@
+
 from django import forms
-from .models import Clients
+
+from .models import Clients, Contacts, Address
 
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Clients
-        fields = ('nome','tipo', 'endereco', 'telefone1', 'telefone2', 'email', 'bairro','cidade', 'estado')
+        fields = '__all__'
+        labels = {'name': ('Nome'), 'client_type':('Tipo de cliente')}
+        
+        
+
+        
+    

@@ -10,7 +10,11 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form|crispy }}
+        {{ form_clients|crispy }}
+        {{ form_contacts|crispy}} 
+        {{ form_address|crispy }}
+        
+        
 
         <div class="container div-btn">
             <a href="/clients/">
