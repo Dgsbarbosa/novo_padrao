@@ -8,10 +8,13 @@
 
     <h1>Adicione um cliente</h1>
 
-    <form method="POST">
+    <form method="POST" class="col-12">
         {% csrf_token %}
+
         {{ form_clients|crispy }}
+        
         {{ form_contacts|crispy}} 
+        
         {{ form_address|crispy }}
         
         

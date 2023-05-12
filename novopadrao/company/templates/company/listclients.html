@@ -62,36 +62,72 @@
     </div>
 
 
+    <div class="div-base-table">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
 
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+        <table class="client-list">
 
-    <ul class="client-list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Ações</th>
 
-        {% for client in clients %}
-
-        <li class="client-item">           
-
-            <span class="client-name"><a href="client/{{client.id}}">{{client.nome}}</a></span>
-            
-           
-            <a href="delete/{{client.id}}" class="delete-btn"><span><i class="fas fa-trash"></i></span></a>
-
-            <a href="edit/{{client.id}}"><span><i class="fas fa-edit "></i></span></a>
-<br>
-
-
-        </li>
-        {%endfor %}
+                </tr>
+            </thead>
+            <tbody class="client-item">
+                {% for client in clients %}
 
 
-    </ul>
+                <tr>
+                    <td>
+                        <span class="client-name">
+                            <a href="client/{{client.id}}">{{client.id}}
 
+                            </a>
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="client-name">
+                            <a href="client/{{client.id}}">{{client.name}}
+
+                            </a>
+                        </span>
+                    </td>
+
+
+                    <td class="buttons-actions">
+
+
+                        <a href="edit/{{client.id}}">
+                            <span>
+                                <i class="fas fa-edit "></i>
+                            </span>
+                        </a>
+
+                        <a href="delete/{{client.id}}" class="delete-btn">
+                            <span>
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </a>
+
+                    </td>
+                </tr>
+
+                {%endfor %}
+            </tbody>
+
+
+
+        </table>
+    </div>
 
     <div class="pagination">
         <span class="step-links">

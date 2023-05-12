@@ -41,42 +41,6 @@ STATES = [
     ('TO', 'Tocantins')
 ]
 
-    
-class Address(models.Model):
-    
-    
-    
-    rua = models.CharField(max_length=255)
-    
-    bairro = models.CharField(max_length=255,null=True, blank=True)
-    
-    cidade = models.CharField(max_length=255,null=True, blank=True)
-    
-    estado = models.CharField(
-        max_length=25,
-        choices=STATES,
-        null=True, 
-        blank=True,
-        )
-    
-    def __str__(self) -> str:
-        return '{} - {} - {} - {}' .format( self.rua, self.bairro, self.cidade, self.estado)
-
-
-class Contacts(models.Model):
-    
-    
-
-    
-    telefone1 = models.CharField(max_length=15, unique=True) 
-       
-    telefone2 = models.CharField(max_length=255,null=True, blank=True)
-    
-    email = models.EmailField(max_length=255)
-    
-    def __str__(self) -> str:
-        return self.telefone1, self.telefone2, self.email 
-    
 class Clients(models.Model): 
     
     
@@ -89,15 +53,50 @@ class Clients(models.Model):
         blank=True,
         )
     
-    endereco = models.ManyToManyField(Address)
-    
-    contacts = models.ManyToManyField(Contacts)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)    
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        return self.name
+        return '{} - {} ' .format( self.name, self.client_type)
+
+    
+class Address(models.Model):
+    
+    
+    client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
+    
+    street = models.CharField(max_length=255, blank=True)
+    
+    bairro = models.CharField(max_length=255,null=True, blank=True)
+    
+    city = models.CharField(max_length=255,null=True, blank=True)
+    
+    state = models.CharField(
+        max_length=25,
+        choices=STATES,
+        null=True, 
+        blank=True,
+        )
+    
+    def __str__(self) -> str:
+        return '{} - {} - {} - {}' .format( self.street, self.bairro, self.city, self.state)
+
+
+class Contacts(models.Model):
+    
+    
+    client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
+    
+    telefone1 = models.CharField(max_length=15, unique=True, blank=True) 
+       
+    telefone2 = models.CharField(max_length=255,null=True, blank=True)
+    
+    email = models.EmailField(max_length=255, unique=True, blank=True)
+    
+    def __str__(self) -> str:
+        return self.telefone1, self.telefone2, self.email 
+    
 
 
 

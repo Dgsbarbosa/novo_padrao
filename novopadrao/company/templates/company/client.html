@@ -7,15 +7,19 @@
 {% block content %}
 
 <div class="offset-1 col-10 list-div">
-    <h1>Visualisando Cliente: <br> <span id="client-name"> {{ client.nome }} {{ client.sobrenome }} </span>
-</h1>
-    
-    
+    <h1>Visualisando Cliente:
+        <br>
+        <span id="client-name"> {{ client.name }} </span>
+    </h1>
+
+
 
     <form method="GET" id="form-client">
         {% csrf_token %}
-        {{ form|crispy }}
-
+        {{ client_form|crispy }}
+        {{ contacts_form|crispy }}
+        {{ address_form|crispy }}
+        
     </form>
 
     <div class=" container dashboard-box-client">

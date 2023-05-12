@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from .forms import  ClientForm
+from .forms import  AddressForm, ClientForm, ContactsForm
 from django.contrib import messages
 import datetime
 
-from .models import Address, Clients
+from .models import Address, Clients, Contacts
 
 # Create your views here.
 
@@ -25,7 +25,7 @@ def listClients(request):
         clients = Clients.objects.filter(nome__icontains=search, user=request.user)
         
     elif filter:
-        clients = Clients.objects.filter(tipo=filter, user=request.user)
+        clients = Clients.objects.filter(client_type=filter, user=request.user)
         
         
         
@@ -48,59 +48,158 @@ def listClients(request):
 def  clientView(request, id):
     
     client = get_object_or_404(Clients, pk=id)
-    form = ClientForm(instance=client)
+    client_form = ClientForm(instance=client)
     
-    return render(request, 'company/client.html', {'form': form, 'client': client })
+    try:
+        address = get_object_or_404(Address, client_id=client)
+        
+        address_form = AddressForm(instance=address)
+    except:
+         address_form = AddressForm()
+    try:
+        contacts = get_object_or_404(Contacts, client_id=client.id)
+        contacts_form = ContactsForm(instance=contacts)
+    except:
+        contacts_form = ContactsForm()
+        
+        
+        
+    context = {
+        'client_form': client_form, 
+        'address_form':address_form,
+        'contacts_form':contacts_form,
+        'client': client,
+        
+        }
+    
+    return render(request, 'company/client.html', context)
 
 
 @login_required
 def newClient(request):
     
-    form_clients = ClientForm(request.POST)    
+    form_clients = ClientForm(request.POST)        
+    form_address = AddressForm(request.POST)    
+    form_contacts = ContactsForm(request.POST)
     
-    
-    # print("cliente:",form_clients)
     
     if form_clients.is_valid()  :
         
+        client = form_clients.save(commit=False)
+        client.user = request.user
+        client.save()
+
+        if form_address.is_valid():
+            
+            address = form_address.save(commit=False)
+            address.client_id = client
+            address.save()
+            
+            if form_contacts.is_valid():
+                contacts = form_contacts.save(commit=False)
+                contacts.client_id = client
+                contacts.save()
+                
+            
         ...
         
         return redirect('/clients')
     
     else:
         form_clients = ClientForm()
+        form_address = AddressForm()    
+        form_contacts = ContactsForm()
         
+       
     
     context = {
                'form_clients':form_clients,
+               'form_address':form_address,
+               'form_contacts':form_contacts, 
                }
     
     return render(request, 'company/addclient.html', context )
 
 @login_required
 def editClient(request, id):
+    
     client = get_object_or_404(Clients, pk=id)
-    form = ClientForm(instance=client)
-    print("id:", id)
+    
+    
+    client_form = ClientForm(instance=client)
+    
+    try:
+        address = get_object_or_404(Address, client_id=client)
+        
+        address_form = AddressForm(instance=address)
+        
+        
+    except:
+         address_form = AddressForm()
+         
+    try:
+        
+        contacts = get_object_or_404(Contacts, client_id=client.id)
+        contacts_form = ContactsForm(instance=contacts)
+        
+       
+    except:
+        contacts_form = ContactsForm(request.POST)
+        
+        
+            
+    
     if(request.method == 'POST'):
         
-        form = ClientForm(request.POST, instance=client)
+        client_form = ClientForm(request.POST,instance=client)
         
-        if(form.is_valid()):
-            client.save()
-            messages.info(request, 'Cliente alterado com sucesso.')
-            return redirect('/clients')
-        else:
-            return render(request, 'company/editclient.html', {'form': form, 'client' :client })
+        if client_form.is_valid() :
+            
+            client_form.save()            
+        
+        try:
+            contacts_form = ContactsForm(request.POST,instance=contacts)
+            contacts_form.save() 
+           
+        except:        
+            if contacts_form.is_valid():
+                contacts = contacts_form.save(commit=False)
+                contacts.client_id = client
+                contacts.save()  
+            
+          
+            print('entrou')
+            
+
+        address_form = AddressForm(request.POST,instance=address)
+            
+        
+
+        if address_form.is_valid():
+                
+                
+                address_form.save()
+            
+               
+                    
+                   
+        return redirect('/clients')
         
     
+    context = {
+        'client_form': client_form, 
+        'address_form':address_form,
+        'contacts_form':contacts_form,
+        'client': client,
+        
+        }
     
-    return render(request, 'company/editclient.html', {'form': form, 'client': client })
+    return render(request, 'company/editclient.html', context)
 
 @login_required
 def deleteClient(request, id):
     client = get_object_or_404(Clients, pk=id)
     client.delete()
-    messages.info(request, 'Tarefa deletada com sucesso.')
+    messages.info(request, 'Cliente deletado com sucesso.')
 
     return redirect('/clients')

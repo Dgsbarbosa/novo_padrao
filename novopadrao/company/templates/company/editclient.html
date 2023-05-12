@@ -6,10 +6,15 @@
 {% block content %}
 
 <div class="offset-1 col-10 list-div">
-    <h1>Editando '{{client.nome}}'</h1>
+    <h1>Editando:  
+        <br> 
+        <span id="client-name"> {{ client.name }} </span>
+    </h1>
     <form method="POST">
         {% csrf_token %}
-        {{ form|crispy }}
+        {{ client_form|crispy }}
+        {{ contacts_form|crispy }}
+        {{ address_form|crispy }}
         <div class="container div-btn">
             <a href="/clients/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">

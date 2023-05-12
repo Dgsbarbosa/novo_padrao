@@ -101,4 +101,13 @@
     width: 45%;
   }
 
+  .client-list {
+    
+    width: 100%;
+    
+  
+    /* border: 10px solid rgb(22, 21, 22); */
+  
+  }
+
 }
