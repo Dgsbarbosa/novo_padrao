@@ -34,4 +34,7 @@ class ContactsForm(forms.ModelForm):
         
         widgets = {
             "email" : forms.TextInput(attrs={'class':'form-control', 'placeholder':"Digite seu email"}),
+            
         }
+        
+        

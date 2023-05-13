@@ -40,7 +40,7 @@ def listClients(request):
     
     clientsCount = Clients.objects.all().count()
     
-   
+    context = {}
     
     return render(request, 'company/listclients.html', {'clients': clients , 'clientsCount':clientsCount})
 
@@ -48,26 +48,37 @@ def listClients(request):
 def  clientView(request, id):
     
     client = get_object_or_404(Clients, pk=id)
-    client_form = ClientForm(instance=client)
     
-    try:
-        address = get_object_or_404(Address, client_id=client)
+    address = get_object_or_404(Address, client_id=client)
+    contacts = get_object_or_404(Contacts, client_id=client.id)
+     
+    
+    if client.client_type == None:        
+        client.client_type = ''
         
-        address_form = AddressForm(instance=address)
-    except:
-         address_form = AddressForm()
-    try:
-        contacts = get_object_or_404(Contacts, client_id=client.id)
-        contacts_form = ContactsForm(instance=contacts)
-    except:
-        contacts_form = ContactsForm()
+    if contacts.telefone1 == None:
+        contacts.telefone1 = ''
         
+    if contacts.email == None:
+        contacts.email = ''
         
+    if contacts.telefone2 == None:
+        contacts.telefone2 = ''
         
+    if address.street == None:
+        address.street = ''
+        
+    if address.bairro == None:
+        address.bairro = ''
+        
+    if address.state == None:
+        address.state = ''
+        
+    if address.city == None:
+        address.city = ''
     context = {
-        'client_form': client_form, 
-        'address_form':address_form,
-        'contacts_form':contacts_form,
+        'address':address,
+        'contacts':contacts,
         'client': client,
         
         }
@@ -101,7 +112,7 @@ def newClient(request):
                 contacts.save()
                 
             
-        ...
+        
         
         return redirect('/clients')
     
@@ -161,27 +172,34 @@ def editClient(request, id):
             contacts_form = ContactsForm(request.POST,instance=contacts)
             contacts_form.save() 
            
-        except:        
+        except: 
+                   
             if contacts_form.is_valid():
                 contacts = contacts_form.save(commit=False)
                 contacts.client_id = client
                 contacts.save()  
             
-          
-            print('entrou')
+            else:
+                messages.info(request, 'Verifique os campos e tente novamente')
+                return redirect(f'/clients/edit/{client.id}')
+                
+                
             
-
-        address_form = AddressForm(request.POST,instance=address)
+        try:
+            address_form = AddressForm(request.POST,instance=address)
+            address_form.save()
             
         
-
-        if address_form.is_valid():
+        except: 
+            if address_form.is_valid():
+                address = address_form.save(commit=False)
+                address.client_id = client
+                address.save()  
                 
                 
-                address_form.save()
             
                
-                    
+            
                    
         return redirect('/clients')
         
@@ -203,3 +221,14 @@ def deleteClient(request, id):
     messages.info(request, 'Cliente deletado com sucesso.')
 
     return redirect('/clients')
+
+
+@login_required
+def perfil(request):
+    
+    return render(request,'company/perfis.html')
+
+@login_required
+def perfilUser(request):
+    
+    return render(request,'company/perfilUser.html')

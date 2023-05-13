@@ -40,9 +40,7 @@
                         <a class="nav-link" href="/">Home </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Perfis</a>
-                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -53,8 +51,8 @@
                             <a class="dropdown-item" href="#">Novo Orçamento</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Orçamentos</a>
-                            
-                            
+
+
                         </div>
                     </li>
 
@@ -68,19 +66,40 @@
                             <a class="dropdown-item" href="newclient/">Novo Cliente</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/clients/">Clientes</a>
-                            
-                           
+
+
                         </div>
                     </li>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Perfil
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/perfil/usuario">Usuário</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Empresa</a>
+
+
+                        </div>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">Financeiro</a>
                     </li>
+
+
                     {% else %}
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="/accounts/login">Entrar</a>
                     </li>
                     {% endif %}
-                    
+
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="/accounts/logout">Sair</a>
@@ -111,7 +130,7 @@
             <div class="div-base-2-item">
                 <div>
                     <a href="/accounts/login">
-                        <button  type="button" class="btn btn-primary">Entrar</button>
+                        <button type="button" class="btn btn-primary">Entrar</button>
                 </div></a>
                 <a href="/accounts/register">
                     <div>
@@ -149,6 +168,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
         integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
         crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    
     <script src="{% static 'js/script.js' %}"></script>
 
 </body>

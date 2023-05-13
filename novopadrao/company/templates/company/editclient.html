@@ -10,6 +10,15 @@
         <br> 
         <span id="client-name"> {{ client.name }} </span>
     </h1>
+    
+    <div class="div-base-table">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     <form method="POST">
         {% csrf_token %}
         {{ client_form|crispy }}

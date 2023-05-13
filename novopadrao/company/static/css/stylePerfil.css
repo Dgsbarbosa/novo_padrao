@@ -1,0 +1,21 @@
+.div-perfil {
+
+    height: 100vw;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /* border: 5px solid black; */
+
+
+}
+
+.div-perfil .dashboard-box {
+
+    height: 50%;
+
+}
+
+
+

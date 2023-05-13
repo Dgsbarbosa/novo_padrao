@@ -12,15 +12,83 @@
         <span id="client-name"> {{ client.name }} </span>
     </h1>
 
+    <div class="container div-view">
+
+        <div class=" div-view-item">
+            <div>
+                <h6>ID Cliente: </h6>
+                <span>{{client.id }}</span>
+            </div>
 
 
-    <form method="GET" id="form-client">
-        {% csrf_token %}
-        {{ client_form|crispy }}
-        {{ contacts_form|crispy }}
-        {{ address_form|crispy }}
-        
-    </form>
+        </div>
+        <div class=" div-view-item">
+            <div>
+                <h6>Nome: </h6>
+                <span>{{client.name }}</span>
+            </div>
+
+            <div>
+                <h6>Tipo de Cliente:</h6>
+                <span>{{client.client_type }}</span>
+            </div>
+
+        </div>
+
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Telefone: </h6>
+                <span>{{ contacts.telefone1 }}</span>
+            </div>
+
+            <div>
+                <h6>Telefone 2:</h6>
+                <span>{{contacts.telefone2 }}</span>
+            </div>
+
+        </div>
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Email: </h6>
+                <span>{{ contacts.email }}</span>
+            </div>
+
+        </div>
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Rua: </h6>
+                <span>{{ address.street }}</span>
+            </div>
+
+            <div>
+                <h6>Bairro:</h6>
+                <span>{{address.bairro }}</span>
+            </div>
+
+        </div>
+
+       
+        <div class=" div-view-item">
+            <div>
+                <h6>Cidade: </h6>
+                <span>{{ address.city }}</span>
+            </div>
+
+            <div>
+                <h6>Estado:</h6>
+                <span>{{address.state }}</span>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
 
     <div class=" container dashboard-box-client">
 
@@ -40,8 +108,8 @@
                 Editar</a>
         </div>
 
-        <div>
-            <a href="#" class="myButton-client" id="delete-client">
+        <div> 
+            <a href="/clients/delete/{{client.id}}" class="myButton-client delete-btn" id="delete-client">
                 <i class=" fas fa-trash-alt "></i>
 
                 Deletar</a>

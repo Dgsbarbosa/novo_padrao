@@ -1,6 +1,8 @@
 from django.db import models
-from django.forms import ModelForm
+
+from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 # Create your models here.
@@ -41,6 +43,7 @@ STATES = [
     ('TO', 'Tocantins')
 ]
 
+
 class Clients(models.Model): 
     
     
@@ -66,7 +69,7 @@ class Address(models.Model):
     
     client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
     
-    street = models.CharField(max_length=255, blank=True)
+    street = models.CharField(max_length=255, null=True, blank=True)
     
     bairro = models.CharField(max_length=255,null=True, blank=True)
     
@@ -88,14 +91,15 @@ class Contacts(models.Model):
     
     client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
     
-    telefone1 = models.CharField(max_length=15, unique=True, blank=True) 
+    telefone1 = models.CharField(max_length=15, unique=True, null=False, blank=False, ) 
        
-    telefone2 = models.CharField(max_length=255,null=True, blank=True)
+    telefone2 = models.CharField(max_length=15, unique=True, null=False, blank=False, ) 
     
-    email = models.EmailField(max_length=255, unique=True, blank=True)
+    email = models.EmailField(max_length=255, unique=True,  null=True, blank=True)
     
     def __str__(self) -> str:
-        return self.telefone1, self.telefone2, self.email 
+        
+        return '{} {} {}'.format( self.telefone1 , self.telefone2 , self.email) 
     
 
 

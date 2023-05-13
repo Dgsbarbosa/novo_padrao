@@ -1,19 +1,37 @@
 /* Conteudo */
 
-.list-div h1 {
-    margin-bottom: 0;
-    margin-bottom: 20px;
+.div-view {
+    margin-bottom: 30px;
+    width: 100%;
+    /* border: 1px dashed rgb(0, 0, 0); */
+}
+
+.div-view-item {
+    display: flex;
+    justify-content: space-between;
+padding-left: 10px;
+    /* border: 1px dashed rgb(139, 139, 139); */
 
 }
 
-#client-name {
-    text-align: center;
-    font-weight: lighter;
-    padding: 0;
-    font-size: large;
+.div-view-item div {
+   
+   padding: 0;
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px dashed rgb(116, 116, 116);
+    /* border: 5px solid black; */
+}
 
-    /* border: 10px solid rgb(167, 0, 0); */
+.div-view-item div h6{
+    margin-bottom: 0;
+}
+.div-view-item div span {
+    padding-left: 10px;
+    margin-top: 0;
 
+    /* border: 5px solid black; */
 }
 
 /* Botões */
@@ -116,7 +134,7 @@
 
 
 
-#div-name {
+#div-item {
     width: 60%;
 
     /* border: 10px solid rgb(170, 0, 105); */
@@ -178,7 +196,7 @@ select {
 
     }
 
-    #fname {
+    #fitem {
         font-size: 100%;
         /* border: 10px solid rgb(238, 9, 9); */
 

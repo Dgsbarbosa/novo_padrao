@@ -128,7 +128,10 @@
 
         </table>
     </div>
+    
+    {% if clientsCount > 3 %}
 
+    
     <div class="pagination">
         <span class="step-links">
             {% if clients.has_previous %}
@@ -146,6 +149,10 @@
             {% endif %}
         </span>
     </div>
+
+    {% else %}
+    <div class="pagination"></div>
+    {% endif %}
 </div>
 
 

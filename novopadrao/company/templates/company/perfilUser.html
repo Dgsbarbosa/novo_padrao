@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %} Cliente {% endblock %}
+
+{% block content %}
+
+<div class="offset-1 col-10 list-div">
+
+    <h1>Meu Perfil:</h1>
+
+    <div class="container div-view">
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Nome: </h6>
+                <span></span>
+            </div>
+
+
+        </div>
+        <div class=" div-view-item">
+            <div>
+                <h6>Email: </h6>
+                <span>{{client.name }}</span>
+            </div>
+
+
+        </div>
+
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Nome de usuário: </h6>
+                <span>{{ contacts.telefone1 }}</span>
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+    <div class=" container dashboard-box-client">
+
+        <div>
+            <a href="/perfil" class="myButton-client" id="back-client">
+
+                <i class=" fas fas fa-undo-alt "></i>
+
+                Voltar
+            </a>
+        </div>
+
+        <div>
+            <a href="/clients/edit/{{client.id}}" class="myButton-client" id="edit-client">
+                <i class=" fas fas fa-user-edit "></i>
+
+                Editar</a>
+        </div>
+
+        <div>
+            <a href="/clients/delete/{{client.id}}" class="myButton-client delete-btn" id="delete-client">
+                <i class=" fas fa-trash-alt "></i>
+
+                Deletar</a>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock %}
