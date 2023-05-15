@@ -8,13 +8,12 @@ from .manage import CustomUserManager
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     
-    first_name = models.CharField(max_length=100)
+    first_name = models.CharField(_('Nome'),max_length=100, )
     
     last_name = models.CharField(max_length=100)
     
-    email = models.EmailField(_("email"), unique=True)
+    email = models.EmailField(_("email"), unique=True, )    
     
-
     is_staff = models.BooleanField(default=False)
     
     is_active = models.BooleanField(default=True)
@@ -27,6 +26,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
     
     
-    def __str__(self):
+    
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
         
-        return self.email
+    
+    
+        def __str__(self):
+            
+            return self.email
