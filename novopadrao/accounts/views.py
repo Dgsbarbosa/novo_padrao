@@ -1,14 +1,17 @@
 from django.shortcuts import redirect, render
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 def register(request):
     
     form = CustomUserCreationForm(request.POST)
     
-    
+    print(form)
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
+        
+        
+        
         if form.is_valid():
             form.save()
             return redirect('/')
@@ -17,5 +20,3 @@ def register(request):
 
 
     return render(request, 'registration/register.html', {'form': form})
-
-

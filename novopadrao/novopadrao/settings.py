@@ -27,7 +27,6 @@ SECRET_KEY = "django-insecure-v3czg!vrh^+a$j_(+xpf+d-=+n+65b5-)^7n_a%u3=o&@wvx*(
 DEBUG = True
 
 
-
 ALLOWED_HOSTS = []
 
 
@@ -45,8 +44,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "accounts",
-    
-    
+
+
 ]
 
 MIDDLEWARE = [
@@ -98,18 +97,26 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 
 AUTH_PASSWORD_VALIDATORS = [
+    
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "accounts.validators.MinimumLengthValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
+   
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
+    { 
+        'NAME' :  'accounts.validators.NumberValidator' , 
+      
+        }, 
+    {
+       
+        'NAME': 'accounts.validators.UppercaseValidator', 
+    },
+ 
+    {
+        'NAME': 'accounts.validators.SymbolValidator', 
+        },
 ]
 
 
