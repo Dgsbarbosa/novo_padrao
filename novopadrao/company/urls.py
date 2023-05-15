@@ -16,9 +16,7 @@ urlpatterns = [
     
     path('clients/delete/<int:id>', views.deleteClient, name="delete-client"),
     
-    path('perfil/', views.perfil, name='perfil'),
     
-    path('perfil/usuario', views.perfilUser, name='perfil-user')
     
     
     

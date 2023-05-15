@@ -38,11 +38,13 @@ def listClients(request):
         
         clients = paginator.get_page(page)
     
-    clientsCount = Clients.objects.all().count()
+    clientsCount = Clients.objects.all().filter(user=request.user).count()
     
-    context = {}
+    context = {
+        'clients': clients , 
+        'clientsCount':clientsCount}
     
-    return render(request, 'company/listclients.html', {'clients': clients , 'clientsCount':clientsCount})
+    return render(request, 'company/listclients.html', context)
 
 @login_required
 def  clientView(request, id):
@@ -223,12 +225,3 @@ def deleteClient(request, id):
     return redirect('/clients')
 
 
-@login_required
-def perfil(request):
-    
-    return render(request,'company/perfis.html')
-
-@login_required
-def perfilUser(request):
-    
-    return render(request,'company/perfilUser.html')

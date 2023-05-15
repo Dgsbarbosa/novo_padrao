@@ -28,6 +28,7 @@ class CustomUserCreationForm(UserCreationForm):
             'first_name',
             'last_name',
             'email',
+            'username'
             
              
         )
@@ -36,7 +37,7 @@ class CustomUserCreationForm(UserCreationForm):
         labels = {
             'first_name':('Nome'),            
             'last_name': ('Sobrenome'),
-            
+            'username': ('Nome de usuario')
             }
        
 
