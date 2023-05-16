@@ -6,7 +6,7 @@ import re
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
-class MinimumLengthValidator:
+class MinimumLengthValidator(object):
     """
     Validate whether the password is of a minimum length.
     """

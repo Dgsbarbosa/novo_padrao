@@ -12,16 +12,9 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].label = 'Senha'
         self.fields['password2'].label = 'Confirme a senha'
-
-        self.fields['password1'].help_text = ""
-        
+        self.fields['password1'].help_text = ""        
         self.fields['password2'].help_text = 'Digite a mesma senha de antes.'
 
-        
-       
-        
-       
-    
     class Meta:
         model = CustomUser
         fields = (
@@ -42,7 +35,7 @@ class CustomUserCreationForm(UserCreationForm):
        
 
        
-class CustomUserChangeForm(UserChangeForm):
+class CustomUserChangeForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -54,3 +47,38 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ("email",)
+        
+        
+class CustomUserEditForm(UserCreationForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].label = 'Senha'
+        self.fields['password1'].help_text = ''
+        
+        
+        self.fields['password2'].label = 'Confirme a senha'
+        self.fields['password2'].help_text = 'Entre com a mesma senha'     
+        
+        
+        
+    class Meta:
+    
+        model = CustomUser
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'username'
+        )
+               
+        
+           
+        labels = {
+            'first_name':('Nome'),            
+            'last_name': ('Sobrenome'),
+            'username': ('Nome de usuario')
+            }
+        
+
+       
