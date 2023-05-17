@@ -5,6 +5,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .manage import CustomUserManager
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
@@ -40,6 +42,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         def __str__(self):
             
             return self.email
+        
+        
+        
 
 class UpdateUserForm(forms.ModelForm):
     
@@ -54,3 +59,5 @@ class UpdateUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['first_name','last_name','username', 'email']
+        
+

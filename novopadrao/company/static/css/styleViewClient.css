@@ -179,6 +179,9 @@ select {
 
 }
 
+#alter-password {
+    background: linear-gradient(to bottom, #525252 5%, #8f8f8f 100%);  }
+  
 
 
 
@@ -212,6 +215,20 @@ select {
 
     }
 
+    .dashboard-box-client{
+        display: block;
+        
+        /* border: 10px solid rgb(238, 9, 9); */
+
+    }
+
+.dashboard-box-client div{
+        margin-bottom: 10px;
+        
+        /* border: 10px solid rgb(238, 9, 9); */
+        
+
+    }
 
 
 

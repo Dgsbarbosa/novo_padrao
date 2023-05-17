@@ -17,7 +17,7 @@ class MinimumLengthValidator(object):
         if len(password) < self.min_length:
             raise ValidationError(
                 ngettext(
-                    "This password is too short. It must contain at least %(min_length)d character.",
+                    "A Senha muito curta. A senha deve conter no minimo %(min_length)d caracteres.",
                     "A Senha muito curta. A senha deve conter no minimo %(min_length)d caracteres.",
                     self.min_length
                 ),
@@ -27,8 +27,8 @@ class MinimumLengthValidator(object):
 
     def get_help_text(self):
         return ngettext(
-            "Your password must contain at least %(min_length)d character.",
-            "Your password must contain at least %(min_length)d characters.",
+            'Sua senha deve conter pelo menos %(min_length)d caracteres.',
+            'Sua senha deve conter pelo menos %(min_length)d caracteres.',
             self.min_length
         ) % {'min_length': self.min_length}
         
@@ -75,6 +75,6 @@ class SymbolValidator(object):
 
     def get_help_text(self):
         return _(
-            "Your password must contain at least 1 symbol: " +
+            "A senha deve conter pelo meno um simbolo: " +
             "()[]{}|\`~!@#$%^&*_-+=;:'\",<>./?"
         )

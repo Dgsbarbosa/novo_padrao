@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .models import UpdateUserForm
-from .forms import CustomUserChangeForm, CustomUserCreationForm, CustomUserEditForm
+from .models import  UpdateUserForm
+from .forms import  CustomUserChangeForm, CustomUserCreationForm
 
 from django.contrib.auth.decorators import login_required
 
@@ -34,7 +34,9 @@ def register(request):
 def perfil(request):
    
     
-    return render(request,'company/perfis.html')
+    return render(request,'accounts/perfis.html')
+
+
 
 @login_required
 def perfilUser(request):
@@ -43,7 +45,9 @@ def perfilUser(request):
     context = {
         'user':user
     }
-    return render(request,'company/perfilUser.html',context)
+    return render(request,'accounts/perfilUser.html',context)
+
+
 
 
 @login_required
@@ -74,20 +78,50 @@ def editUser(request):
         }
     
     
-    return render(request, 'company/editUser.html',context)
+    return render(request, 'accounts/editUser.html',context)
 
-def change_password(request):
+def alterPassword(request):
+    
+    user = request.user    
+    fullname = f'{user.first_name} {user.last_name}' 
+  
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
+        form.fields['old_password'].label = 'Senha antiga'
+        form.fields['new_password1'].label = 'Nova senha'
+        form.fields['new_password2'].label = 'Confirme a senha'
+        
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  
-            messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')
+            messages.success(request, 'Sua senha foi alterada com sucesso!')
+            return redirect('/accounts/perfil/user/alterPassword')
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.info(request, 'Corrija o erro abaixo.')
+            form.fields['old_password'].label = 'Senha antiga'
+            form.fields['new_password1'].label = 'Nova senha'
+            form.fields['new_password2'].label = 'Confirme a senha'
+            
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'accounts/change_password.html', {
-        'form': form
-    })
+    
+    form.fields['old_password'].label = 'Senha antiga'
+    form.fields['new_password1'].label = 'Nova senha'
+    form.fields['new_password2'].label = 'Confirme a senha'   
+        
+    
+    form.error_messages['password_incorrect'] = 'Sua senha antiga esta incorreta. Por favor tente novamente'
+    print()
+    
+    context = {
+            'form' : form,
+            'fullname' : fullname, 
+            
+        }
+    return render(request, 'accounts/alterPassword.html',context)
+    
+    
+def deleteUser(request):
+    
+    
+    return render(request, 'accounts/deleteUser.html')
