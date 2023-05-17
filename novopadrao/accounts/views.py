@@ -80,6 +80,8 @@ def editUser(request):
     
     return render(request, 'accounts/editUser.html',context)
 
+@login_required
+
 def alterPassword(request):
     
     user = request.user    
@@ -120,7 +122,8 @@ def alterPassword(request):
         }
     return render(request, 'accounts/alterPassword.html',context)
     
-    
+@login_required
+ 
 def deleteUser(request):
     
     

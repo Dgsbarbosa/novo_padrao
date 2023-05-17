@@ -15,13 +15,13 @@
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ next }}">
         
-                    {{ form|crispy }}
+                    {{ form|crispy}}
 
                     <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                 </form>
 
                 <p class="change-form-p">Quer criar uma conta? <a href="/accounts/register">Clique aqui!</a></p>
-                <p class="change-form-p">Esqueci minha senha <a href="/accounts/register">Clique aqui!</a></p>
+                <p class="change-form-p">Esqueci minha senha <a href="{% url 'password_reset' %}" class="text-sm text-teal-500 hover:underline ml-auto">Clique aqui!</a></p>
             </div>
         </div>
     </div>
