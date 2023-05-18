@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-
+from django.contrib.auth import get_user_model
 from .manage import CustomUserManager
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -60,4 +60,20 @@ class UpdateUserForm(forms.ModelForm):
         model = CustomUser
         fields = ['first_name','last_name','username', 'email']
         
-
+class PerfilCompany(models.Model) :
+    
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    
+    logo = models.ImageField(blank=True, null=True )
+    
+    razaoSocial = models.CharField(max_length=255, blank=True, null=True )
+    
+    cnpj = models.CharField(max_length=255, blank=True, null=True )
+    
+    
+    
+    
+    def __str__(self) -> str:
+        return '{} - {} ' .format( self.name, self.cnpj)
+    

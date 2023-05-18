@@ -1,7 +1,94 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %} Clientes {% endblock %}
+
+{% block title %} Perfil da Empresa {% endblock %}
 
 {% block content %}
+
+<div class="offset-1 col-10 list-div">
+
+    <h1>Perfil do negócio:</h1>
+
+    <div class="container div-view">
+        <div class=" div-view-item">
+            <div>
+                <h6>Logotipo: </h6>
+                <span> </span>
+            </div>
+
+        </div>
+        <div class=" div-view-item">
+            <div>
+                <h6>Nome da Empresa: </h6>
+                <span> </span>
+            </div>
+
+        </div>
+
+
+        <div class=" div-view-item">
+            <div>
+                <h6>CNPJ: </h6>
+                <span></span>
+            </div>
+
+
+        </div>
+
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Razão Social: </h6>
+                <span></span>
+            </div>
+
+
+        </div>
+
+        <div class=" div-view-item">
+            <div>
+                <h6>Telefones: </h6>
+                <span></span>
+            </div>
+
+
+        </div>
+        <div class=" div-view-item">
+            <div>
+                <h6>Endereços: </h6>
+                <span></span>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <div class=" container dashboard-box-client perfilCompany">
+
+        <div>
+            <a href="/accounts/perfil/" class="myButton-client" id="back-client">
+
+                <i class=" fas fas fa-undo-alt "></i>
+
+                Voltar
+            </a>
+        </div>
+
+        <div>
+            <a href="/accounts/perfil/user/edit" class="myButton-client " id="edit-client">
+                <i class=" fas fas fa-user-edit "></i>
+
+                Editar</a>
+        </div>
+        
+    </div>
+
+</div>
+
+
 
 {% endblock %}

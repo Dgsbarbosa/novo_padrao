@@ -1,13 +1,13 @@
-@import url(../css/stylebase.css);
-@import url(../css/styleNavbar.css);
-@import url(../css/styleDashboardHome.css);
-@import url(../css/styleDashboardClients.css);
+@import url(../css/base.css);
+@import url(../css/Navbar.css);
+@import url(../css/DashboardHome.css);
+@import url(../css/DashboardClients.css);
+@import url(../css/perfilCompany.css);
+@import url(../css/ViewClient.css);
 
-@import url(../css/styleViewClient.css);
-
-@import url(../css/styleNewClient.css);
-@import url(../css/stylePerfil.css);
-
+@import url(../css/NewClient.css);
+@import url(../css/Perfil.css);
+@import url(../css/passwordReset.css);
 /* Footer */
 
 .fixar-rodape {

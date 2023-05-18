@@ -1,0 +1,6 @@
+.dashboard-box-client{
+    display: flex;
+    justify-content: center;
+    /* border: 5px solid black; */
+}
+

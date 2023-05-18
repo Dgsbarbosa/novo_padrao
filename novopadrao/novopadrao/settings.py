@@ -147,3 +147,9 @@ LOGIN_REDIRECT_URL = '/'
 
 
 LOGOUT_REDIRECT_URL = '/accounts/login'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PORT = 25
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'development.newstandard@gmail.com'
+EMAIL_HOST_PASSWORD = 'jkfqlonieydrfdqf'

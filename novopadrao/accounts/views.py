@@ -128,3 +128,10 @@ def deleteUser(request):
     
     
     return render(request, 'accounts/deleteUser.html')
+
+
+@login_required
+def perfilCompany(request):
+    
+    
+    return render(request, 'accounts/perfilCompany.html')

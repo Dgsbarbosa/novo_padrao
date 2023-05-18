@@ -47,7 +47,7 @@ STATES = [
 class Clients(models.Model): 
     
     
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255 )
     
     client_type = models.CharField(
         max_length=25,
@@ -57,6 +57,7 @@ class Clients(models.Model):
         )
     
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)    
+    
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     
@@ -68,6 +69,8 @@ class Address(models.Model):
     
     
     client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
+    
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     
     street = models.CharField(max_length=255, null=True, blank=True)
     
@@ -91,9 +94,11 @@ class Contacts(models.Model):
     
     client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
     
-    telefone1 = models.CharField(max_length=15, unique=True, null=False, blank=False, ) 
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    
+    telefone1 = models.CharField(max_length=15, unique=True, null=True, blank=True, ) 
        
-    telefone2 = models.CharField(max_length=15, unique=True, null=False, blank=False, ) 
+    telefone2 = models.CharField(max_length=15, unique=True, null=True, blank=True, ) 
     
     email = models.EmailField(max_length=255, unique=True,  null=True, blank=True)
     
@@ -130,4 +135,3 @@ class PayMethods():
         )
 
 
-    
