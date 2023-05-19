@@ -1,9 +1,10 @@
 
 
+from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
 
-from .models import CustomUser
+from .models import CustomUser, PerfilCompany
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -74,6 +75,27 @@ class CustomUserEditForm(UserCreationForm):
             }
 
 
+class CustomPerfilCompanyForm(forms.ModelForm):
+    
+
+    
+    class Meta:
+        model = PerfilCompany
+        
+        fields = (
+            'logo',
+            'name',            
+            'razaoSocial',
+            'cnpj',
+            
+        )
+        
+        labels={
+            'logo':('Logotipo'),
+            'name':('Nome da Empresa'),            
+            'razaoSocial':('Razao Social'),
+            
+        }
     
         
 

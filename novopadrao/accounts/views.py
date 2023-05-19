@@ -5,8 +5,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .models import  UpdateUserForm
-from .forms import  CustomUserChangeForm, CustomUserCreationForm
+from .models import  PerfilCompany, UpdateUserForm
+from .forms import  CustomPerfilCompanyForm, CustomUserChangeForm, CustomUserCreationForm, CustomPerfilCompanyForm
 
 from django.contrib.auth.decorators import login_required
 
@@ -132,6 +132,39 @@ def deleteUser(request):
 
 @login_required
 def perfilCompany(request):
+    try:
+        company = PerfilCompany.objects.get(user = request.user)    
+    
+        print(company.logo)
+    except:
+        company = ""
+        print('error')
+    context = {
+        'company':company,
+    }
+    return render(request, 'accounts/perfilCompany.html', context)
+
+
+@login_required
+
+def addCompany(request):   
     
     
-    return render(request, 'accounts/perfilCompany.html')
+    if request.method == 'POST':
+        form = CustomPerfilCompanyForm(request.POST, request.FILES)
+        
+        if form.is_valid()  :
+          
+            company = form.save(commit=False)
+            company.user = request.user
+            company.save()
+            
+            return redirect('/accounts/perfil/company/')
+    
+    else:
+        form = CustomPerfilCompanyForm()
+    
+    context = {
+        'form' : form,
+    }
+    return render(request,'accounts/addCompany.html', context )

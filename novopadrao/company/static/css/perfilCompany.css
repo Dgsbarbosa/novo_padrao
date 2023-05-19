@@ -4,3 +4,38 @@
     /* border: 5px solid black; */
 }
 
+.perfilCompany{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 50px;
+            /* border: 5px solid black; */
+
+}
+.perfilCompany a{
+        text-decoration: none;
+        /* border: 5px solid black; */
+
+} 
+
+.card-company-none{
+    
+        padding-top: 100px;
+        padding-bottom: 100px;
+
+        /* border: 5px solid black; */
+
+    
+}
+
+.card-company-none div{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+    
+        /* border: 5px solid black; */
+
+    
+}
+
+
+

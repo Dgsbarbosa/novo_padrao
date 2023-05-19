@@ -135,6 +135,13 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+
+MEDIA_ROOT = (
+  os.path.join(BASE_DIR, "media") #pasta media para abrigar os arquivos dos usuários
+)
+
+MEDIA_URL = 'media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -153,3 +160,5 @@ EMAIL_HOST_PORT = 25
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'development.newstandard@gmail.com'
 EMAIL_HOST_PASSWORD = 'jkfqlonieydrfdqf'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -35,9 +35,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
     class Meta:
         verbose_name = _('user')
-        verbose_name_plural = _('users')
-        
-    
+        verbose_name_plural = _('users')    
     
         def __str__(self):
             
@@ -63,17 +61,18 @@ class UpdateUserForm(forms.ModelForm):
 class PerfilCompany(models.Model) :
     
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, help_text="Campo Obrigatorio " )
     
-    logo = models.ImageField(blank=True, null=True )
+    logo = models.ImageField(upload_to="media/",blank=True, null=True )
     
     razaoSocial = models.CharField(max_length=255, blank=True, null=True )
     
     cnpj = models.CharField(max_length=255, blank=True, null=True )
     
-    
+    USERNAME_FIELD = "name"
+    REQUIRED_FIELDS = []
     
     
     def __str__(self) -> str:
-        return '{} - {} ' .format( self.name, self.cnpj)
+        return '{} - {} ' .format( self.name,self.logo,self.razaoSocial,  self.cnpj)
     

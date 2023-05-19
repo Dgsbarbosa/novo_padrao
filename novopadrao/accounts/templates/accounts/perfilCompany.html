@@ -9,19 +9,21 @@
 <div class="offset-1 col-10 list-div">
 
     <h1>Perfil do negócio:</h1>
-
+    {% if company %}
     <div class="container div-view">
         <div class=" div-view-item">
             <div>
                 <h6>Logotipo: </h6>
-                <span> </span>
+                
+                    <img src="/novopadrao/media/media/Logo_2.png" alt="img">
+                
             </div>
 
         </div>
         <div class=" div-view-item">
             <div>
                 <h6>Nome da Empresa: </h6>
-                <span> </span>
+                <span>{{ company.name }} </span>
             </div>
 
         </div>
@@ -30,7 +32,9 @@
         <div class=" div-view-item">
             <div>
                 <h6>CNPJ: </h6>
-                <span></span>
+                <span>
+                    {%if company.cnpj %}{{ company.cnpj }}{%endif%}
+                </span>
             </div>
 
 
@@ -40,7 +44,9 @@
         <div class=" div-view-item">
             <div>
                 <h6>Razão Social: </h6>
-                <span></span>
+                <span>
+                    {%if company.razaoSocial %}{{ company.razaoSocial }}{%endif%}
+                </span>
             </div>
 
 
@@ -67,28 +73,55 @@
     </div>
 
 
-    <div class=" container dashboard-box-client perfilCompany">
+
+    <div class=" container perfilCompany">
 
         <div>
-            <a href="/accounts/perfil/" class="myButton-client" id="back-client">
+            <a href="/accounts/perfil/">
 
-                <i class=" fas fas fa-undo-alt "></i>
-
-                Voltar
+                <input class="btn btn-secondary" type="button" value="Voltar">
             </a>
         </div>
 
-        <div>
-            <a href="/accounts/perfil/user/edit" class="myButton-client " id="edit-client">
-                <i class=" fas fas fa-user-edit "></i>
 
-                Editar</a>
+
+        <div>
+            <a href="/accounts/perfil/company/edit">
+                <input class="btn btn-success" type="button" value="Editar">
+            </a>
         </div>
-        
+
     </div>
 
 </div>
 
+{% else %}
+<div class="card card-company-none">
+    <div>
+        <h1>Não há empresa associada a este usuário </h1>
+    </div>
+
+    <div class=" container perfilCompany">
+
+        <div>
+            <a href="/accounts/perfil/">
+
+                <input class="btn btn-secondary" type="button" value="Voltar">
+            </a>
+        </div>
+
+        <div>
+            <a href="/accounts/perfil/company/add">
+
+                <input class="btn btn-primary" type="button" value="Criar">
+
+            </a>
+        </div>
 
 
+
+    </div>
+</div>
+
+{% endif%}
 {% endblock %}

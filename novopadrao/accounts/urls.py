@@ -45,6 +45,7 @@ urlpatterns = [
     
     
     path('perfil/company/', views.perfilCompany, name='perfil-user'),
-   
+    
+    path('perfil/company/add', views.addCompany, name='perfil-user'),
     
 ]
