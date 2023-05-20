@@ -39,12 +39,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
         def __str__(self):
             
-            return self.email
-        
+            return self.email    
         
         
 
-class UpdateUserForm(forms.ModelForm):
+class UpdateUser(forms.ModelForm):
     
     first_name = models.CharField(_('Nome'),max_length=100, )
     
@@ -63,7 +62,7 @@ class PerfilCompany(models.Model) :
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     name = models.CharField(max_length=255, help_text="Campo Obrigatorio " )
     
-    logo = models.ImageField(upload_to="media/",blank=True, null=True )
+    logo = models.ImageField(upload_to="",blank=True, null=True )
     
     razaoSocial = models.CharField(max_length=255, blank=True, null=True )
     
@@ -74,5 +73,22 @@ class PerfilCompany(models.Model) :
     
     
     def __str__(self) -> str:
-        return '{} - {} ' .format( self.name,self.logo,self.razaoSocial,  self.cnpj)
+        return '{} - {} - {} - {} ' .format( self.name,self.logo,self.razaoSocial,  self.cnpj)
+
+    
+class EditPerfilCompany(models.Model) :
+    
+  
+    name = models.CharField(max_length=255, help_text="Campo Obrigatorio " )
+    
+    
+    
+    razaoSocial = models.CharField(max_length=255, blank=True, null=True )
+    
+    cnpj = models.CharField(max_length=255, blank=True, null=True )
+    
+    
+   
+ 
+    
     

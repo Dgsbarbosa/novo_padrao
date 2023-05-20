@@ -5,11 +5,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .models import  PerfilCompany, UpdateUserForm
-from .forms import  CustomPerfilCompanyForm, CustomUserChangeForm, CustomUserCreationForm, CustomPerfilCompanyForm
+from .models import  EditPerfilCompany, PerfilCompany, UpdateUser
+from .forms import  CustomPerfilCompanyForm, CustomUserChangeForm, CustomUserCreationForm, CustomPerfilCompanyForm, EditPerfilCompanyForm
 
 from django.contrib.auth.decorators import login_required
-
+from PIL import Image
 
 def register(request):
     
@@ -58,11 +58,11 @@ def editUser(request):
     fullname = f'{user.first_name} {user.last_name}'
     fullname = fullname.title()    
    
-    user_form = UpdateUserForm(instance=user)   
+    user_form = UpdateUser(instance=user)   
 
     if(request.method == 'POST'): 
                
-        user_form = UpdateUserForm(request.POST,instance=user)              
+        user_form = UpdateUser(request.POST,instance=user)              
             
         if user_form.is_valid() :
             
@@ -138,7 +138,7 @@ def perfilCompany(request):
         print(company.logo)
     except:
         company = ""
-        print('error')
+        
     context = {
         'company':company,
     }
@@ -151,14 +151,18 @@ def addCompany(request):
     
     
     if request.method == 'POST':
-        form = CustomPerfilCompanyForm(request.POST, request.FILES)
         
-        if form.is_valid()  :
-          
+        form = CustomPerfilCompanyForm(request.POST)
+        
+        file = request.FILES.get('logo')
+        
+        if form.is_valid():    
+                  
             company = form.save(commit=False)
             company.user = request.user
+            company.logo = file
             company.save()
-            
+                 
             return redirect('/accounts/perfil/company/')
     
     else:
@@ -168,3 +172,30 @@ def addCompany(request):
         'form' : form,
     }
     return render(request,'accounts/addCompany.html', context )
+
+
+def editCompany(request):
+    company = PerfilCompany.objects.get(user = request.user)
+    
+    print(company.name)
+    
+    form = EditPerfilCompanyForm(instance=company)
+    
+    user = request.user
+    
+    if(request.method == 'POST'): 
+               
+        form = EditPerfilCompanyForm(request.POST,instance=company)              
+            
+        if form.is_valid() :
+            
+            form.save()  
+            messages.info(request,'Empresa alterado com sucesso') 
+            return redirect('/accounts/perfil/company/edit')   
+    
+    
+    context = {
+        'form':form,
+        'company':company
+    }
+    return render(request, 'accounts/editCompany.html', context  )

@@ -20,7 +20,7 @@
 .card-company-none{
     
         padding-top: 100px;
-        padding-bottom: 100px;
+        padding-bottom: 50px;
 
         /* border: 5px solid black; */
 
@@ -30,12 +30,24 @@
 .card-company-none div{
     width: 100%;
     text-align: center;
-    margin-bottom: 30px;
+    
     
         /* border: 5px solid black; */
 
     
 }
 
+.logo-perfil_company{
+                /* border: 5px solid black; */
 
+}
+
+
+.logo-perfil_company img{
+        width: 30%;
+        /* border: 5px solid rgb(243, 3, 3); */
+
+}
+
+/* Editar Company */
 

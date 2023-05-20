@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %} Criar Empresa {% endblock %}
+{% block title %} Editar Empresa {% endblock %}
 
 {% block content %}
 
 <div class="offset-1 col-10 list-div">
-  
+    <h1>Editando Empresa:  
+        <br> 
+        <span id="client-name"> {{ company.name }} </span>
+    </h1>
+    
     <div class="div-base-table">
         {% if messages %}
         <ul class="messages">
@@ -23,8 +27,12 @@
        
         <div class="container div-btn">
             <a href="/accounts/perfil/company/">
+                <input type="button" class="btn btn-primary btn-form " value="Voltar">
+            </a>
+            <a href="/accounts/perfil/company/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">
             </a>
+            
             <input type="submit" class="btn btn-success btn-form " id="" value="Salvar">
         </div>
     </form>

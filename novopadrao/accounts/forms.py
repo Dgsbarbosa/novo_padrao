@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.forms import PasswordInput
 
-from .models import CustomUser, PerfilCompany
+from .models import CustomUser, EditPerfilCompany, PerfilCompany
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -97,6 +97,34 @@ class CustomPerfilCompanyForm(forms.ModelForm):
             
         }
     
+class EditPerfilCompanyForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        #self.fields['currently'].label = 'Senha'
+        # self.fields['password1'].help_text = ''        
+        # self.fields['password2'].label = 'Confirme a senha'
+        # self.fields['password2'].help_text = 'Entre com a mesma senha'     
+ 
+    class Meta:
+    
+        model = PerfilCompany
         
+        fields = (
+            
+            'name',            
+            'razaoSocial',
+            'cnpj',
+            
+        )
+        
+        labels={
+            
+            'name':('Nome da Empresa'),            
+            'razaoSocial':('Razao Social'),
+            
+        } 
+        
+ 
 
        
