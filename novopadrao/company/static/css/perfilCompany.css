@@ -42,11 +42,29 @@
 
 }
 
+.logo-perfil_company button{
 
+        margin-left: 10px;
+                /* border: 5px solid black; */
+
+}
 .logo-perfil_company img{
         width: 30%;
         /* border: 5px solid rgb(243, 3, 3); */
 
+}
+
+.div-logo-company{
+        /* border: 5px solid rgb(243, 3, 3); */
+
+        
+}
+
+.div-view-item div h6{
+        padding-bottom: 10px;
+        /* border: 5px solid rgb(243, 3, 3); */
+
+        
 }
 
 /* Editar Company */

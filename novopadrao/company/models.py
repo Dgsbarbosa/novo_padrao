@@ -94,7 +94,7 @@ class Contacts(models.Model):
     
     client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
     
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    
     
     telefone1 = models.CharField(max_length=15, unique=True, null=True, blank=True, ) 
        

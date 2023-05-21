@@ -39,7 +39,8 @@ $(document).ready(function () {
 
             console.log("1:" + mask)
             $('#id_telefone1').mask(mask, options);
-           
+            $('#id_phone1').mask(mask, options);
+            
         }
     };
 
@@ -51,15 +52,21 @@ $(document).ready(function () {
 
             console.log("2" + mask2)
             
-            $('#id_telefone2').mask(mask2, options2);
+            $('#id_phone2').mask(mask2, options2);
         }
     };
+
+   
 
     $(document).ready(function () {
 
         
-        $('#id_telefone1').mask('(00)0000-0000',options)
-        $('#id_telefone2').mask('(00)0000-0000',options2)
+        $('#id_telefone1').mask('(00) 0000-0000',options)
+        $('#id_telefone2').mask('(00) 0000-0000',options2)
+        $('#id_phone1').mask('(00) 0000-0000',options)
+        $('#id_phone2').mask('(00) 0000-0000',options2)
+        
+        $('#id_cnpj').mask('00.000.000/0000-00')
 
     })
 

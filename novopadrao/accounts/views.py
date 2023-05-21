@@ -135,7 +135,7 @@ def perfilCompany(request):
     try:
         company = PerfilCompany.objects.get(user = request.user)    
     
-        print(company.logo)
+        print('company:',company.logo)
     except:
         company = ""
         
@@ -154,6 +154,7 @@ def addCompany(request):
         
         form = CustomPerfilCompanyForm(request.POST)
         
+        
         file = request.FILES.get('logo')
         
         if form.is_valid():    
@@ -164,6 +165,11 @@ def addCompany(request):
             company.save()
                  
             return redirect('/accounts/perfil/company/')
+        
+        else:
+            messages.error(request,"Verifique os dados e tente novamente")
+            
+            return redirect('accounts/perfil/company/add')
     
     else:
         form = CustomPerfilCompanyForm()
@@ -177,11 +183,9 @@ def addCompany(request):
 def editCompany(request):
     company = PerfilCompany.objects.get(user = request.user)
     
-    print(company.name)
+    print('logo',company.logo)
     
     form = EditPerfilCompanyForm(instance=company)
-    
-    user = request.user
     
     if(request.method == 'POST'): 
                
@@ -199,3 +203,6 @@ def editCompany(request):
         'company':company
     }
     return render(request, 'accounts/editCompany.html', context  )
+
+
+

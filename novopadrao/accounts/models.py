@@ -64,10 +64,16 @@ class PerfilCompany(models.Model) :
     
     logo = models.ImageField(upload_to="",blank=True, null=True )
     
+    
     razaoSocial = models.CharField(max_length=255, blank=True, null=True )
     
     cnpj = models.CharField(max_length=255, blank=True, null=True )
     
+    phone1 = models.CharField(max_length=255, blank=True, null=True )
+    
+    phone2 = models.CharField(max_length=255, blank=True, null=True )
+    
+    email = models.EmailField(_("email"), unique=True, blank=True, null=True )
     USERNAME_FIELD = "name"
     REQUIRED_FIELDS = []
     
@@ -78,17 +84,21 @@ class PerfilCompany(models.Model) :
     
 class EditPerfilCompany(models.Model) :
     
-  
-    name = models.CharField(max_length=255, help_text="Campo Obrigatorio " )
-    
+    logo = models.ImageField(upload_to="",blank=True, null=True )
+    name = models.CharField(max_length=255, help_text="Campo Obrigatorio " )   
     
     
     razaoSocial = models.CharField(max_length=255, blank=True, null=True )
     
     cnpj = models.CharField(max_length=255, blank=True, null=True )
     
+    phone1 = models.CharField(max_length=255, blank=True, null=True )
     
+    phone2 = models.CharField(max_length=255, blank=True, null=True )
+    
+    email = models.EmailField(_("email"), unique=True)
    
  
+
     
     

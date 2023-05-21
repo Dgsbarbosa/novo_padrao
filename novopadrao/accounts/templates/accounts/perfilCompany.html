@@ -12,14 +12,26 @@
     {% if company %}
     <div class="container div-view">
         <div class=" div-view-item">
+
             <div class="logo-perfil_company">
+
                 <h6>Logotipo: </h6>
-                
-                    <img src="{{ company.logo.url }}" alt="img">
-                
+
+                {% if company.logo %}
+                <img src="{{ company.logo.url }}" alt="img">
+
+                {%else%}
+                <span> Coloque sua logo Aqui</span><br>
+                <a href="/accounts/perfil/company/edit">
+                    <button class="btn btn-primary">Inserir Logotipo</button>
+                </a>
+
+                {% endif %}
+
             </div>
 
         </div>
+
         <div class=" div-view-item">
             <div>
                 <h6>Nome da Empresa: </h6>

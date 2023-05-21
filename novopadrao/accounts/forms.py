@@ -76,9 +76,6 @@ class CustomUserEditForm(UserCreationForm):
 
 
 class CustomPerfilCompanyForm(forms.ModelForm):
-    
-
-    
     class Meta:
         model = PerfilCompany
         
@@ -87,6 +84,11 @@ class CustomPerfilCompanyForm(forms.ModelForm):
             'name',            
             'razaoSocial',
             'cnpj',
+            'email',
+            'phone1',
+            'phone2',
+            'email'
+
             
         )
         
@@ -94,6 +96,9 @@ class CustomPerfilCompanyForm(forms.ModelForm):
             'logo':('Logotipo'),
             'name':('Nome da Empresa'),            
             'razaoSocial':('Razao Social'),
+            'phone1' : ('Telefone'),
+            'phone2' : ('Telefone 2'),
+            
             
         }
     
@@ -111,20 +116,25 @@ class EditPerfilCompanyForm(forms.ModelForm):
         model = PerfilCompany
         
         fields = (
-            
+            'logo',
             'name',            
             'razaoSocial',
             'cnpj',
+            'email',
+            'phone1',
+            'phone2', 
+            
             
         )
         
         labels={
-            
+            'logo': ('Logotipo'),
             'name':('Nome da Empresa'),            
             'razaoSocial':('Razao Social'),
+             'phone1' : ('Telefone'),
+            'phone2' : ('Telefone 2')
             
         } 
         
  
 
-       

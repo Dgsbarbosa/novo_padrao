@@ -7,11 +7,15 @@ from django.contrib import messages
 import datetime
 
 from .models import Address, Clients, Contacts
+from accounts.models import PerfilCompany 
 
 # Create your views here.
 
 def home(request):
     
+    company = PerfilCompany.objects.get(user = request.user)
+    
+    print(company)
     return render(request, 'company/home.html')
 
 @login_required

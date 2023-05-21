@@ -49,5 +49,5 @@ urlpatterns = [
     path('perfil/company/add', views.addCompany, name='add-company'),
     
     path('perfil/company/edit', views.editCompany, name='edit-company'),
-    
+   
 ]
