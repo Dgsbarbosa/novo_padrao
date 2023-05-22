@@ -29,7 +29,7 @@ width: 100%;
 
 .div-base-2-item {
   padding-top: 400px;
-  background-image: url("../img/Logo2.png");
+  background-image: url("../img/1.png");
   height: 300px;
   background-repeat: no-repeat;
   background-position: center;
@@ -41,13 +41,12 @@ width: 100%;
 
 
 
-
   /* border: 5px solid #000000; */
 
 }
 
 .div-base-2-item div {
-  height: 20px;
+ 
   margin: 20px;
   /* border: 5px solid #e70707; */
 

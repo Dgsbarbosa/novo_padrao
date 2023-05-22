@@ -67,19 +67,34 @@
         <div class=" div-view-item">
             <div>
                 <h6>Telefones: </h6>
-                <span></span>
+                <span>
+                    {%if company.phone1 %}
+
+                    {{ company.phone1 }}
+                    {%endif%}
+                    /
+                    {%if company.phone2 %}
+
+                    {{ company.phone2 }}
+                    {%endif%}
+
+                </span>
             </div>
 
 
         </div>
-        <div class=" div-view-item">
+
+
+        <!-- <div class=" div-view-item">
             <div>
                 <h6>Endereços: </h6>
-                <span></span>
+                <span>
+
+                </span>
             </div>
 
 
-        </div>
+        </div> -->
 
 
     </div>

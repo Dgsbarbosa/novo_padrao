@@ -1,29 +1,29 @@
 {% extends 'base.html' %}
 
-{% block title %} Clientes {% endblock %}
+{% block title %} Pedidos {% endblock %}
 
 {% block content %}
 
 <div class="offset-1 col-10 list-div">
 
 
-    <h1>Clientes</h1>
+    <h1>Pedidos</h1>
 
     <div class="flex-container dashboard-client">
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-lastdays">
-            <h4>Pessoa Fisica</h4>
+            <h4>Orçamentos do <br> últimos 30 dias</h4>
             <span>30</span>
         </div>
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-done">
-            <h4>Pessoa Juridica</h4>
+            <h4>Serviços Finalizados</h4>
             <span>40</span>
         </div>
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-doing">
-            <h4>Total de Clientes</h4>
-            <span>{{ clientsCount }}</span>
+            <h4>Total de Orçamentos</h4>
+            <span></span>
         </div>
 
     </div>
@@ -33,9 +33,9 @@
     <div class="flex-container filter-div">
 
         <div id="add-link">
-            <a href="newclient/">
+            <a href="">
                 <div class="col-2 add-div">
-                    <i class="fas fa-plus"></i> Adicionar Cliente
+                    <i class="fas fa-plus"></i> Adicionar Orçamento
                 </div>
             </a>
         </div>
@@ -43,10 +43,13 @@
         <div id="div-filter-span">
             <span>Filtrar por:</span>
 
-            <select name="filter" id="filter" class="form-control">
+            <select name="filter-budgets" id="filter-budgets" class="form-control">
                 <option value="">Escolha uma opção...</option>
-                <option value="1">Pessoa Fisica</option>
-                <option value="2">Pessoa Jurídica</option>
+                <option value="1">Pendente</option>
+                <option value="2">Aprovado</option>
+                <option value="3">Cancelado</option>
+                <option value="4">Em andamento</option>
+                <option value="5">Concluido</option>
             </select>
         </div>
     </div>

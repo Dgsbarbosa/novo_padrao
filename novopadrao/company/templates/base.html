@@ -20,7 +20,7 @@
 
 <body>
     <div class="container-fluid">
-
+        
         <nav class="navbar navbar-expand-sm navbar-light ">
 
             <!-- <img src="../static/img/logo3.png" alt=""> -->
@@ -35,12 +35,12 @@
 
                 <ul class="navbar-nav mr-auto">
 
-                    {% if user.is_authenticated %}
+                    
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home </a>
                     </li>
 
-
+{% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +50,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Novo Orçamento</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Orçamentos</a>
+                            <a class="dropdown-item" href="/budgets/">Orçamentos</a>
 
 
                         </div>
@@ -92,12 +92,7 @@
                     </li>
 
 
-                    {% else %}
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/accounts/login">Entrar</a>
-                    </li>
+                    
                     {% endif %}
 
                     {% if user.is_authenticated %}

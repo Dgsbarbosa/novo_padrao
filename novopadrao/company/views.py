@@ -13,9 +13,7 @@ from accounts.models import PerfilCompany
 
 def home(request):
     
-    company = PerfilCompany.objects.get(user = request.user)
     
-    print(company)
     return render(request, 'company/home.html')
 
 @login_required
