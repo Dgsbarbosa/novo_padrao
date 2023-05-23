@@ -113,25 +113,3 @@ class Contacts(models.Model):
 
     
     
-class Budget(models.Model):
-    
-    ...
-    
-class Services(models.Model):
-    ...
-    
-class Materials(models.Model):
-    ...
-
-class PayMethods():
-    
-    METHODS = ("1","Dinheiro"),("2","Pix"),("3","Tranferencia"), ("4","Carta de Credito"),("5","Cartao de Debito")
-    
-    methods = models.CharField(
-        max_length=50,
-        choices=METHODS,
-        null=True, 
-        blank=True,
-        )
-
-
