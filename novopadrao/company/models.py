@@ -62,7 +62,9 @@ class Clients(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        return '{} - {} ' .format( self.name, self.client_type)
+        if self.client_type == None:
+            self.client_type = ''
+        return '{} ' .format( self.name, self.client_type)
 
     
 class Address(models.Model):
@@ -70,7 +72,7 @@ class Address(models.Model):
     
     client_id =  models.ForeignKey(Clients, on_delete=models.CASCADE)
     
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    
     
     street = models.CharField(max_length=255, null=True, blank=True)
     

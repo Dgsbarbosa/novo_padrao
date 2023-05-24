@@ -14,16 +14,16 @@
         {% csrf_token %}
 
         <!-- {{ form.client|as_crispy_field }} -->
+        <h4>Dados Básicos</h4>
+        
         {{ form|crispy}}
-        {{ form_service|crispy }}
-        {{ form_materials|crispy }}
-        {{ form_payment|crispy }}
+        
 
 
 
 
         <div class="container div-btn">
-            <a href="/clients/">
+            <a href="/budgets/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">
             </a>
             <input type="submit" class="btn btn-success btn-form" id="" value="Salvar">

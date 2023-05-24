@@ -6,7 +6,7 @@ class Budgets(models.Model):
     
     client = models.ForeignKey(Clients, null=True, on_delete=models.SET_NULL)
     
-    number_budgets = models.IntegerField(unique=True)    
+    number_budgets = models.CharField(max_length=10,unique=True)    
     
     reference = models.CharField(max_length=500, null=True,blank=True)
     
@@ -15,6 +15,10 @@ class Budgets(models.Model):
     term = models.DateField(null=True,blank=True)
 
     obs = models.TextField(null=True,blank=True)
+    
+    def __str__(self) -> str:
+        
+        return '{}  {} {}  {} {} '.format(self.client, self.number_budgets, self.reference, self.validity, self.term, self.obs)
     
 
     
