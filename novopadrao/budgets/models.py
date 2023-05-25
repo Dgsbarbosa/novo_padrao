@@ -6,7 +6,7 @@ class Budgets(models.Model):
     
     client = models.ForeignKey(Clients, null=True, on_delete=models.SET_NULL)
     
-    number_budgets = models.CharField(max_length=11,unique=True)    
+    number_budgets = models.CharField(max_length=10,unique=True)    
     
     reference = models.CharField(max_length=500, null=True,blank=True)
     

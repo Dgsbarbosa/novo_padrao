@@ -1,4 +1,5 @@
 
+import datetime
 from typing import Any, Dict, Mapping, Optional, Type, Union
 from django import forms
 from django.core.files.base import File
@@ -15,15 +16,42 @@ class BudgetsForm(forms.ModelForm):
         
         
         
-          
         for i in  self.fields:
             
             self.fields[i].error_messages = {'required': 'Campo obrigatorio'}
         
             self.fields[i].required = False
   
-        
+   
     class Meta:
+            
+        def numberBudget():
+        
+            number_budgets = 0            
+            
+            number_budgets_last = Budgets.objects.values_list('number_budgets').last()
+            
+            current_year = int(datetime.datetime.now().strftime("%Y"))
+            
+            if number_budgets_last:
+                
+                slice_budgets_last = number_budgets_last.split('-')
+                number_budgets = int(slice_budgets_last[0])
+                year_budgets = int(slice_budgets_last[1])
+                                                
+                if current_year != year_budgets:
+                    number_budgets = 1
+                    
+                elif current_year == year_budgets:   
+                    number_budgets = number_budgets + 1
+                
+            else:
+                
+                number_budgets = 1
+            
+            return f'{number_budgets:03d}-{current_year}'
+             
+        
         model = Budgets
         fields = [
             'number_budgets', 
@@ -44,7 +72,16 @@ class BudgetsForm(forms.ModelForm):
         }
         widgets = {
             
+            "number_budgets" : forms.TextInput(attrs={
+                'value': f'{numberBudget()}',
+                'disabled':'True',
+                'size': '50%'
+                
+
+            }),
             
+            "client": forms.Select(),
+             
             "obs": forms.Textarea(
                 attrs={"cols": 80, "rows": 5}),
         }

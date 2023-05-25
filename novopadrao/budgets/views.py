@@ -19,26 +19,13 @@ def listBudgets(request):
 
 def addBudgets(request):
     
-    number_budgets_last = Budgets.objects.values_list('number_budgets').last()
-    
-    year = datetime.datetime.now().strftime("%Y")
-    
-
-    if number_budgets_last:
-    #.order_by('-number_budgets').values()
-        
-        print(number_budgets_last)
-    else:
-        
-        number_budgets = f'001-{year}'
-        print(number_budgets)
-        
+   
         
     
-    form = BudgetsForm(request.POST,)
+    form = BudgetsForm(request.POST)
     
-    form.number_budgets = number_budgets
-    print(form.number_budgets)
+    
+   
    
     
     
@@ -52,7 +39,7 @@ def addBudgets(request):
         'form_service':form_service,
         'form_materials':form_materials,
         'form_payment':form_payment,
-        'form.number_budgets':form.number_budgets
+        
         
         
     }
