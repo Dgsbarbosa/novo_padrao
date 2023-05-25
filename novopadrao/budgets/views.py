@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from .forms import BudgetsForm,ServicesForm, MaterialsForm, PaymentsForm
 from django.contrib.auth.decorators import login_required
@@ -18,14 +19,26 @@ def listBudgets(request):
 
 def addBudgets(request):
     
-    budgets = Budgets.objects.all()
+    number_budgets_last = Budgets.objects.values_list('number_budgets').last()
+    
+    year = datetime.datetime.now().strftime("%Y")
+    
+
+    if number_budgets_last:
     #.order_by('-number_budgets').values()
+        
+        print(number_budgets_last)
+    else:
+        
+        number_budgets = f'001-{year}'
+        print(number_budgets)
+        
+        
     
-    print(budgets)
+    form = BudgetsForm(request.POST,)
     
-    form = BudgetsForm(request.POST)
-    
-    form.initial={"number_budgets": "10"}
+    form.number_budgets = number_budgets
+    print(form.number_budgets)
    
     
     
@@ -38,7 +51,9 @@ def addBudgets(request):
         'form':form,
         'form_service':form_service,
         'form_materials':form_materials,
-        'form_payment':form_payment
+        'form_payment':form_payment,
+        'form.number_budgets':form.number_budgets
+        
         
     }
     return render(request, 'addBudgets.html', context)

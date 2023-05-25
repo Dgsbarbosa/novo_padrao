@@ -13,7 +13,8 @@ class BudgetsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-           
+        
+        
           
         for i in  self.fields:
             
@@ -40,6 +41,12 @@ class BudgetsForm(forms.ModelForm):
             'validity': ('Validade'),
             'term': ('Prazo de execucao'),
             'obs':('Observacao')
+        }
+        widgets = {
+            
+            
+            "obs": forms.Textarea(
+                attrs={"cols": 80, "rows": 5}),
         }
         
         
