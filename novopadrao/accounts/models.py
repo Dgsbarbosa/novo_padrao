@@ -60,6 +60,7 @@ class UpdateUser(forms.ModelForm):
 class PerfilCompany(models.Model) :
     
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    
     name = models.CharField(max_length=255, help_text="Campo Obrigatorio " )
     
     logo = models.ImageField(upload_to="",blank=True, null=True )

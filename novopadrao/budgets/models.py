@@ -10,13 +10,9 @@ from company.models import Clients
 
 class Budgets(models.Model):
     
-    def returnId():
-        user = get_user_model()
-        print('user:',user.pk)
-        return 3
-    
-    client = models.ForeignKey(Clients,  null=True, on_delete=models.CASCADE, limit_choices_to={'user_id':returnId()} )
-    
+   
+    client = models.ForeignKey(Clients,  null=True, on_delete=models.SET_NULL)
+     
     
     number_budgets = models.CharField(max_length=10,unique=True)    
     

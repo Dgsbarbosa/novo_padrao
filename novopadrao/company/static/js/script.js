@@ -6,7 +6,20 @@ $(document).ready(function () {
     var searchBtn = $('#search-btn');
     var searchForm = $('#search-form');
     var filter = $('#filter');
+    var ocultDivBtn = $('#button_ocult');
+    
 
+    $(function () {
+
+        
+
+        $(".btn-toggle").click(function (e) {
+            e.preventDefault();
+
+            el = $(this).data('element');
+            $(el).slideToggle('hidden');
+        });
+    });
 
 
     $(deleteBtn).on('click', function (e) {
@@ -40,7 +53,7 @@ $(document).ready(function () {
             console.log("1:" + mask)
             $('#id_telefone1').mask(mask, options);
             $('#id_phone1').mask(mask, options);
-            
+
         }
     };
 
@@ -51,23 +64,26 @@ $(document).ready(function () {
             [0];
 
             console.log("2" + mask2)
-            
+
             $('#id_phone2').mask(mask2, options2);
         }
     };
 
-   
+
 
     $(document).ready(function () {
 
-        
-        $('#id_telefone1').mask('(00) 0000-0000',options)
-        $('#id_telefone2').mask('(00) 0000-0000',options2)
-        $('#id_phone1').mask('(00) 0000-0000',options)
-        $('#id_phone2').mask('(00) 0000-0000',options2)
-        
+
+        $('#id_telefone1').mask('(00) 0000-0000', options)
+        $('#id_telefone2').mask('(00) 0000-0000', options2)
+        $('#id_phone1').mask('(00) 0000-0000', options)
+        $('#id_phone2').mask('(00) 0000-0000', options2)
+
         $('#id_cnpj').mask('00.000.000/0000-00')
 
+        $('.money').mask('#.##0,00', {reverse: true, prefix:'R$'});
+
+        $('.quantity').mask('#0,00', {reverse: true});
     })
 
 

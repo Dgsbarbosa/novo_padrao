@@ -22,20 +22,33 @@ def listBudgets(request):
 
 def addBudgets(request):
     
-  
-    client = Clients.objects.filter(user_id=request.user)
-    # print(client)
-    form = BudgetsForm(request.POST,instance=request.user)
+        
     
-    
-    
-   
-   
-    
+    form = BudgetsForm(request.user,request.POST)
     
     form_service = ServicesForm(request.POST)
-    form_materials = MaterialsForm()
-    form_payment = PaymentsForm()
+    form_materials = MaterialsForm(request.POST)
+    form_payment = PaymentsForm(request.POST)
+    
+    if form.is_valid()  :
+        
+        budget = form.save(commit=False)
+        budget.user = request.user
+        print('form :',budget)
+        # budget.save()
+
+        if form_service.is_valid():
+            
+            services = form_service.save(commit=False)
+            # services.id_budget = budget
+            print('form_service: ',services)
+            #services.save()
+            
+        #     if form_payment.is_valid():
+        #         contacts = form_payment.save(commit=False)
+        #         contacts.client_id = client
+                
+        #         #contacts.save()
     
     
     context ={

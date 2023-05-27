@@ -7,20 +7,24 @@ from django.db.models.base import Model
 from django.forms.utils import ErrorList
 
 
-
+from company.models import Clients
 from .models import Budgets,Services, Materials,Payments 
 
 
 class BudgetsForm(forms.ModelForm):
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self,user, *args, **kwargs):
+        super(BudgetsForm,self).__init__(*args, **kwargs)
         
         for i in  self.fields:
             
             self.fields[i].error_messages = {'required': 'Campo obrigatorio'}
         
             self.fields[i].required = False
+            
+        
+        self.fields['client'].queryset = Clients.objects.filter(user_id=user)
+        
   
    
     class Meta:
@@ -103,11 +107,52 @@ class ServicesForm(forms.ModelForm):
             self.fields[i].required = False
             
     class Meta:
+        
+        
         model = Services
         fields = '__all__'
+        
+        exclude = ['id_budget']
+        
         labels = {
-            'client':('Cliente'),
+            'descript':('Descricao'),
+            'details':('Detalhes'),
+            'price':('Preco'),
+            'amount':('Quantidade'),
+        
+        }   
+        
+        widgets = {
+            
+          
+            'price': forms.TextInput(attrs={
+                'class':'money'
+                
+                
+            }),
+            
+            
+            
+            "details": forms.Textarea(
+                attrs={"cols": 80, "rows": 3}),
+            
+            'amount': forms.TextInput(attrs={
+                'class':'quantity'
+                
+                
+            }),
+            
+            'total': forms.TextInput(attrs={
+                
+                'disabled':'True'
+                
+                
+            }),
+            
+            
+             
         }
+        
         
 class MaterialsForm(forms.ModelForm):
      class Meta:

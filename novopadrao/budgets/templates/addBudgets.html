@@ -13,10 +13,47 @@
     <form method="POST" class="col-12">
         {% csrf_token %}
 
-        <!-- {{ form.client|as_crispy_field }} -->
-        <h4>Dados Básicos</h4>
-   
-        {{form|crispy }}
+       <!--  basics data -->
+
+        <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv">
+            <h4>Dados Básicos</h4>
+        </button>
+
+        <div id="minhaDiv" class="my_div">
+            {{form|crispy }}
+        </div> -->
+
+        <!-- Services -->
+        <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv2">
+            <h4>Serviços</h4>
+        </button>
+
+        <div id="minhaDiv2" class="my_div">
+            {{form_service|crispy }}
+        </div>
+
+
+        <!-- materials -->
+        
+        <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv3">
+            <h4>Materiais</h4>
+        </button>
+
+        <div id="minhaDiv3" class="my_div">
+            {{form_materials|crispy }}
+        </div> -->
+
+
+        <!-- Payments -->
+
+        <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv4">
+            <h4>Formas de Pagamento</h4>
+        </button>
+
+        <div id="minhaDiv4" class="my_div">
+            {{form_payment|crispy }}
+        </div>
+       -->
 
 
 
