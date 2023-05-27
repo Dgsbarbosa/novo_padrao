@@ -1,10 +1,22 @@
+
+
+from typing import Any
 from django.db import models
 from company.models import Clients
+from django.contrib.auth import get_user_model
+from company.models import Clients
+
 # Create your models here.
 
 class Budgets(models.Model):
     
-    client = models.ForeignKey(Clients, null=True, on_delete=models.SET_NULL)
+    def returnId():
+        user = get_user_model()
+        print('user:',user.pk)
+        return 3
+    
+    client = models.ForeignKey(Clients,  null=True, on_delete=models.CASCADE, limit_choices_to={'user_id':returnId()} )
+    
     
     number_budgets = models.CharField(max_length=10,unique=True)    
     
@@ -12,7 +24,7 @@ class Budgets(models.Model):
     
     validity = models.DateField()
     
-    term = models.DateField(null=True,blank=True)
+    term = models.CharField(max_length=100,null=True,blank=True)
 
     obs = models.TextField(null=True,blank=True)
     
@@ -20,11 +32,13 @@ class Budgets(models.Model):
     
     update_at = models.DateTimeField(auto_now=True)
     
+    
+    
     def __str__(self) -> str:
         
         return '{}  {} {}  {} {} '.format(self.client, self.number_budgets, self.reference, self.validity, self.term, self.obs)
     
-
+    
     
 class Services(models.Model):
     

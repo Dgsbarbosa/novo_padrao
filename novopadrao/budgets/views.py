@@ -1,17 +1,20 @@
 import datetime
+from getpass import getuser
 from django.shortcuts import render
 from .forms import BudgetsForm,ServicesForm, MaterialsForm, PaymentsForm
 from django.contrib.auth.decorators import login_required
 from .models import Budgets
+from django.contrib.auth import get_user_model
 
+from company.models import Clients
+from accounts.models import CustomUser
 
 # Create your views here.
 
 @login_required
 def listBudgets(request):
     
-    
-    
+   
     return render(request, 'budgets.html')
 
 
@@ -19,10 +22,11 @@ def listBudgets(request):
 
 def addBudgets(request):
     
-   
-        
+  
+    client = Clients.objects.filter(user_id=request.user)
+    # print(client)
+    form = BudgetsForm(request.POST,instance=request.user)
     
-    form = BudgetsForm(request.POST)
     
     
    

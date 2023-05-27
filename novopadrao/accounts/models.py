@@ -39,7 +39,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
         def __str__(self):
             
-            return self.email    
+            return self.id, self.email    
         
         
 

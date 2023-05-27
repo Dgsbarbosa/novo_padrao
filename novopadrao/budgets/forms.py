@@ -6,6 +6,8 @@ from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
 
+
+
 from .models import Budgets,Services, Materials,Payments 
 
 
@@ -13,8 +15,6 @@ class BudgetsForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
-        
         
         for i in  self.fields:
             
@@ -76,11 +76,15 @@ class BudgetsForm(forms.ModelForm):
                 'value': f'{numberBudget()}',
                 'disabled':'True',
                 'size': '50%'
-                
+            
 
             }),
             
-            "client": forms.Select(),
+            'validity': forms.NumberInput(attrs={
+                'type':'date',
+                
+                
+            }),
              
             "obs": forms.Textarea(
                 attrs={"cols": 80, "rows": 5}),
