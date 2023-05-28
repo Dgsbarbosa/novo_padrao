@@ -13,7 +13,7 @@
     <form method="POST" class="col-12">
         {% csrf_token %}
 
-       <!--  basics data -->
+        <!--  basics data -->
 
         <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv">
             <h4>Dados Básicos</h4>
@@ -24,17 +24,39 @@
         </div> -->
 
         <!-- Services -->
-        <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv2">
+        <button type="button" class="btn-toggle button_div_budgets" data-element=".minhaDiv2">
             <h4>Serviços</h4>
         </button>
 
-        <div id="minhaDiv2" class="my_div">
-            {{form_service|crispy }}
+        <div id="" class="my_div minhaDiv2">
+
+            <div class="minhaDiv2_item">
+                <div>
+                    {{form_service|crispy }}
+                </div>
+                <div id="minhaDiv2_trash">
+                    <a href="" class="">
+                        <span>
+                            <i class="fas fa-trash"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
         </div>
 
 
+        <div id="new_service">
+            
+
+                    <i class="fa-solid fa-file-circle-plus " id="new_service_button" style="color: #065df4;"></i>
+          
+        </div>
+
+
+
         <!-- materials -->
-        
+
         <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv3">
             <h4>Materiais</h4>
         </button>
@@ -57,7 +79,7 @@
 
 
 
-        <div class="container div-btn">
+        <div class="container div-btn div-btn-budgets">
             <a href="/budgets/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">
             </a>

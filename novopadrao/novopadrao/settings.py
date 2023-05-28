@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "phonenumber_field",
+    'fontawesomefree',
+
     "company",
     "crispy_forms",
     "crispy_bootstrap4",
@@ -98,24 +100,24 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 
 AUTH_PASSWORD_VALIDATORS = [
-    
+
     {
         "NAME": "accounts.validators.MinimumLengthValidator",
     },
-   
-  
-    { 
-        'NAME' :  'accounts.validators.NumberValidator' , 
-      
-        }, 
+
+
     {
-       
-        'NAME': 'accounts.validators.UppercaseValidator', 
+        'NAME':  'accounts.validators.NumberValidator',
+
     },
- 
     {
-        'NAME': 'accounts.validators.SymbolValidator', 
-        },
+
+        'NAME': 'accounts.validators.UppercaseValidator',
+    },
+
+    {
+        'NAME': 'accounts.validators.SymbolValidator',
+    },
 ]
 
 
@@ -137,7 +139,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media") #pasta media para abrigar os arquivos dos usuários
+# pasta media para abrigar os arquivos dos usuários
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 MEDIA_URL = '/media/'
 

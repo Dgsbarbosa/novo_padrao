@@ -8,8 +8,57 @@
     border: 0px solid rgba(0, 0, 0, 0.1); 
 }
 
-.my_div{
+
+.minhaDiv2{
     /* display: none; */
+    /* padding: 0px 10px 0px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);  */
+}
+
+.minhaDiv2_item{
+    /* display: none; */
+    padding: 0px 10px 0px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5); 
+}
+
+#minhaDiv2_trash{
+    margin-top: 30px;
+    margin-right: 10px;
+    height: 30px;
+        /* border: 2px solid rgba(0, 0, 0);  */
+
+}
+
+#minhaDiv2_trash a span i{
+    float: right;
+    font-size: 25px;
+    height: 100%;
+    margin-right: 10px;
+    /* border: 2px solid rgba(0, 0, 0);  */
+
+}
+
+
+.div-btn-budgets{
+    padding-top: 50px;
+        /* border: 10px solid rgba(0, 0, 0, 0.1);  */
+
+}
+
+#new_service{
+    margin-top: 30px;
+    margin-bottom: 30px;
+            /* border: 10px solid rgba(0, 0, 0);  */
+
+
+}
+
+#new_service_button{
+    float: right;
+    font-size: 40px;
+    margin-top: 50px;
     
-    /* border: 10px solid rgba(0, 0, 0, 0.1);  */
+    border-radius: 100%;
+   
+    
 }

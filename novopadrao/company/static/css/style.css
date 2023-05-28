@@ -11,6 +11,11 @@
 
 @import url(../css/addBudgets.css);
 
+
+
+body{
+  width: 100%;
+}
 /* Footer */
 
 .fixar-rodape {

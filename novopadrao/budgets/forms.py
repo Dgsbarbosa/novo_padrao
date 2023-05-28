@@ -126,7 +126,10 @@ class ServicesForm(forms.ModelForm):
             
           
             'price': forms.TextInput(attrs={
-                'class':'money'
+                'class':'money',
+                'type':'text',
+                'id':'currency'
+                
                 
                 
             }),

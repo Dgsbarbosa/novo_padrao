@@ -7,11 +7,11 @@ $(document).ready(function () {
     var searchForm = $('#search-form');
     var filter = $('#filter');
     var ocultDivBtn = $('#button_ocult');
-    
+
 
     $(function () {
 
-        
+
 
         $(".btn-toggle").click(function (e) {
             e.preventDefault();
@@ -71,20 +71,53 @@ $(document).ready(function () {
 
 
 
-    $(document).ready(function () {
+    $('#id_telefone1').mask('(00) 0000-0000', options)
+    $('#id_telefone2').mask('(00) 0000-0000', options2)
+    $('#id_phone1').mask('(00) 0000-0000', options)
+    $('#id_phone2').mask('(00) 0000-0000', options2)
 
+    $('#id_cnpj').mask('00.000.000/0000-00')
 
-        $('#id_telefone1').mask('(00) 0000-0000', options)
-        $('#id_telefone2').mask('(00) 0000-0000', options2)
-        $('#id_phone1').mask('(00) 0000-0000', options)
-        $('#id_phone2').mask('(00) 0000-0000', options2)
+    // Mascara de dinheiro
+    $(function () {
+        $('.money').maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
+    });
+    // Mascara de quantidade
+    $('.quantity').maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
 
-        $('#id_cnpj').mask('00.000.000/0000-00')
+    // Formula que calcula o preço x a quantidade
+    $('.money').blur(function () {
 
-        $('.money').mask('#.##0,00', {reverse: true, prefix:'R$'});
+        var price = $("#currency").val();
+        price = price.replace("R$", "").trim();
+        var arrayPrice = price.split(',');
 
-        $('.quantity').mask('#0,00', {reverse: true});
-    })
+        var real = arrayPrice[0].replace(".", "");
+        var cents = arrayPrice[1];
+
+        var result = `${real}.${cents}`
+
+        var amount = $("#id_amount").val()
+
+        amount = amount.replace(",", ".")
+
+        var total = parseFloat(result) * parseFloat(amount);
+
+        var valorFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    
+
+        if (amount == "" || price == "") {
+            $("#id_total").val("");
+            console.log('error');
+        } else {
+            $("#id_total").val(valorFormatado);
+        };
+
+    });
+
+    $("#new_service_button").click(function(){
+        $(".minhaDiv2_item").clone(true|true).appendTo(".minhaDiv2");
+      });
 
 
 
