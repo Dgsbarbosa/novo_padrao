@@ -86,38 +86,89 @@ $(document).ready(function () {
     $('.quantity').maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
 
     // Formula que calcula o preço x a quantidade
-    $('.money').blur(function () {
 
-        var price = $("#currency").val();
+
+    $(".money").keyup(function () {
+
+        var amount = 1.0;
+        // converte preço em valor
+        var price = $(".money").val();
+
+
+
         price = price.replace("R$", "").trim();
+
         var arrayPrice = price.split(',');
 
-        var real = arrayPrice[0].replace(".", "");
+        var real = arrayPrice[0].replace(/[^\d]+/g, '');
+
+        console.log(arrayPrice[0]);
+
+
         var cents = arrayPrice[1];
 
-        var result = `${real}.${cents}`
+        var priceFormat = `${real}.${cents}`;
 
-        var amount = $("#id_amount").val()
 
-        amount = amount.replace(",", ".")
+        priceFormat = parseFloat(priceFormat);
 
-        var total = parseFloat(result) * parseFloat(amount);
+        var total = priceFormat * amount;
 
         var valorFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    
 
-        if (amount == "" || price == "") {
-            $("#id_total").val("");
-            console.log('error');
-        } else {
-            $("#id_total").val(valorFormatado);
-        };
+        $(".total_service").val(valorFormatado);
+
+        // converte quantidade em valor
+
+        $(".quantity").keyup(function () {
+
+            amount = $(".quantity").val()
+
+
+
+            amount = amount.replace(",", ".")
+            amount = parseFloat(amount)
+
+            if (amount == 0) {
+                amount = 1;
+            }
+
+
+
+            var total = priceFormat * amount;
+
+            valorFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+
+
+            $(".total_service").val(valorFormatado);
+        });
 
     });
 
-    $("#new_service_button").click(function(){
-        $(".minhaDiv2_item").clone(true|true).appendTo(".minhaDiv2");
-      });
+
+
+    $("#new_service_button").click(function () {
+
+        var last_service = $(".minhaDiv2").children().attr('id')
+        console.log(last_service);
+
+       
+    });
+
+
+
+    $("#minhaDiv2_trash").click(function () {
+
+        var result = confirm('Deseja deletar este serviço?');
+
+        if (result) {
+            console.log('feito');
+            $("#minhaDiv2_item").remove()
+        }
+        // 
+
+    });
 
 
 

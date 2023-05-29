@@ -124,13 +124,14 @@ class ServicesForm(forms.ModelForm):
         
         widgets = {
             
+            'descript':forms.TextInput(attrs={
+                'autofocus':'true',
+            }),
           
             'price': forms.TextInput(attrs={
                 'class':'money',
                 'type':'text',
                 'id':'currency'
-                
-                
                 
             }),
             
@@ -146,8 +147,9 @@ class ServicesForm(forms.ModelForm):
             }),
             
             'total': forms.TextInput(attrs={
+                'class':'total_service',
+                'disabled':'True',
                 
-                'disabled':'True'
                 
                 
             }),
