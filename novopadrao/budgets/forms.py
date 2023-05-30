@@ -22,24 +22,26 @@ class BudgetsForm(forms.ModelForm):
         
             self.fields[i].required = False
             
-        
-        self.fields['client'].queryset = Clients.objects.filter(user_id=user)
-        
-  
-   
-    class Meta:
             
-        def numberBudget():
         
+            self.fields['client'].queryset = Clients.objects.filter(user_id=user)
+        
+       
+        
+        def numberBudget():
+    
             number_budgets = 0            
             
             number_budgets_last = Budgets.objects.values_list('number_budgets').last()
+                        
+            
             
             current_year = int(datetime.datetime.now().strftime("%Y"))
             
             if number_budgets_last:
                 
-                slice_budgets_last = number_budgets_last.split('-')
+                slice_budgets_last = number_budgets_last[0].split('-')
+                
                 number_budgets = int(slice_budgets_last[0])
                 year_budgets = int(slice_budgets_last[1])
                                                 
@@ -54,6 +56,11 @@ class BudgetsForm(forms.ModelForm):
                 number_budgets = 1
             
             return f'{number_budgets:03d}-{current_year}'
+        
+        self.fields['number_budgets'].widget.attrs.update({"value": f"{numberBudget()}"})
+   
+    class Meta:       
+        
              
         
         model = Budgets
@@ -77,8 +84,8 @@ class BudgetsForm(forms.ModelForm):
         widgets = {
             
             "number_budgets" : forms.TextInput(attrs={
-                'value': f'{numberBudget()}',
-                'disabled':'True',
+                
+                'readonly':'True',
                 'size': '50%'
             
 

@@ -18,7 +18,7 @@ class Budgets(models.Model):
     
     reference = models.CharField(max_length=500, null=True,blank=True)
     
-    validity = models.DateField()
+    validity = models.DateField(null=True,blank=True)
     
     term = models.CharField(max_length=100,null=True,blank=True)
 
@@ -32,7 +32,7 @@ class Budgets(models.Model):
     
     def __str__(self) -> str:
         
-        return '{}  {} {}  {} {} '.format(self.client, self.number_budgets, self.reference, self.validity, self.term, self.obs)
+        return '{} {} {}  {} {} {}'.format(self.number_budgets,self.client, self.reference, self.validity, self.term, self.obs)
     
     
     
@@ -44,12 +44,14 @@ class Services(models.Model):
     
     details = models.TextField(null=True,blank=True)
     
-    price = models.FloatField(null=True,blank=True)
+    price = models.TextField(null=True,blank=True)
     
-    amount = models.FloatField(null=True,blank=True)
+    amount = models.TextField(null=True,blank=True)
     
-    total = models.FloatField(null=True,blank=True)
-    
+    total = models.TextField(null=True,blank=True)
+    def __str__(self) -> str:
+        
+        return '{} {} {} {} {}'.format(self.descript,self.details, self.price, self.amount, self.total)
     
     
 class Materials(models.Model):
@@ -61,11 +63,11 @@ class Materials(models.Model):
     
     details = models.TextField(null=True,blank=True)
     
-    price = models.FloatField(null=True,blank=True)
+    price = models.TextField(null=True,blank=True)
     
-    amount = models.FloatField(null=True,blank=True)
+    amount = models.TextField(null=True,blank=True)
     
-    total = models.FloatField(null=True,blank=True)
+    total = models.TextField(null=True,blank=True)
 
 class Payments(models.Model):
     
