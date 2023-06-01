@@ -10,20 +10,20 @@
 
     <h1>Novo Pedido</h1>
 
-    <form method="POST" class="col-12">
+    <form id="orcament-form" method="POST" class="col-12">
         {% csrf_token %}
 
         <!--  basics data -->
 
-        <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv">
+        <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv">
             <h4>Dados Básicos</h4>
         </button>
 
         <div id="minhaDiv" class="my_div">
             {{form|crispy }}
 
-            <!-- {{form.number_budgets|as_crispy_field  }} -->
-        </div>
+            {{form.number_budgets|as_crispy_field  }}
+        </div> -->
 
         <!-- Services -->
         <button type="button" class="btn-toggle button_div_budgets" data-element=".minhaDiv2">
@@ -31,56 +31,13 @@
         </button>
 
         <!-- Div de serviços -->
-        <div id="" class="my_div minhaDiv2">
+        <div id="services" class="my_div minhaDiv2">
 
-            <div class="minhaDiv2_item" id="minhaDiv2_item">
-
-                <div class="minhaDiv2_form">
-
-                    <div>
-                        {{form_service|crispy }}
-                    </div>
-
-                    <div id="minhaDiv2_trash">
-
-                        <span>
-                            <i class="fas fa-trash trash"></i>
-                        </span>
-
-                    </div>
-                </div>
-                <div id="division_services">
-
-                </div>
-            </div>
-
-            <!-- Duplicata -->
-
-            <div class="minhaDiv2_item" id="minhaDiv2_item_2">
-
-                <div class="minhaDiv2_form">
-
-                    <div>
-                        {{form_service|crispy }}
-                    </div>
-
-                    <div id="minhaDiv2_trash">
-
-                        <span>
-                            <i class="fas fa-trash trash"></i>
-                        </span>
-
-                    </div>
-                </div>
-                <div id="division_services">
-
-                </div>
-            </div>
-
-
-
-
-
+            
+            <div id="servicos-container">
+                <!-- Aqui serão adicionados os formulários de serviço dinamicamente -->
+              </div>
+              
             <!-- Botão de novo serviço  -->
             <div id="new_service">
 

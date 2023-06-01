@@ -5,7 +5,8 @@ from django import forms
 from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field, HTML
 
 from company.models import Clients
 from .models import Budgets, Services, Materials, Payments
@@ -109,6 +110,15 @@ class ServicesForm(forms.ModelForm):
             self.fields[i].error_messages = {'required': 'Campo obrigatorio'}
 
             self.fields[i].required = False
+            
+            self.helper = FormHelper()
+            self.helper.layout = Layout(
+            Field('descript', css_class='input-sm'),
+            # Outros campos do formulário
+            HTML('<hr>'),  # Adicione uma linha horizontal entre os formulários
+        )
+            
+        
 
     class Meta:
 

@@ -87,7 +87,6 @@ $(document).ready(function () {
 
     // Formula que calcula o preço x a quantidade
 
-
     $(".money").keyup(function () {
 
         var amount = 1.0;
@@ -123,9 +122,6 @@ $(document).ready(function () {
         $(".quantity").keyup(function () {
 
             amount = $(".quantity").val()
-
-
-
             amount = amount.replace(",", ".")
             amount = parseFloat(amount)
 
@@ -138,22 +134,41 @@ $(document).ready(function () {
             var total = priceFormat * amount;
 
             valorFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-
-
             $(".total_service").val(valorFormatado);
         });
 
     });
 
+    // teste
+    
 
+    // função que adiciona um novo formario e serviço
 
-    $("#new_service_button").click(function () {
+    var serviceCount = 0;
+    function addService(){
 
-        var last_service = $(".minhaDiv2").children().attr('id')
-
+        serviceCount++;
+          // Cria um novo formulário de serviço
+          var newServicoForm = $('<div>', {
+            class: 'servico-form',
+            id: 'servico-form-' + serviceCount
+          });
+      
+          // Adiciona o HTML do formulário de serviço à nova div
+          $.get('{% url "addBudgets" %}', function(data) {
+            newServicoForm.html(data.replace(/__prefix__/g, serviceCount));
+          });
+      
+          // Adiciona o novo formulário de serviço ao container
+          $('#servicos-container').append(newServicoForm);
         
-        console.log(last_service);
+       
+    }
+    
+
+    $("#new_service_button").click(function(e) {
+        e.preventDefault();
+        addService();
 
        
     });
