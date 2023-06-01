@@ -10,14 +10,22 @@ from company.models import Clients
 
 class Budgets(models.Model):
     
+    CONDITION = ("1","Pendente"),("2","Aprovado"),("3","Cancelado"),("4","Em andamento"),("5","Concluido"),
    
     client = models.ForeignKey(Clients,  null=True, on_delete=models.SET_NULL)
      
     
-    number_budgets = models.CharField(max_length=10,unique=True)    
+    number_budgets = models.CharField(max_length=10,unique=True)   
     
     reference = models.CharField(max_length=500, null=True,blank=True)
     
+    condition = models.CharField(
+        max_length=500,
+        choices=CONDITION,
+        null=True, 
+        blank=True,
+        default="Pendente"
+    )
     validity = models.DateField(null=True,blank=True)
     
     term = models.CharField(max_length=100,null=True,blank=True)
@@ -32,7 +40,7 @@ class Budgets(models.Model):
     
     def __str__(self) -> str:
         
-        return '{} {} {}  {} {} {}'.format(self.number_budgets,self.client, self.reference, self.validity, self.term, self.obs)
+        return '{} {} {} {}  {} {} {}'.format(self.number_budgets,self.client,self.condition, self.reference, self.validity, self.term, self.obs)
     
     
     

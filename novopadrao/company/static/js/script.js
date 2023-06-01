@@ -151,6 +151,8 @@ $(document).ready(function () {
     $("#new_service_button").click(function () {
 
         var last_service = $(".minhaDiv2").children().attr('id')
+
+        
         console.log(last_service);
 
        
@@ -158,7 +160,7 @@ $(document).ready(function () {
 
 
 
-    $("#minhaDiv2_trash").click(function () {
+    $(".trash").click(function () {
 
         var result = confirm('Deseja deletar este serviço?');
 

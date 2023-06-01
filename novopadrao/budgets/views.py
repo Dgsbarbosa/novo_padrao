@@ -26,6 +26,7 @@ def addBudgets(request):
 
     form_service = ServicesForm(request.POST)
 
+    
     form_materials = MaterialsForm(request.POST)
     
     form_payment = PaymentsForm(request.POST)
@@ -44,7 +45,7 @@ def addBudgets(request):
             if form_service.is_valid():
                 
                 service = form_service.save(commit=False)
-                # service.id_budget = budget
+                service.id_budget = budget
                 print('form_service: ', service)
             #     #service.save()
 
