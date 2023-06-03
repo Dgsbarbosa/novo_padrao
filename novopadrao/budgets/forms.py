@@ -144,9 +144,9 @@ class ServicesForm(forms.ModelForm):
             }),
 
             'price': forms.TextInput(attrs={
-                'class': 'money',
+                
                 'type': 'text',
-                'id': 'currency'
+                
 
             }),
 
@@ -156,13 +156,13 @@ class ServicesForm(forms.ModelForm):
                 attrs={"cols": 80, "rows": 3}),
 
             'amount': forms.TextInput(attrs={
-                'class': 'quantity'
+                
 
 
             }),
 
             'total': forms.TextInput(attrs={
-                'class': 'total_service',
+                
                 'readonly': 'True',
 
 

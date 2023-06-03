@@ -78,103 +78,92 @@ $(document).ready(function () {
 
     $('#id_cnpj').mask('00.000.000/0000-00')
 
-    // Mascara de dinheiro
-    $(function () {
-        $('.money').maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
-    });
-    // Mascara de quantidade
-    $('.quantity').maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
-
-    // Formula que calcula o preço x a quantidade
-
-    $(".money").keyup(function () {
-
-        var amount = 1.0;
-        // converte preço em valor
-        var price = $(".money").val();
 
 
-
-        price = price.replace("R$", "").trim();
-
-        var arrayPrice = price.split(',');
-
-        var real = arrayPrice[0].replace(/[^\d]+/g, '');
-
-        console.log(arrayPrice[0]);
+    // mascaras de valores do primeiro formulario
+    $("#id_service_form_1-price").maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
+    $("#id_service_form_1-amount").maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
 
 
-        var cents = arrayPrice[1];
+   
 
-        var priceFormat = `${real}.${cents}`;
-
-
-        priceFormat = parseFloat(priceFormat);
-
-        var total = priceFormat * amount;
-
-        var valorFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-        $(".total_service").val(valorFormatado);
-
-        // converte quantidade em valor
-
-        $(".quantity").keyup(function () {
-
-            amount = $(".quantity").val()
-            amount = amount.replace(",", ".")
-            amount = parseFloat(amount)
-
-            if (amount == 0) {
-                amount = 1;
-            }
-
-
-
-            var total = priceFormat * amount;
-
-            valorFormatado = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            $(".total_service").val(valorFormatado);
-        });
-
-    });
-
-    // teste
-
-
+    
+    $("#id_service_form_1-price").keypress(calculateTotal)
+    $("#id_service_form_1-amount").keypress(calculateTotal)
     // função que adiciona um novo formario e serviço
 
     var serviceCount = 0;
-    
 
     function addService() {
-        
         serviceCount++;
-        $('#total_forms').val(serviceCount+1);
+        $('#total_forms').val(serviceCount + 1);
 
         var newServiceForm = $('.service-item').first().clone();
 
         newServiceForm.find(':input').each(function () {
+
+            // novo name para cada novo formulario de serviços
             var name = $(this).attr('name');
+            var newName = name.replace('service_form_1-', `service_form_${serviceCount + 1}-`);
+
+            $(this).attr('name', newName)
+            name = $(this).attr('name');
+
+            // Novo id para cada novo formulario de serviços
             var id = $(this).attr('id');
+            var newId = id.replace('service_form_1-', `service_form_${serviceCount + 1}-`);
+            $(this).attr('id', newId)
+            id = $(this).attr('id');
 
-            var replaceId = id.replace()
-            $(this).attr('name', name.replace('__prefix__g', serviceCount));
-
-            
-            $(this).attr('id', id.replace(/-\d+-/, '-' + serviceCount + '-'));
-            
             $(this).val('');
+
+            // mascaras de valores dos formulario criados
+            if (name.includes('price')) {
+                $(this).maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
+                $(this).keypress(calculateTotal);
+            } else if (name.includes('amount')) {
+                $(this).maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
+                $(this).keypress(calculateTotal);
+            }
         });
+
         newServiceForm.find('input[name$=id]').val('');
         newServiceForm.insertAfter($('.service-item').last());
-        console.log(newServiceForm);
+         
     }
+
+
+    // calcula o campo total
+    function calculateTotal() {
+        $('.service-item').each(function () {
+            var $serviceItem = $(this);
+            var $priceInput = $serviceItem.find('input[name$="price"]');
+            var $amountInput = $serviceItem.find('input[name$="amount"]');
+            var $totalInput = $serviceItem.find('input[name$="total"]');
+    
+            var price = parseFloat($priceInput.val().replace('R$ ', '').replace('.', '').replace(',', '.'));
+            var amount = parseFloat($amountInput.val().replace('.', '').replace(',', '.'));
+    
+            if (!isNaN(price) && !isNaN(amount)) {
+               
+                var total = price * amount;
+                $totalInput.val('R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+            } else if(!isNaN(price)){
+                var total = price * 1;
+                $totalInput.val('R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
+            }else{
+                $totalInput.val('')
+            }
+
+        });
+    }
+
+   
 
     $("#new_service_button").click(function (e) {
         e.preventDefault();
         addService();
-        
+
         console.log('teste ' + $('#total_forms').val());
 
 

@@ -28,6 +28,8 @@ def addBudgets(request):
         form = BudgetsForm(request.user,request.POST)
 
         service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
+        
+        print('service_form_count',service_form_count)
                      
         service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]      
         
@@ -44,27 +46,29 @@ def addBudgets(request):
 
             budget = form.save(commit=False)                  
             print('form :', budget)
-            #budget.save()      
+            # budget.save()      
             
-        service_objects = []
-        service_forms_valid = True       
-       
-            
-        for service_form in service_forms:
-            if service_form.is_valid():
-                service = service_form.save(commit=False)
+            service_objects = []
+            service_forms_valid = True       
+        
                 
-                service_objects.append(service)
-                print('service:', service)
+            for i, service_form in enumerate(service_forms):
+                if service_form.is_valid():
+                    service = service_form.save(commit=False)
+                    service_objects.append(service)
+                    print(f'service {i+1}:', service)
+                    
+                else:
+                    service_forms_valid = False
+                    print('service form invalid:', service_form.errors)
+        
+            if service_forms_valid:
+                for service_form in service_objects:
+                    service_form.id_budget = budget
+                    # service_form.save()
+              
             else:
-                service_forms_valid = False
-                print('service form invalid:', service_form.errors)
-    
-        if service_forms_valid:
-            print('service_objects:', service_objects)     
-            
-        else:
-            print('error')    
+                print('error')    
            
            
            
