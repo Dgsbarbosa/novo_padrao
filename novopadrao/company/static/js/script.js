@@ -140,37 +140,44 @@ $(document).ready(function () {
     });
 
     // teste
-    
+
 
     // função que adiciona um novo formario e serviço
 
     var serviceCount = 0;
-    function addService(){
-
-        serviceCount++;
-          // Cria um novo formulário de serviço
-          var newServicoForm = $('<div>', {
-            class: 'servico-form',
-            id: 'servico-form-' + serviceCount
-          });
-      
-          // Adiciona o HTML do formulário de serviço à nova div
-          $.get('{% url "addBudgets" %}', function(data) {
-            newServicoForm.html(data.replace(/__prefix__/g, serviceCount));
-          });
-      
-          // Adiciona o novo formulário de serviço ao container
-          $('#servicos-container').append(newServicoForm);
-        
-       
-    }
     
 
-    $("#new_service_button").click(function(e) {
+    function addService() {
+        
+        serviceCount++;
+        $('#total_forms').val(serviceCount+1);
+
+        var newServiceForm = $('.service-item').first().clone();
+
+        newServiceForm.find(':input').each(function () {
+            var name = $(this).attr('name');
+            var id = $(this).attr('id');
+
+            var replaceId = id.replace()
+            $(this).attr('name', name.replace('__prefix__g', serviceCount));
+
+            
+            $(this).attr('id', id.replace(/-\d+-/, '-' + serviceCount + '-'));
+            
+            $(this).val('');
+        });
+        newServiceForm.find('input[name$=id]').val('');
+        newServiceForm.insertAfter($('.service-item').last());
+        console.log(newServiceForm);
+    }
+
+    $("#new_service_button").click(function (e) {
         e.preventDefault();
         addService();
+        
+        console.log('teste ' + $('#total_forms').val());
 
-       
+
     });
 
 

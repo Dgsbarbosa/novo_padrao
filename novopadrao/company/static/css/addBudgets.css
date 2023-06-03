@@ -67,9 +67,9 @@ margin-bottom: 10px;
     
 }
 
-#division_services{
+.service-item{
     margin-top: 10px;
-    margin-bottom: 10px;
-                border-bottom: 2px dashed rgba(0, 0, 0); 
+    padding-bottom: 30px;
+    border-bottom: 2px dashed rgba(0, 0, 0); 
 
 }

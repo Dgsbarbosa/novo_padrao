@@ -111,11 +111,13 @@ class ServicesForm(forms.ModelForm):
 
             self.fields[i].required = False
             
-            self.helper = FormHelper()
-            self.helper.layout = Layout(
-            Field('descript', css_class='input-sm'),
-            # Outros campos do formulário
-            HTML('<hr>'),  # Adicione uma linha horizontal entre os formulários
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('descript'),
+            Field('details'),
+            Field('price'),
+            Field('amount'),
+            Field('total')
         )
             
         

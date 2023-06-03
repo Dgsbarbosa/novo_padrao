@@ -33,11 +33,17 @@
         <!-- Div de serviços -->
         <div id="services" class="my_div minhaDiv2">
 
-            
+
             <div id="servicos-container">
-                <!-- Aqui serão adicionados os formulários de serviço dinamicamente -->
-              </div>
-              
+                {% for service_form in service_forms %}
+                <div class="service-item">
+                    {{ service_form|crispy }}
+
+                </div>
+
+                {% endfor %}
+            </div>
+
             <!-- Botão de novo serviço  -->
             <div id="new_service">
 
@@ -74,8 +80,8 @@
         </div>
        -->
 
-
-
+       <input type="hidden" id = "total_forms" name="service_form-TOTAL_FORMS" value="1">
+      
         <div class="container div-btn div-btn-budgets">
             <a href="/budgets/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">
@@ -84,4 +90,7 @@
         </div>
     </form>
 </div>
+
+
 {% endblock %}
+

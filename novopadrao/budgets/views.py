@@ -1,5 +1,6 @@
 import datetime
 from getpass import getuser
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .forms import BudgetsForm, ServicesForm, MaterialsForm, PaymentsForm
 from django.contrib.auth.decorators import login_required
@@ -18,47 +19,64 @@ def listBudgets(request):
     return render(request, 'budgets.html')
 
 
+
 @login_required
 def addBudgets(request):
 
-
-    form = BudgetsForm(request.user,request.POST)
-
-    form_service = ServicesForm(request.POST)
-
-    
-    form_materials = MaterialsForm(request.POST)
-    
-    form_payment = PaymentsForm(request.POST)
-
-    # print('form :', form)
     if (request.method == 'POST'):
-        if form.is_valid():
+        
+        form = BudgetsForm(request.user,request.POST)
 
-            budget = form.save(commit=False) 
-            # budget.id_client       
+        service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
+                     
+        service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]      
+        
+        print(service_forms) 
+        
+        
+        form_materials = MaterialsForm(request.POST)
+    
+        form_payment = PaymentsForm(request.POST)
+        
+        
+        
+        if form.is_valid() :
+
+            budget = form.save(commit=False)                  
             print('form :', budget)
-            #budget.save()
+            #budget.save()      
             
+        service_objects = []
+        service_forms_valid = True       
+       
             
-
-            if form_service.is_valid():
+        for service_form in service_forms:
+            if service_form.is_valid():
+                service = service_form.save(commit=False)
                 
-                service = form_service.save(commit=False)
-                service.id_budget = budget
-                print('form_service: ', service)
-            #     #service.save()
-
-            #     if form_payment.is_valid():
-            #         contacts = form_payment.save(commit=False)
-            #         contacts.client_id = client
-
-            #         #contacts.save()
+                service_objects.append(service)
+                print('service:', service)
+            else:
+                service_forms_valid = False
+                print('service form invalid:', service_form.errors)
+    
+        if service_forms_valid:
+            print('service_objects:', service_objects)     
+            
+        else:
+            print('error')    
+           
+           
+           
+           
         return redirect('/budgets')
+    
     else:
         form = BudgetsForm(request.user)
-
-        form_service = ServicesForm()
+        
+        service_forms = [ServicesForm(prefix=f'service_form_{i+1}') for i in range(1)]
+        
+        form_materials = MaterialsForm()
 
         form_materials = MaterialsForm()
     
@@ -66,7 +84,7 @@ def addBudgets(request):
         
     context = {
         'form': form,
-        'form_service': form_service,
+        'service_forms': service_forms,        
         'form_materials': form_materials,
         'form_payment': form_payment,
 
