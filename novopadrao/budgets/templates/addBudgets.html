@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<div class="container form-add">
+<div class="container form-add add-budgets">
 
     <h1>Novo Pedido</h1>
 
@@ -15,18 +15,28 @@
 
         <!--  basics data -->
 
-        <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv">
+        <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv">
             <h4>Dados Básicos</h4>
         </button>
 
         <div id="minhaDiv" class="my_div">
-            {{form|crispy }}
+            <div class="basic_data">
+                {{ form.number_budgets|as_crispy_field }}
+                {{ form.condition|as_crispy_field }}
+            </div>
 
-          
+            {{ form.client|as_crispy_field }}
+            {{ form.reference|as_crispy_field }}
+
+            {{ form.validity|as_crispy_field }}
+            {{ form.term|as_crispy_field }}
+
+            {{ form.obs|as_crispy_field }}
+
         </div>
 
         <!-- Services -->
-        <button type="button" class="btn-toggle button_div_budgets" data-element=".minhaDiv2">
+        <button type="button" class="btn-toggle-budgets" data-element=".minhaDiv2">
             <h4>Serviços</h4>
         </button>
 
@@ -38,10 +48,18 @@
                 {% for service_form in service_forms %}
                 <div class="service-item">
                     {{ service_form|crispy }}
-
+                    
+                    <div class="service-item-trash">
+                        <a href="" class="service-delete-btn">
+                            <span>
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </a>
+                    </div>
                 </div>
 
                 {% endfor %}
+
             </div>
 
             <!-- Botão de novo serviço  -->
@@ -80,8 +98,8 @@
         </div>
        -->
 
-       <input type="hidden" id = "total_forms" name="service_form-TOTAL_FORMS" value="1">
-      
+        <input type="hidden" id="total_forms" name="service_form-TOTAL_FORMS" value="1">
+
         <div class="container div-btn div-btn-budgets">
             <a href="/budgets/">
                 <input type="button" class="btn btn-danger btn-form " value="Cancelar">
@@ -93,4 +111,3 @@
 
 
 {% endblock %}
-

@@ -14,7 +14,8 @@ class Budgets(models.Model):
    
     client = models.ForeignKey(Clients,  null=True, on_delete=models.SET_NULL)
      
-    
+    user = models.ForeignKey(get_user_model(),  null=True, on_delete=models.CASCADE)
+     
     number_budgets = models.CharField(max_length=10,unique=True)   
     
     reference = models.CharField(max_length=500, null=True,blank=True)
@@ -24,7 +25,7 @@ class Budgets(models.Model):
         choices=CONDITION,
         null=True, 
         blank=True,
-        default="Pendente"
+        default="1"
     )
     validity = models.DateField(null=True,blank=True)
     

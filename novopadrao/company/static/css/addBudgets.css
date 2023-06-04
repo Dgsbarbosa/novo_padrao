@@ -1,38 +1,52 @@
-.button_div_budgets{
+#orcament-form{
+    padding: 30px;
+    /* border: 5px solid black; */
+}
+
+.btn-toggle-budgets{
     width: 100%;
     color: rgb(7, 7, 7);
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     
+
+    
     border: 0px solid rgba(0, 0, 0, 0.1); 
 }
 
-
-.minhaDiv2{
+.my_div{
     /* display: none; */
-    /* padding: 0px 10px 0px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.5);  */
-}
-
-.minhaDiv2_item{
-    /* display: none; */
-    
 }
 .minhaDiv2_form{
     padding: 0px 50px 0px 50px;
         border: 1px solid rgba(0, 0, 0, 0.5); 
 
 }
-#minhaDiv2_trash{
+
+
+.basic_data{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid rgba(0, 0, 0, 0.5);  */
+   
+}
+
+.basic_data input{
+    width: 90%;
+        /* border: 10px solid rgba(0, 0, 0);  */
+
+}
+
+.service-item-trash{
     margin-top: 30px;
     margin-right: 10px;
     height: 30px;
-        /* border: 2px solid rgba(0, 0, 0);  */
-margin-bottom: 10px;
+    /* border: 2px solid rgba(0, 0, 0);  */
+    margin-bottom: 10px;
 }
 
-#minhaDiv2_trash span i{
+.service-item-trash span i{
     float: right;
     font-size: 25px;
     height: 100%;

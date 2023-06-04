@@ -6,6 +6,7 @@ from .forms import BudgetsForm, ServicesForm, MaterialsForm, PaymentsForm
 from django.contrib.auth.decorators import login_required
 from .models import Budgets
 from django.contrib.auth import get_user_model
+from django.core.paginator import Paginator
 
 from company.models import Clients
 from accounts.models import CustomUser
@@ -15,14 +16,43 @@ from accounts.models import CustomUser
 
 @login_required
 def listBudgets(request):
-
-    return render(request, 'budgets.html')
+   
+    search = request.GET.get('search')
+    filter = request.GET.get('filter')
+    
+    if search:
+                
+        budgets = Budgets.objects.filter(nome__icontains=search, user=request.user)
+        
+    elif filter:
+        budgets = Budgets.objects.filter(condition=filter, user=request.user)
+        
+        
+        
+    else:
+        budgets = Budgets.objects.all().order_by('-create_at').filter(user = request.user)
+        
+        
+        paginator = Paginator(budgets,3)
+        page = request.GET.get('page')
+        
+        budgets = paginator.get_page(page)
+    
+    print(request.user)
+    budgetsCount = Budgets.objects.all().filter(user=request.user).count()
+    
+    context = {
+        'budgets': budgets , 
+        'budgetsCount':budgetsCount}
+    
+    return render(request, 'budgets.html', context)
+    
 
 
 
 @login_required
 def addBudgets(request):
-
+    
     if (request.method == 'POST'):
         
         form = BudgetsForm(request.user,request.POST)
@@ -30,11 +60,8 @@ def addBudgets(request):
         service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
         
         print('service_form_count',service_form_count)
-                     
+                                    
         service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]      
-        
-        print(service_forms) 
-        
         
         form_materials = MaterialsForm(request.POST)
     
@@ -68,8 +95,7 @@ def addBudgets(request):
                     # service_form.save()
               
             else:
-                print('error')    
-           
+                print('error')            
            
            
            

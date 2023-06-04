@@ -13,10 +13,12 @@ $(document).ready(function () {
 
 
 
-        $(".btn-toggle").click(function (e) {
+        $(".btn-toggle-budgets").click(function (e) {
             e.preventDefault();
-
             el = $(this).data('element');
+
+
+
             $(el).slideToggle('hidden');
         });
     });
@@ -85,9 +87,9 @@ $(document).ready(function () {
     $("#id_service_form_1-amount").maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
 
 
-   
 
-    
+
+
     $("#id_service_form_1-price").keypress(calculateTotal)
     $("#id_service_form_1-amount").keypress(calculateTotal)
     // função que adiciona um novo formario e serviço
@@ -96,7 +98,7 @@ $(document).ready(function () {
 
     function addService() {
         serviceCount++;
-        $('#total_forms').val(serviceCount + 1);
+
 
         var newServiceForm = $('.service-item').first().clone();
 
@@ -129,7 +131,8 @@ $(document).ready(function () {
 
         newServiceForm.find('input[name$=id]').val('');
         newServiceForm.insertAfter($('.service-item').last());
-         
+        totalServices();
+
     }
 
 
@@ -140,25 +143,25 @@ $(document).ready(function () {
             var $priceInput = $serviceItem.find('input[name$="price"]');
             var $amountInput = $serviceItem.find('input[name$="amount"]');
             var $totalInput = $serviceItem.find('input[name$="total"]');
-    
+
             var price = parseFloat($priceInput.val().replace('R$ ', '').replace('.', '').replace(',', '.'));
             var amount = parseFloat($amountInput.val().replace('.', '').replace(',', '.'));
-    
+
             if (!isNaN(price) && !isNaN(amount)) {
-               
+
                 var total = price * amount;
                 $totalInput.val('R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
-            } else if(!isNaN(price)){
+            } else if (!isNaN(price)) {
                 var total = price * 1;
                 $totalInput.val('R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 }));
-            }else{
-                $totalInput.val('')
+            } else {
+                $totalInput.val('');
             }
 
         });
     }
 
-   
+
 
     $("#new_service_button").click(function (e) {
         e.preventDefault();
@@ -171,18 +174,60 @@ $(document).ready(function () {
 
 
 
-    $(".trash").click(function () {
+    $(document).on('click', '.service-delete-btn', function (event) {
 
-        var result = confirm('Deseja deletar este serviço?');
+        event.preventDefault()
+        if (serviceCount < 1) {
 
-        if (result) {
-            console.log('feito');
-            $("#minhaDiv2_item").remove()
-        }
+            alert("Esse serviço não pode ser excluido");
+
+        } else {
+
+            var result = confirm("Deseja excluir este serviço?");
+            var serviceItem = $(this).closest('.service-item');
+
+
+            if (result) {
+
+
+                serviceItem.remove();
+                serviceCount--;
+                totalServices()
+                editNameCamposForm();
+
+            }
+
+
+        };
         // 
 
     });
 
+    // funcao que atuliza a quantidade formularios para passar para views
+    function totalServices() {
+        var countServices = document.querySelectorAll('.service-item')
+        $('#total_forms').val(countServices.length);
+
+    }
+
+    // funcao que atualiza o name dos serviços apos excluido
+
+    function editNameCamposForm() {
+        var serviceItems = $('.service-item');
+        var countServices = serviceItems.length;
+
+        serviceItems.each(function (index) {
+            $(this).find(':input').each(function () {
+                var name = $(this).attr('name');
+                var newName = name.replace(/service_form_\d+/, `service_form_${index + 1}`);
+                $(this).attr('name', newName);
+
+                var id = $(this).attr('id');
+                var newId = id.replace(/service_form_\d+/, `service_form_${index + 1}`);
+                $(this).attr('id', newId);
+            });
+        });
+    }
 
 
 });
