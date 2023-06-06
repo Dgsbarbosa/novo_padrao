@@ -23,7 +23,7 @@
 
         <div class="col-4 dashboard-client-box" id="dashboard-client-doing">
             <h4>Total de Orçamentos</h4>
-            <span></span>
+            <span> {{ budgetsCount }}</span>
         </div>
 
     </div>
@@ -74,7 +74,8 @@
         </ul>
         {% endif %}
 
-        <table class="client-list">
+        {% if budgets %}
+        <table class="budgets-list">
 
             <thead>
                 <tr>
@@ -85,7 +86,7 @@
 
                 </tr>
             </thead>
-            <tbody class="">
+            <tbody class="budgets-list-body">
                 {% for budget in budgets %}
 
 
@@ -111,9 +112,9 @@
                     <td>
                         <span class="">
                             <a href="">
-                                
-                                {{budget.condition_display}}
-                                
+
+                                {{budget.condition}}
+
                             </a>
                         </span>
                     </td>
@@ -142,25 +143,34 @@
 
 
         </table>
+
+        {% else %}
+        <div id="reload-budgets">
+            <a href="/budgets">
+                <button class="btn btn-primary">Recarregar</button>
+            </a>
+        </div>
+
+        {% endif %}
     </div>
 
-    {% if clientsCount > 3 %}
+    {% if budgetsCount > 3 %}
 
 
     <div class="pagination">
         <span class="step-links">
-            {% if clients.has_previous %}
-            <a href="?page={{ clients.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
+            {% if budgets.has_previous %}
+            <a href="?page={{ budgets.previous_page_number }}"><i class="fas fa-arrow-left"></i></a>
             {% endif %}
 
-            {% if clients.paginator.num_pages %}
+            {% if budgets.paginator.num_pages %}
             <span class="current">
-                {{ clients.number }} de {{ clients.paginator.num_pages }}
+                {{ budgets.number }} de {{ budgets.paginator.num_pages }}
             </span>
             {% endif %}
 
-            {% if clients.has_next %}
-            <a href="?page={{ clients.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
+            {% if budgets.has_next %}
+            <a href="?page={{ budgets.next_page_number }}"><i class="fas fa-arrow-right"></i></a>
             {% endif %}
         </span>
     </div>

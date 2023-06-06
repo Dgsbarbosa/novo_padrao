@@ -11,8 +11,6 @@ $(document).ready(function () {
 
     $(function () {
 
-
-
         $(".btn-toggle-budgets").click(function (e) {
             e.preventDefault();
             el = $(this).data('element');

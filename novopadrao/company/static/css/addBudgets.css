@@ -15,9 +15,7 @@
     border: 0px solid rgba(0, 0, 0, 0.1); 
 }
 
-.my_div{
-    /* display: none; */
-}
+
 .minhaDiv2_form{
     padding: 0px 50px 0px 50px;
         border: 1px solid rgba(0, 0, 0, 0.5); 
@@ -87,3 +85,51 @@
     border-bottom: 2px dashed rgba(0, 0, 0); 
 
 }
+
+
+/* Material items */
+
+.material-item{
+    border-bottom: 2px dashed rgba(0, 0, 0); 
+
+}
+
+
+
+.material-item-trash{
+    margin-top: 30px;
+    margin-right: 10px;
+    height: 30px;
+    /* border: 2px solid rgba(0, 0, 0);  */
+    margin-bottom: 10px;
+}
+
+.material-item-trash span i{
+    float: right;
+    font-size: 25px;
+    height: 100%;
+    margin-right: 10px;
+    
+    /* border: 2px solid rgba(0, 0, 0);  */
+
+}
+
+
+#new_material{
+    margin-top: 30px;
+    margin-bottom: 30px;
+            /* border: 10px solid rgba(0, 0, 0);  */
+
+
+}
+
+#new_material_button{
+    float: right;
+    font-size: 40px;
+    margin-top: 50px;
+    cursor: pointer;
+    border-radius: 100%;
+   
+    
+}
+

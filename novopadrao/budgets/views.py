@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Budgets
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 from company.models import Clients
 from accounts.models import CustomUser
@@ -18,11 +19,15 @@ from accounts.models import CustomUser
 def listBudgets(request):
    
     search = request.GET.get('search')
-    filter = request.GET.get('filter')
+    filter = request.GET.get('filter-budgets')
     
     if search:
                 
-        budgets = Budgets.objects.filter(nome__icontains=search, user=request.user)
+        budgets = Budgets.objects.filter(client__name__icontains=search, user=request.user) or Budgets.objects.filter(number_budgets__icontains=search, user=request.user)
+        
+        if not budgets: 
+            messages.warning(request,"Sem pedido ou cliente com este nome")
+            print('teste:', budgets)
         
     elif filter:
         budgets = Budgets.objects.filter(condition=filter, user=request.user)
@@ -32,14 +37,15 @@ def listBudgets(request):
     else:
         budgets = Budgets.objects.all().order_by('-create_at').filter(user = request.user)
         
-        
+    if budgets:
         paginator = Paginator(budgets,3)
         page = request.GET.get('page')
         
         budgets = paginator.get_page(page)
     
-    print(request.user)
+    
     budgetsCount = Budgets.objects.all().filter(user=request.user).count()
+    
     
     context = {
         'budgets': budgets , 
@@ -59,12 +65,15 @@ def addBudgets(request):
 
         service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
         
+        material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'),1)
+        
         print('service_form_count',service_form_count)
                                     
         service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]      
         
-        form_materials = MaterialsForm(request.POST)
-    
+        material_forms = [MaterialsForm(request.POST, prefix=f'materials_form{i+1}') for i in range(material_form_count)]
+
+        print('teste',material_form_count)
         form_payment = PaymentsForm(request.POST)
         
         
@@ -106,18 +115,17 @@ def addBudgets(request):
         
         service_forms = [ServicesForm(prefix=f'service_form_{i+1}') for i in range(1)]
         
-        form_materials = MaterialsForm()
-
-        form_materials = MaterialsForm()
+        material_forms = MaterialsForm() 
+        # 
+        material_forms = MaterialsForm()
     
         form_payment = PaymentsForm()
         
     context = {
         'form': form,
         'service_forms': service_forms,        
-        'form_materials': form_materials,
+        'material_forms': material_forms,
         'form_payment': form_payment,
-
 
 
     }

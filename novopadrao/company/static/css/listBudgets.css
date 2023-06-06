@@ -1,0 +1,17 @@
+.budgets-list-body a{
+    text-decoration: none;
+
+    /* border: 2px solid black; */
+}
+
+.budgets-list-body td{
+    padding-top: 10px;
+        /* border: 2px solid black; */
+
+}
+
+#reload-budgets{
+    display: flex;
+    justify-content: center;
+  
+}

@@ -10,7 +10,7 @@ from company.models import Clients
 
 class Budgets(models.Model):
     
-    CONDITION = ("1","Pendente"),("2","Aprovado"),("3","Cancelado"),("4","Em andamento"),("5","Concluido"),
+    CONDITION = ("Pendente","Pendente"),("Aprovado","Aprovado"),("Cancelado","Cancelado"),("Em andamento","Em andamento"),("Concluido","Concluido"),
    
     client = models.ForeignKey(Clients,  null=True, on_delete=models.SET_NULL)
      
@@ -68,7 +68,7 @@ class Materials(models.Model):
     id_budget = models.ForeignKey(Budgets, default=1, on_delete=models.CASCADE)
     
     photo = models.ImageField(upload_to="",blank=True, null=True )
-    descript = models.CharField(max_length=500)
+    descript = models.CharField(max_length=500, null=True,blank=True)
     
     details = models.TextField(null=True,blank=True)
     
@@ -77,6 +77,9 @@ class Materials(models.Model):
     amount = models.TextField(null=True,blank=True)
     
     total = models.TextField(null=True,blank=True)
+    
+    def __str__(self) -> str:
+        return self.descript, self.details, self.price, self.amount, self.total
 
 class Payments(models.Model):
     

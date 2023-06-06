@@ -14,7 +14,7 @@
         {% csrf_token %}
 
         <!--  basics data -->
-
+<!-- 
         <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv">
             <h4>Dados Básicos</h4>
         </button>
@@ -33,15 +33,15 @@
 
             {{ form.obs|as_crispy_field }}
 
-        </div>
+        </div> -->
 
         <!-- Services -->
-        <button type="button" class="btn-toggle-budgets" data-element=".minhaDiv2">
+        <!-- <button type="button" class="btn-toggle-budgets" data-element=".minhaDiv2">
             <h4>Serviços</h4>
-        </button>
+        </button> -->
 
         <!-- Div de serviços -->
-        <div id="services" class="my_div minhaDiv2">
+        <!-- <div id="services" class="my_div minhaDiv2">
 
 
             <div id="servicos-container">
@@ -60,17 +60,17 @@
 
                 {% endfor %}
 
-            </div>
+            </div> -->
 
             <!-- Botão de novo serviço  -->
-            <div id="new_service">
+            <!-- <div id="new_service">
 
                 <i class="fa-solid fa-file-circle-plus " id="new_service_button" style="color: #065df4;"></i>
 
             </div>
 
 
-        </div>
+        </div>  -->
 
 
 
@@ -78,13 +78,43 @@
 
         <!-- materials -->
 
-        <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv3">
+        <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv3">
             <h4>Materiais</h4>
         </button>
 
-        <div id="minhaDiv3" class="my_div">
-            {{form_materials|crispy }}
-        </div> -->
+        <!-- Div de materiais -->
+        <div id="minhaDiv3" class="">
+
+
+            <div id="materials-container">
+                
+                <div class="material-item">
+                    {{material_forms|crispy }}
+                    
+                    <div class="material-item-trash">
+                        <a href="" class="material-delete-btn">
+                            <span>
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                
+
+            </div> 
+
+            <!-- Botão de novo serviço  -->
+            <div id="new_material">
+
+                <i class="fa-solid fa-file-circle-plus " id="new_material_button" style="color: #065df4;"></i>
+
+            </div>
+
+
+        </div>
+
+        
 
 
         <!-- Payments -->

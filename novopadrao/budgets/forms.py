@@ -174,9 +174,68 @@ class ServicesForm(forms.ModelForm):
 
 
 class MaterialsForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+            
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('descript'),
+            Field('details'),
+            Field('price'),
+            Field('amount'),
+            Field('total')
+        )
+            
+        
+
     class Meta:
         model = Materials
         fields = '__all__'
+        exclude = ['id_budget']
+        
+        labels = {
+            'photo':'Foto',
+            'descript':'Descricao',
+            'details': 'Detalhes',
+            'price':'Preco',
+            'amount': 'Quantidade',
+            
+        }
+        
+        
+        widgets = {
+            'descript': forms.TextInput(attrs={
+
+            }),
+
+            'price': forms.TextInput(attrs={
+                
+                'type': 'text',
+                
+
+            }),
+
+
+
+            "details": forms.Textarea(
+                attrs={"cols": 80, "rows": 3}),
+
+            'amount': forms.TextInput(attrs={
+                
+
+
+            }),
+
+            'total': forms.TextInput(attrs={
+                
+                'readonly': 'True',
+
+            }),
+
+            
+        }
 
 
 class PaymentsForm(forms.ModelForm):
