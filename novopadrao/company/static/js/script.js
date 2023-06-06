@@ -8,8 +8,8 @@ $(document).ready(function () {
     var filter = $('#filter');
     var ocultDivBtn = $('#button_ocult');
 
-
-    $(function () {
+    // botão que esconde items do orcamento
+    $(function () { 
 
         $(".btn-toggle-budgets").click(function (e) {
             e.preventDefault();
@@ -21,7 +21,7 @@ $(document).ready(function () {
         });
     });
 
-
+    // botão que deleta um cliente
     $(deleteBtn).on('click', function (e) {
 
         e.preventDefault();
@@ -36,6 +36,8 @@ $(document).ready(function () {
     });
 
 
+
+    // botao que faz a busca
     $(searchBtn).on('click', function () {
         searchForm.submit();
     });
@@ -44,6 +46,10 @@ $(document).ready(function () {
         var filter = $(this).val();
         window.location.href = baseUrl + "clients/" + '?filter=' + filter;
     });
+
+
+    // mascaras de 
+
     var options = {
         onKeyPress: function (phone, e, field, options) {
             var masks = ['(00) 0000-0000', '(00) 0 0000-0000'];
@@ -85,18 +91,20 @@ $(document).ready(function () {
     $("#id_service_form_1-amount").maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
 
 
+    $("#id_service_form_1-price").keypress(function () {
+        calculateTotal('.service-item');
+    });
+    $("#id_service_form_1-amount").keypress(function () {
+        calculateTotal('.service-item');
+    
+    });
 
-
-
-    $("#id_service_form_1-price").keypress(calculateTotal)
-    $("#id_service_form_1-amount").keypress(calculateTotal)
     // função que adiciona um novo formario e serviço
 
     var serviceCount = 0;
 
     function addService() {
         serviceCount++;
-
 
         var newServiceForm = $('.service-item').first().clone();
 
@@ -135,8 +143,8 @@ $(document).ready(function () {
 
 
     // calcula o campo total
-    function calculateTotal() {
-        $('.service-item').each(function () {
+    function calculateTotal(selector) {
+        $(selector).each(function () {
             var $serviceItem = $(this);
             var $priceInput = $serviceItem.find('input[name$="price"]');
             var $amountInput = $serviceItem.find('input[name$="amount"]');
@@ -165,12 +173,10 @@ $(document).ready(function () {
         e.preventDefault();
         addService();
 
-        console.log('teste ' + $('#total_forms').val());
-
-
+        
     });
 
-
+    
 
     $(document).on('click', '.service-delete-btn', function (event) {
 
@@ -226,6 +232,139 @@ $(document).ready(function () {
             });
         });
     }
+
+
+    // Criação de materiais
+
+    //  adicionar mascara 
+
+    $("#material-price").maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
+
+    $("#material-amount").maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
+
+    $("#material-price").keypress(function () {
+        calculateTotal('.material-item');
+    });
+    $("#material-amount").keypress(function () {
+        calculateTotal('.material-item');
+    
+    });
+
+
+    // novo material
+
+    var materialCount = 0
+    function addMaterial() {
+        materialCount++;
+
+        var newMaterialForm = $('.material-item').first().clone();
+
+        newMaterialForm.find(':input').each(function () {
+
+            // novo name para cada novo formulario de serviços
+            var name = $(this).attr('name');
+            var newName = name.replace(name, `material_${name}_${materialCount + 1}`);
+
+            $(this).attr('name', newName)
+            name = $(this).attr('name');
+
+            // Novo id para cada novo formulario de serviços
+            var id = $(this).attr('id');
+
+            var newId = id.replace(id, `${id}_${materialCount + 1}`);
+
+            $(this).attr('id', newId)
+            id = $(this).attr('id');
+
+            $(this).val('');
+
+            // mascaras de valores dos formulario criados
+            if (name.includes('price')) {
+                $(this).maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
+                $(this).keypress(calculateTotal);
+            } else if (name.includes('amount')) {
+                $(this).maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
+                $(this).keypress(calculateTotal);
+            }
+        });
+
+        newMaterialForm.find('input[name$=id]').val('');
+        newMaterialForm.insertAfter($('.material-item').last());
+        totalMaterials();
+
+    }
+
+    
+
+
+    $("#new_material_button").click(function (e) {
+        e.preventDefault();
+        addMaterial();
+
+    });
+
+    
+
+    $(document).on('click', '.material-delete-btn', function (event) {
+
+        event.preventDefault()
+        if (materialCount < 1) {
+
+            alert("Esse material não pode ser excluido");
+
+        } else {
+
+            var result = confirm("Deseja excluir este material?");
+            var materialItem = $(this).closest('.material-item');
+
+
+            if (result) {
+
+                materialItem.remove();
+                materialCount--;
+                totalMaterials()
+                editCamposForm();
+
+            }
+
+
+        };
+        // 
+
+    });
+
+    // funcao que atuliza a quantidade formularios para passar para views
+    function totalMaterials() {
+        var countMaterials = document.querySelectorAll('.material-item')
+        $('#total_forms_materials').val(countMaterials.length);
+
+    }
+
+    // funcao que atualiza o name dos serviços apos excluido
+
+    function editCamposForm() {
+        var materialItems = $('.material-item');
+        var countMaterial = materialItems.length;
+
+        materialItems.each(function (index) {
+            $(this).find(':input').each(function () {
+                var name = $(this).attr('name');
+                var newName = name.replace(/[0-9]+$/, "") +  (index + 1);
+
+                
+
+                $(this).attr('name', newName);
+
+                var id = $(this).attr('id');
+                var newId = id.replace(/[0-9]+$/,"") + (index + 1);
+                $(this).attr('id', newId);
+            });
+        });
+    }
+
+
+
+
 
 
 });

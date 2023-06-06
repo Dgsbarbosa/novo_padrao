@@ -67,7 +67,6 @@ class Materials(models.Model):
     
     id_budget = models.ForeignKey(Budgets, default=1, on_delete=models.CASCADE)
     
-    photo = models.ImageField(upload_to="",blank=True, null=True )
     descript = models.CharField(max_length=500, null=True,blank=True)
     
     details = models.TextField(null=True,blank=True)

@@ -26,7 +26,7 @@ def listBudgets(request):
         budgets = Budgets.objects.filter(client__name__icontains=search, user=request.user) or Budgets.objects.filter(number_budgets__icontains=search, user=request.user)
         
         if not budgets: 
-            messages.warning(request,"Sem pedido ou cliente com este nome")
+            messages.warning(request,"Sem resultados.")
             print('teste:', budgets)
         
     elif filter:
@@ -63,17 +63,21 @@ def addBudgets(request):
         
         form = BudgetsForm(request.user,request.POST)
 
-        service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
+        service_form_count = 2
+        #int(request.POST.get('service_form-TOTAL_FORMS'))
         
-        material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'),1)
-        
-        print('service_form_count',service_form_count)
-                                    
-        service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]      
+                                            
+        service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]    
+          
+        # contando formulario de material
+        material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'))
         
         material_forms = [MaterialsForm(request.POST, prefix=f'materials_form{i+1}') for i in range(material_form_count)]
 
-        print('teste',material_form_count)
+        print('material_form_count:', material_form_count)
+        print('material_forms: ', material_forms)
+        
+        
         form_payment = PaymentsForm(request.POST)
         
         
@@ -115,8 +119,8 @@ def addBudgets(request):
         
         service_forms = [ServicesForm(prefix=f'service_form_{i+1}') for i in range(1)]
         
-        material_forms = MaterialsForm() 
-        # 
+        material_forms = [MaterialsForm(prefix=f'material_form_{i+1}') for i in range(1)]
+        
         material_forms = MaterialsForm()
     
         form_payment = PaymentsForm()

@@ -207,11 +207,12 @@ class MaterialsForm(forms.ModelForm):
         
         widgets = {
             'descript': forms.TextInput(attrs={
+                'id':'material-descript'
 
             }),
 
             'price': forms.TextInput(attrs={
-                
+                'id':'material-price',
                 'type': 'text',
                 
 
@@ -220,16 +221,20 @@ class MaterialsForm(forms.ModelForm):
 
 
             "details": forms.Textarea(
-                attrs={"cols": 80, "rows": 3}),
+                attrs={
+                    "cols": 80, 
+                    "rows": 3,
+                    "id":"material-details"
+                    }),
 
             'amount': forms.TextInput(attrs={
                 
 
-
+                'id':'material-amount'
             }),
 
             'total': forms.TextInput(attrs={
-                
+                'id': 'material-total',
                 'readonly': 'True',
 
             }),
