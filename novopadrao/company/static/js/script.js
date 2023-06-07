@@ -145,10 +145,10 @@ $(document).ready(function () {
     // calcula o campo total
     function calculateTotal(selector) {
         $(selector).each(function () {
-            var $serviceItem = $(this);
-            var $priceInput = $serviceItem.find('input[name$="price"]');
-            var $amountInput = $serviceItem.find('input[name$="amount"]');
-            var $totalInput = $serviceItem.find('input[name$="total"]');
+            var $item = $(this);
+            var $priceInput = $item.find('input[name$="price"]');
+            var $amountInput = $item.find('input[name$="amount"]');
+            var $totalInput = $item.find('input[name$="total"]');
 
             var price = parseFloat($priceInput.val().replace('R$ ', '').replace('.', '').replace(',', '.'));
             var amount = parseFloat($amountInput.val().replace('.', '').replace(',', '.'));
@@ -188,13 +188,13 @@ $(document).ready(function () {
         } else {
 
             var result = confirm("Deseja excluir este serviço?");
-            var serviceItem = $(this).closest('.service-item');
+            var item = $(this).closest('.service-item');
 
 
             if (result) {
 
 
-                serviceItem.remove();
+                item.remove();
                 serviceCount--;
                 totalServices()
                 editNameCamposForm();
@@ -217,10 +217,10 @@ $(document).ready(function () {
     // funcao que atualiza o name dos serviços apos excluido
 
     function editNameCamposForm() {
-        var serviceItems = $('.service-item');
-        var countServices = serviceItems.length;
+        var items = $('.service-item');
+        var countServices = items.length;
 
-        serviceItems.each(function (index) {
+        items.each(function (index) {
             $(this).find(':input').each(function () {
                 var name = $(this).attr('name');
                 var newName = name.replace(/service_form_\d+/, `service_form_${index + 1}`);
@@ -268,6 +268,8 @@ $(document).ready(function () {
             $(this).attr('name', newName)
             name = $(this).attr('name');
 
+            console.log('name: ' + name);
+
             // Novo id para cada novo formulario de serviços
             var id = $(this).attr('id');
 
@@ -281,10 +283,19 @@ $(document).ready(function () {
             // mascaras de valores dos formulario criados
             if (name.includes('price')) {
                 $(this).maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
-                $(this).keypress(calculateTotal);
+                $(this).keypress(function () {
+                    calculateTotal('.material-item');
+                
+                });
             } else if (name.includes('amount')) {
                 $(this).maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
-                $(this).keypress(calculateTotal);
+                $(this).keypress(function () {
+                    calculateTotal('.material-item');
+                    $("#material-amount").keypress(function () {
+                        calculateTotal('.material-item');
+                    
+                    });
+                });
             }
         });
 

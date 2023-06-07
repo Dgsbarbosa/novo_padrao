@@ -10,11 +10,18 @@
 
     <h1>Novo Pedido</h1>
 
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form id="orcament-form" method="POST" class="col-12">
         {% csrf_token %}
 
         <!--  basics data -->
-<!-- 
+        <!-- 
         <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv">
             <h4>Dados Básicos</h4>
         </button>
@@ -36,7 +43,7 @@
         </div> -->
 
         <!-- Services -->
-<!--         
+        <!--         
         <button type="button" class="btn-toggle-budgets" data-element=".minhaDiv2">
             <h4>Serviços</h4>
         </button> -->
@@ -66,8 +73,8 @@
           -->
 
 
-            <!-- Botão de novo serviço  -->
-<!--           
+        <!-- Botão de novo serviço  -->
+        <!--           
             <div id="new_service">
 
                 <i class="fa-solid fa-file-circle-plus " id="new_service_button" style="color: #065df4;"></i>
@@ -98,10 +105,10 @@
 
 
             <div id="materials-container">
-                
+
                 <div class="material-item">
                     {{material_forms|crispy }}
-                    
+
                     <div class="material-item-trash">
                         <a href="" class="material-delete-btn">
                             <span>
@@ -111,9 +118,9 @@
                     </div>
                 </div>
 
-                
 
-            </div> 
+
+            </div>
 
             <!-- Botão de novo serviço  -->
             <div id="new_material">
@@ -126,7 +133,7 @@
         </div>
         <input type="hidden" id="total_forms_materials" name="materials_form-TOTAL_FORMS" value="1">
 
-        
+
 
 
         <!-- Payments -->

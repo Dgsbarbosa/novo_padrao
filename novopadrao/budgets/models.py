@@ -78,7 +78,7 @@ class Materials(models.Model):
     total = models.TextField(null=True,blank=True)
     
     def __str__(self) -> str:
-        return self.descript, self.details, self.price, self.amount, self.total
+        return '{} - {} - {} - {} - {}'.format(self.descript, self.details, self.price, self.amount, self.total)
 
 class Payments(models.Model):
     

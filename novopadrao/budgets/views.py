@@ -1,3 +1,4 @@
+
 import datetime
 from getpass import getuser
 from django.http import HttpResponse
@@ -61,14 +62,18 @@ def addBudgets(request):
     
     if (request.method == 'POST'):
         
+        # Form dados basico
         form = BudgetsForm(request.user,request.POST)
 
+        # Form services
         service_form_count = 2
         #int(request.POST.get('service_form-TOTAL_FORMS'))
         
                                             
         service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]    
           
+          
+        #  Form orçamentos
         # contando formulario de material
         material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'))
         
@@ -78,40 +83,69 @@ def addBudgets(request):
         print('material_forms: ', material_forms)
         
         
-        form_payment = PaymentsForm(request.POST)
-        
-        
-        
-        if form.is_valid() :
-
-            budget = form.save(commit=False)                  
-            print('form :', budget)
-            # budget.save()      
-            
-            service_objects = []
-            service_forms_valid = True       
+        payment_forms = PaymentsForm(request.POST)
         
                 
-            for i, service_form in enumerate(service_forms):
-                if service_form.is_valid():
-                    service = service_form.save(commit=False)
-                    service_objects.append(service)
-                    print(f'service {i+1}:', service)
-                    
-                else:
-                    service_forms_valid = False
-                    print('service form invalid:', service_form.errors)
+        if form.is_valid() :
+            
+            budget = form.save(commit=False)                  
+            
+            # budget.save() 
+            
+        else:
+            
+
         
-            if service_forms_valid:
-                for service_form in service_objects:
-                    service_form.id_budget = budget
-                    # service_form.save()
-              
-            else:
-                print('error')            
+            
+        # service_objects = []
+        # service_forms_valid = True              
+            
+        # for i, service_form in enumerate(service_forms):
+        #     if service_form.is_valid():
+        #         service = service_form.save(commit=False)
+        #         service_objects.append(service)
+                
+        #     else:
+        #         service_forms_valid = False
+                
+
+        # if service_forms_valid:
+        #     for service_form in service_objects:
+        #         service_form.id_budget = budget
+        #         # service_form.save()
+                        
            
-           
-           
+            #  Form budgets save
+            material_objects = []
+            material_form_valid = True
+            
+            
+            
+            budget = Budgets.objects.get(id=2)
+            
+            for i, material_form in enumerate(material_forms):
+                if material_form.is_valid():
+                    
+                    material = material_form.save(commit=False)
+                    material_objects.append(material)
+                    print(f"material {i + 1}: {material}")
+                    
+                    
+                
+                
+                else:
+                    material_form_valid = False
+                    
+                    print('error')
+                    
+            # print('material_objects:', material_objects)
+                    
+            # if material_form_valid:
+            #     for material_form in material_objects:
+            #         material_form.id_budget = budget
+                        
+            
+
         return redirect('/budgets')
     
     else:
@@ -123,14 +157,16 @@ def addBudgets(request):
         
         material_forms = MaterialsForm()
     
-        form_payment = PaymentsForm()
+        payment_forms = PaymentsForm()
         
+    
     context = {
-        'form': form,
-        'service_forms': service_forms,        
-        'material_forms': material_forms,
-        'form_payment': form_payment,
+    'form': form,
+    'service_forms': service_forms,        
+    'material_forms': material_forms,
+    'payment_forms': payment_forms,
 
 
-    }
+    }   
+    
     return render(request, 'addBudgets.html', context)

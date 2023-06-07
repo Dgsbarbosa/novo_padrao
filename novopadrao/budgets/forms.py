@@ -188,7 +188,7 @@ class MaterialsForm(forms.ModelForm):
             Field('total')
         )
             
-        
+       
 
     class Meta:
         model = Materials
@@ -242,7 +242,7 @@ class MaterialsForm(forms.ModelForm):
             
         }
 
-
+    
 class PaymentsForm(forms.ModelForm):
     class Meta:
         model = Payments
