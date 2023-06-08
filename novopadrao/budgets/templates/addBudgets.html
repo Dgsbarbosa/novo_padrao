@@ -105,9 +105,11 @@
 
 
             <div id="materials-container">
-
+                
+                {% for material_form in material_forms %}
                 <div class="material-item">
-                    {{material_forms|crispy }}
+                    
+                    {{material_form|crispy }}
 
                     <div class="material-item-trash">
                         <a href="" class="material-delete-btn">
@@ -117,6 +119,7 @@
                         </a>
                     </div>
                 </div>
+                {% endfor %}
 
 
 

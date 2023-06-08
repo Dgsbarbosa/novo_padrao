@@ -88,6 +88,10 @@ class BudgetsForm(forms.ModelForm):
 
 
             }),
+            
+            "condition": forms.Select(attrs={
+                'class': 'form-control'
+            }),
 
             'validity': forms.NumberInput(attrs={
                 'type': 'date',
@@ -196,7 +200,7 @@ class MaterialsForm(forms.ModelForm):
         exclude = ['id_budget']
         
         labels = {
-            'photo':'Foto',
+            
             'descript':'Descricao',
             'details': 'Detalhes',
             'price':'Preco',

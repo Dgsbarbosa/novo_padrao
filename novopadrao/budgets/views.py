@@ -22,16 +22,23 @@ def listBudgets(request):
     search = request.GET.get('search')
     filter = request.GET.get('filter-budgets')
     
+    print(filter)
+    
     if search:
                 
         budgets = Budgets.objects.filter(client__name__icontains=search, user=request.user) or Budgets.objects.filter(number_budgets__icontains=search, user=request.user)
         
         if not budgets: 
             messages.warning(request,"Sem resultados.")
-            print('teste:', budgets)
+            
         
     elif filter:
         budgets = Budgets.objects.filter(condition=filter, user=request.user)
+        
+        
+        if not budgets: 
+            messages.warning(request,"Sem resultados.")
+            
         
         
         
@@ -77,7 +84,8 @@ def addBudgets(request):
         # contando formulario de material
         material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'))
         
-        material_forms = [MaterialsForm(request.POST, prefix=f'materials_form{i+1}') for i in range(material_form_count)]
+        material_forms = [MaterialsForm(request.POST, prefix=f'material_form_{i+1}') for i in range(material_form_count)]
+
 
         print('material_form_count:', material_form_count)
         print('material_forms: ', material_forms)
@@ -93,9 +101,6 @@ def addBudgets(request):
             # budget.save() 
             
         else:
-            
-
-        
             
         # service_objects = []
         # service_forms_valid = True              
@@ -122,27 +127,29 @@ def addBudgets(request):
             
             
             budget = Budgets.objects.get(id=2)
-            
-            for i, material_form in enumerate(material_forms):
+            i = 0
+            for material_form in material_forms:
                 if material_form.is_valid():
-                    
+                                        
                     material = material_form.save(commit=False)
+                    
                     material_objects.append(material)
                     print(f"material {i + 1}: {material}")
+                    i +=1
                     
-                    
-                
-                
+                  
                 else:
                     material_form_valid = False
                     
                     print('error')
                     
-            # print('material_objects:', material_objects)
+            print('material_objects:', material_objects)
                     
-            # if material_form_valid:
-            #     for material_form in material_objects:
-            #         material_form.id_budget = budget
+            if material_form_valid:
+                for material_form in material_objects:
+                    material_form.id_budget = budget
+                    
+                    print('material_form:', material_form)
                         
             
 
@@ -155,8 +162,7 @@ def addBudgets(request):
         
         material_forms = [MaterialsForm(prefix=f'material_form_{i+1}') for i in range(1)]
         
-        material_forms = MaterialsForm()
-    
+            
         payment_forms = PaymentsForm()
         
     

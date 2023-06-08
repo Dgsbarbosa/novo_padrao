@@ -9,7 +9,7 @@ $(document).ready(function () {
     var ocultDivBtn = $('#button_ocult');
 
     // botão que esconde items do orcamento
-    $(function () { 
+    $(function () {
 
         $(".btn-toggle-budgets").click(function (e) {
             e.preventDefault();
@@ -45,6 +45,16 @@ $(document).ready(function () {
     $(filter).change(function () {
         var filter = $(this).val();
         window.location.href = baseUrl + "clients/" + '?filter=' + filter;
+    });
+    $('#filter-budgets option').each(function (){
+        var text = $(this).text()
+        $(this).val(text)
+        console.log("teste");
+    });
+
+    $('#filter-budgets').change(function (){
+        var filter = $(this).val();
+        window.location.href = baseUrl + "budgets/" + '?filter-budgets=' + filter;
     });
 
 
@@ -96,7 +106,7 @@ $(document).ready(function () {
     });
     $("#id_service_form_1-amount").keypress(function () {
         calculateTotal('.service-item');
-    
+
     });
 
     // função que adiciona um novo formario e serviço
@@ -146,11 +156,14 @@ $(document).ready(function () {
     function calculateTotal(selector) {
         $(selector).each(function () {
             var $item = $(this);
-            var $priceInput = $item.find('input[name$="price"]');
-            var $amountInput = $item.find('input[name$="amount"]');
-            var $totalInput = $item.find('input[name$="total"]');
+            var $priceInput = $item.find('input[name*="price"]');
+            var $amountInput = $item.find('input[name*="amount"]');
+
+            console.log('$priceInput' + $priceInput);
+            var $totalInput = $item.find('input[name*="total"]');
 
             var price = parseFloat($priceInput.val().replace('R$ ', '').replace('.', '').replace(',', '.'));
+
             var amount = parseFloat($amountInput.val().replace('.', '').replace(',', '.'));
 
             if (!isNaN(price) && !isNaN(amount)) {
@@ -173,10 +186,10 @@ $(document).ready(function () {
         e.preventDefault();
         addService();
 
-        
+
     });
 
-    
+
 
     $(document).on('click', '.service-delete-btn', function (event) {
 
@@ -247,7 +260,7 @@ $(document).ready(function () {
     });
     $("#material-amount").keypress(function () {
         calculateTotal('.material-item');
-    
+
     });
 
 
@@ -285,17 +298,19 @@ $(document).ready(function () {
                 $(this).maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
                 $(this).keypress(function () {
                     calculateTotal('.material-item');
-                
+
+                    
+
                 });
+
+                console.log('entrou em price');
             } else if (name.includes('amount')) {
                 $(this).maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
                 $(this).keypress(function () {
                     calculateTotal('.material-item');
-                    $("#material-amount").keypress(function () {
-                        calculateTotal('.material-item');
                     
-                    });
                 });
+                console.log('entrou em amount');
             }
         });
 
@@ -305,7 +320,7 @@ $(document).ready(function () {
 
     }
 
-    
+
 
 
     $("#new_material_button").click(function (e) {
@@ -314,7 +329,7 @@ $(document).ready(function () {
 
     });
 
-    
+
 
     $(document).on('click', '.material-delete-btn', function (event) {
 
@@ -360,14 +375,14 @@ $(document).ready(function () {
         materialItems.each(function (index) {
             $(this).find(':input').each(function () {
                 var name = $(this).attr('name');
-                var newName = name.replace(/[0-9]+$/, "") +  (index + 1);
+                var newName = name.replace(/[0-9]+$/, "") + (index + 1);
 
-                
+
 
                 $(this).attr('name', newName);
 
                 var id = $(this).attr('id');
-                var newId = id.replace(/[0-9]+$/,"") + (index + 1);
+                var newId = id.replace(/[0-9]+$/, "") + (index + 1);
                 $(this).attr('id', newId);
             });
         });

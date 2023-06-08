@@ -10,7 +10,7 @@ from company.models import Clients
 
 class Budgets(models.Model):
     
-    CONDITION = ("Pendente","Pendente"),("Aprovado","Aprovado"),("Cancelado","Cancelado"),("Em andamento","Em andamento"),("Concluido","Concluido"),
+    CONDITION = ("Pendente","Pendente"),("Aprovado","Aprovado"),("Cancelado","Cancelado"),("Em andamento","Em andamento"),("Concluido","Concluido")
    
     client = models.ForeignKey(Clients,  null=True, on_delete=models.SET_NULL)
      
