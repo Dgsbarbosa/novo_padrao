@@ -56,13 +56,13 @@ class BudgetsForm(forms.ModelForm):
 
         self.fields['number_budgets'].widget.attrs.update(
             {"value": f"{numberBudget()}"})
-
+        self.fields['situation'].initial = 'Pendente'
     class Meta:
 
         model = Budgets
         fields = [
             'number_budgets',
-            'condition',
+            'situation',
             'client',
             'reference',
             'validity',
@@ -73,7 +73,7 @@ class BudgetsForm(forms.ModelForm):
         labels = {
             'number_budgets': ('Numero do Pedido'),
             'client': ('Cliente'),
-            'condition': ("Condicao"),
+            'situation': ("Situacao"),
             'reference': ('Referencia'),
             'validity': ('Validade'),
             'term': ('Prazo de execucao'),
@@ -89,7 +89,7 @@ class BudgetsForm(forms.ModelForm):
 
             }),
             
-            "condition": forms.Select(attrs={
+            "situation": forms.Select(attrs={
                 'class': 'form-control'
             }),
 
@@ -248,6 +248,65 @@ class MaterialsForm(forms.ModelForm):
 
     
 class PaymentsForm(forms.ModelForm):
+    
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['discount'].choices = (
+            ('none','Sem desconto'),
+            ('valor', 'Valor'),
+            ('porcentagem', 'Porcentagem')
+        )
+        self.fields['discount'].initial = 'none'
+        
+        self.fields['condition'].choices = (
+            
+            ('a vista','A vista'),
+            ('sinal','Sinal'),
+            ('parcelas','Parcelas'),
+        )
+        self.fields['condition'].initial = 'a vista'
+        
+        self.fields['methods'].choices = (
+            ('dinheiro','Dinheiro'),
+            ('pix','Pix'),
+            ('tranferencia','Tranferencia'),
+            ('credito','Cartao de credito'),
+            ('debito','Cartao de debito'),
+        )
+        self.fields['methods'].initial = 'dinheiro'
+        
     class Meta:
         model = Payments
         fields = '__all__'
+        exclude = ['id_budget'] 
+        
+        labels = {
+            'discount': "Desconto",
+            'condition': 'Condicao de pagamento',
+            'methods': "Metodos de pagamento"
+        }
+        
+        widgets = {
+            
+            'discount': forms.RadioSelect(
+                attrs={'class': 'form-control'},
+                
+            ),
+            'condition': forms.RadioSelect(
+                
+            ),
+            'methods': forms.RadioSelect(
+                
+            ),
+            'obs': forms.Textarea(
+                attrs={
+                    'cols': 80,
+                    'rows': 5,
+                }
+            )
+            
+            
+        }
+        
+        

@@ -15,7 +15,7 @@ $(document).ready(function () {
             e.preventDefault();
             el = $(this).data('element');
 
-
+            $('.my_div').not(el).slideUp('hidden');
 
             $(el).slideToggle('hidden');
         });
@@ -46,13 +46,13 @@ $(document).ready(function () {
         var filter = $(this).val();
         window.location.href = baseUrl + "clients/" + '?filter=' + filter;
     });
-    $('#filter-budgets option').each(function (){
+    $('#filter-budgets option').each(function () {
         var text = $(this).text()
         $(this).val(text)
         console.log("teste");
     });
 
-    $('#filter-budgets').change(function (){
+    $('#filter-budgets').change(function () {
         var filter = $(this).val();
         window.location.href = baseUrl + "budgets/" + '?filter-budgets=' + filter;
     });
@@ -249,7 +249,7 @@ $(document).ready(function () {
 
     // Criação de materiais
 
-    //  adicionar mascara 
+    //  adicionar mascara ao primeiro formulario
 
     $("#material-price").maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
 
@@ -276,45 +276,39 @@ $(document).ready(function () {
 
             // novo name para cada novo formulario de serviços
             var name = $(this).attr('name');
-            var newName = name.replace(name, `material_${name}_${materialCount + 1}`);
+            var newName = name.replace(/material_form_[0-9]-/, `material_form_${materialCount + 1}-`);
+            $(this).attr('name', newName);
 
-            $(this).attr('name', newName)
-            name = $(this).attr('name');
+            // console.log('name: ' + name);
+            // console.log('newName: ' + newName);
 
-            console.log('name: ' + name);
-
-            // Novo id para cada novo formulario de serviços
             var id = $(this).attr('id');
-
-            var newId = id.replace(id, `${id}_${materialCount + 1}`);
-
-            $(this).attr('id', newId)
-            id = $(this).attr('id');
+            var newId = id.replace(/material-descript/, `material-descript_${materialCount + 1}`);
+            $(this).attr('id', newId);
 
             $(this).val('');
-
             // mascaras de valores dos formulario criados
             if (name.includes('price')) {
                 $(this).maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
                 $(this).keypress(function () {
                     calculateTotal('.material-item');
 
-                    
+
 
                 });
 
-                console.log('entrou em price');
+
             } else if (name.includes('amount')) {
                 $(this).maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
                 $(this).keypress(function () {
                     calculateTotal('.material-item');
-                    
+
                 });
-                console.log('entrou em amount');
+
             }
         });
 
-        newMaterialForm.find('input[name$=id]').val('');
+        newMaterialForm.find('input[name*=id]').val('');
         newMaterialForm.insertAfter($('.material-item').last());
         totalMaterials();
 
@@ -375,11 +369,16 @@ $(document).ready(function () {
         materialItems.each(function (index) {
             $(this).find(':input').each(function () {
                 var name = $(this).attr('name');
-                var newName = name.replace(/[0-9]+$/, "") + (index + 1);
+                var newName = name.replace(/material_form_[0-9]/, `material_form_${index + 1}`) ;
 
+                
+            console.log('name: ' + name);
+            
 
 
                 $(this).attr('name', newName);
+                
+                console.log('newName: ' + newName);
 
                 var id = $(this).attr('id');
                 var newId = id.replace(/[0-9]+$/, "") + (index + 1);
@@ -387,6 +386,8 @@ $(document).ready(function () {
             });
         });
     }
+
+
 
 
 

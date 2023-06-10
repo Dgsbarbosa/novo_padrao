@@ -15,6 +15,12 @@
     border: 0px solid rgba(0, 0, 0, 0.1); 
 }
 
+.my_div{
+    display: none;
+
+    /* border: 10px solid black; */
+}
+
 
 .minhaDiv2_form{
     padding: 0px 50px 0px 50px;

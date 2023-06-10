@@ -10,7 +10,7 @@ from company.models import Clients
 
 class Budgets(models.Model):
     
-    CONDITION = ("Pendente","Pendente"),("Aprovado","Aprovado"),("Cancelado","Cancelado"),("Em andamento","Em andamento"),("Concluido","Concluido")
+    SITUATION = ("Pendente","Pendente"),("Aprovado","Aprovado"),("Cancelado","Cancelado"),("Em andamento","Em andamento"),("Concluido","Concluido")
    
     client = models.ForeignKey(Clients,  null=True, on_delete=models.SET_NULL)
      
@@ -20,12 +20,12 @@ class Budgets(models.Model):
     
     reference = models.CharField(max_length=500, null=True,blank=True)
     
-    condition = models.CharField(
+    situation = models.CharField(
         max_length=500,
-        choices=CONDITION,
+        choices=SITUATION,
         null=True, 
         blank=True,
-        default="1"
+        default="Pendente"
     )
     validity = models.DateField(null=True,blank=True)
     
@@ -41,7 +41,7 @@ class Budgets(models.Model):
     
     def __str__(self) -> str:
         
-        return '{} {} {} {}  {} {} {}'.format(self.number_budgets,self.client,self.condition, self.reference, self.validity, self.term, self.obs)
+        return '{} {} {} {}  {} {} {}'.format(self.number_budgets,self.client,self.situation, self.reference, self.validity, self.term, self.obs)
     
     
     
@@ -82,11 +82,11 @@ class Materials(models.Model):
 
 class Payments(models.Model):
     
-    METHODS = ("1","Dinheiro"),("2","Pix"),("3","Tranferencia"), ("4","Cartao de Credito"),("5","Cartao de Debito")
+    METHODS = ("dinheiro","Dinheiro"),("pix","Pix"),("tranferencia","Tranferencia"), ("credito","Cartao de Credito"),("debito","Cartao de Debito")
     
-    DISCOUNT = ('1','Valor'),('2','Porcentagem')
+    DISCOUNT = ('none','Sem desconto'),('valor','Valor'),('porcentagem','Porcentagem')
     
-    CONDITION = ("1","a vista"), ("2","sinal"), ("3","parcelas")
+    CONDITION = ("a vista","a vista"), ("sinal","sinal"), ("parcelas","parcelas")
     
     
     id_budget = models.ForeignKey(Budgets, default=1, on_delete=models.CASCADE)
@@ -115,4 +115,12 @@ class Payments(models.Model):
         blank=True,
         )
 
+    obs = models.TextField(
+        max_length=500,
+        null=True, 
+        blank=True,
+        )
+    
+    def __str__(self) -> str:
+        return '{} - {} - {} - {} - {}'.format(self.discount, self.condition, self.methods, self.obs)
 

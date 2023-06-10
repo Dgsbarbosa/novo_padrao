@@ -73,86 +73,79 @@ def addBudgets(request):
         form = BudgetsForm(request.user,request.POST)
 
         # Form services
-        service_form_count = 2
-        #int(request.POST.get('service_form-TOTAL_FORMS'))
+        service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
         
                                             
         service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]    
           
           
-        #  Form orçamentos
-        # contando formulario de material
+        #  Form materials
         material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'))
         
         material_forms = [MaterialsForm(request.POST, prefix=f'material_form_{i+1}') for i in range(material_form_count)]
 
-
-        print('material_form_count:', material_form_count)
-        print('material_forms: ', material_forms)
-        
         
         payment_forms = PaymentsForm(request.POST)
         
                 
         if form.is_valid() :
             
-            budget = form.save(commit=False)                  
+            budget = form.save(commit=False)
+            budget.user_id = request.user                  
+            budget.save()
             
-            # budget.save() 
-            
-        else:
-            
-        # service_objects = []
-        # service_forms_valid = True              
-            
-        # for i, service_form in enumerate(service_forms):
-        #     if service_form.is_valid():
-        #         service = service_form.save(commit=False)
-        #         service_objects.append(service)
+            service_objects = []
+            service_forms_valid = True              
                 
-        #     else:
-        #         service_forms_valid = False
-                
-
-        # if service_forms_valid:
-        #     for service_form in service_objects:
-        #         service_form.id_budget = budget
-        #         # service_form.save()
-                        
-           
-            #  Form budgets save
-            material_objects = []
-            material_form_valid = True
-            
-            
-            
-            budget = Budgets.objects.get(id=2)
-            i = 0
-            for material_form in material_forms:
-                if material_form.is_valid():
-                                        
-                    material = material_form.save(commit=False)
+            for i, service_form in enumerate(service_forms):
+                if service_form.is_valid():
+                    service = service_form.save(commit=False)
+                    service_objects.append(service)
                     
-                    material_objects.append(material)
-                    print(f"material {i + 1}: {material}")
-                    i +=1
-                    
-                  
                 else:
-                    material_form_valid = False
+                    service_forms_valid = False
                     
-                    print('error')
-                    
-            print('material_objects:', material_objects)
-                    
-            if material_form_valid:
-                for material_form in material_objects:
-                    material_form.id_budget = budget
-                    
-                    print('material_form:', material_form)
-                        
-            
 
+            if service_forms_valid:
+                for service_form in service_objects:
+                    service_form.id_budget = budget
+                    service_form.save()
+                            
+            
+                #  Form budgets save
+                material_objects = []
+                material_form_valid = True
+                
+                
+                for material_form in material_forms:
+                    
+                    if material_form.is_valid():
+                                            
+                        material = material_form.save(commit=False)
+                        
+                        material_objects.append(material)
+                        
+                        
+                    else:
+                        material_form_valid = False
+                        
+                        print('error')
+
+                if material_form_valid:
+                    for material_obj in material_objects:
+                        material_obj.id_budget = budget
+                        material_obj.save()
+                        
+        
+                
+                    if payment_forms.is_valid():
+                        payment = payment_forms.save(commit=False)
+                                        
+                        payment.id_budget = budget
+                        payment.save()
+                        
+        else:
+            print('error')
         return redirect('/budgets')
     
     else:

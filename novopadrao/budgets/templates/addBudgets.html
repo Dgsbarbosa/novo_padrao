@@ -21,7 +21,7 @@
         {% csrf_token %}
 
         <!--  basics data -->
-        <!-- 
+
         <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv">
             <h4>Dados Básicos</h4>
         </button>
@@ -29,7 +29,7 @@
         <div id="minhaDiv" class="my_div">
             <div class="basic_data">
                 {{ form.number_budgets|as_crispy_field }}
-                {{ form.condition|as_crispy_field }}
+                {{ form.situation|as_crispy_field }}
             </div>
 
             {{ form.client|as_crispy_field }}
@@ -40,24 +40,24 @@
 
             {{ form.obs|as_crispy_field }}
 
-        </div> -->
+        </div>
 
         <!-- Services -->
-        <!--         
-        <button type="button" class="btn-toggle-budgets" data-element=".minhaDiv2">
+
+        <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv2">
             <h4>Serviços</h4>
-        </button> -->
+        </button>
 
         <!-- Div de serviços -->
 
-        <!-- <div id="services" class="my_div minhaDiv2">
+        <div id="minhaDiv2" class="my_div minhaDiv2">
 
 
             <div id="servicos-container">
                 {% for service_form in service_forms %}
                 <div class="service-item">
                     {{ service_form|crispy }}
-                    
+
                     <div class="service-item-trash">
                         <a href="" class="service-delete-btn">
                             <span>
@@ -70,11 +70,11 @@
                 {% endfor %}
 
             </div>
-          -->
 
 
-        <!-- Botão de novo serviço  -->
-        <!--           
+
+            <!-- Botão de novo serviço  -->
+
             <div id="new_service">
 
                 <i class="fa-solid fa-file-circle-plus " id="new_service_button" style="color: #065df4;"></i>
@@ -82,14 +82,14 @@
             </div>
 
 
-        </div>  
-    
-    
-        
-        
+        </div>
+
+
+
+
         <input type="hidden" id="total_forms" name="service_form-TOTAL_FORMS" value="1">
-       
- -->
+
+
 
 
 
@@ -101,14 +101,14 @@
         </button>
 
         <!-- Div de materiais -->
-        <div id="minhaDiv3" class="">
+        <div id="minhaDiv3" class="my_div">
 
 
             <div id="materials-container">
-                
+
                 {% for material_form in material_forms %}
                 <div class="material-item">
-                    
+
                     {{material_form|crispy }}
 
                     <div class="material-item-trash">
@@ -141,14 +141,14 @@
 
         <!-- Payments -->
 
-        <!-- <button type="button" class="btn-toggle button_div_budgets" data-element="#minhaDiv4">
+        <button type="button" class="btn-toggle-budgets" data-element="#minhaDiv4">
             <h4>Formas de Pagamento</h4>
         </button>
 
         <div id="minhaDiv4" class="my_div">
-            {{form_payment|crispy }}
+            {{payment_forms|crispy }}
         </div>
-       -->
+
 
 
         <div class="container div-btn div-btn-budgets">
