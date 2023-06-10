@@ -60,12 +60,12 @@ class Services(models.Model):
     total = models.TextField(null=True,blank=True)
     def __str__(self) -> str:
         
-        return '{} {} {} {} {}'.format(self.descript,self.details, self.price, self.amount, self.total)
+        return '{} {} {} {} {} {}'.format(self.id_budget.id, self.descript,self.details, self.price, self.amount, self.total)
     
     
 class Materials(models.Model):
     
-    id_budget = models.ForeignKey(Budgets, default=1, on_delete=models.CASCADE)
+    id_budget = models.ForeignKey(Budgets,  on_delete=models.CASCADE)
     
     descript = models.CharField(max_length=500, null=True,blank=True)
     
@@ -78,7 +78,7 @@ class Materials(models.Model):
     total = models.TextField(null=True,blank=True)
     
     def __str__(self) -> str:
-        return '{} - {} - {} - {} - {}'.format(self.descript, self.details, self.price, self.amount, self.total)
+        return '{} - {} - {} - {} - {} - {}'.format(self.id_budget.id, self.descript, self.details, self.price, self.amount, self.total)
 
 class Payments(models.Model):
     
@@ -89,7 +89,7 @@ class Payments(models.Model):
     CONDITION = ("a vista","a vista"), ("sinal","sinal"), ("parcelas","parcelas")
     
     
-    id_budget = models.ForeignKey(Budgets, default=1, on_delete=models.CASCADE)
+    id_budget = models.ForeignKey(Budgets,  on_delete=models.CASCADE)
     
     
     discount = models.CharField(
@@ -122,5 +122,42 @@ class Payments(models.Model):
         )
     
     def __str__(self) -> str:
-        return '{} - {} - {} - {} - {}'.format(self.discount, self.condition, self.methods, self.obs)
+        return '{} - {} - {} - {} - {}'.format(self.id_budget.id, self.discount, self.condition, self.methods, self.obs)
 
+
+class Totals(models.Model):
+    
+    id_budget = models.ForeignKey(Budgets,  on_delete=models.CASCADE)
+ 
+    total_services = models.CharField(
+        max_length=500, 
+        null=True,
+        blank=True
+        )
+
+    total_materials = models.CharField(
+        max_length=500, 
+        null=True,
+        blank=True
+        )
+    
+    discount = models.CharField(
+        max_length=500, 
+        null=True,
+        blank=True
+        )
+    
+    parcels = models.CharField(
+        max_length=500, 
+        null=True,
+        blank=True
+        )
+
+    total_final = models.CharField(
+        max_length=500, 
+        null=True,
+        blank=True
+        )
+
+    def __str__(self) -> str:
+        return '{} - {} - {} - {} - {}'.format(self.total_services, self.total_materials, self.discount, self.parcels, self.total_final)

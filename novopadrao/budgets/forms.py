@@ -9,7 +9,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, HTML
 
 from company.models import Clients
-from .models import Budgets, Services, Materials, Payments
+from .models import Budgets, Services, Materials, Payments, Totals
 
 
 class BudgetsForm(forms.ModelForm):
@@ -309,4 +309,9 @@ class PaymentsForm(forms.ModelForm):
             
         }
         
-        
+class TotalsForms(forms.ModelForm):
+    
+    class Meta:
+        model = Totals 
+        fields = '__all__'
+    

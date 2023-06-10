@@ -369,15 +369,15 @@ $(document).ready(function () {
         materialItems.each(function (index) {
             $(this).find(':input').each(function () {
                 var name = $(this).attr('name');
-                var newName = name.replace(/material_form_[0-9]/, `material_form_${index + 1}`) ;
+                var newName = name.replace(/material_form_[0-9]/, `material_form_${index + 1}`);
 
-                
-            console.log('name: ' + name);
-            
+
+                console.log('name: ' + name);
+
 
 
                 $(this).attr('name', newName);
-                
+
                 console.log('newName: ' + newName);
 
                 var id = $(this).attr('id');
@@ -388,10 +388,54 @@ $(document).ready(function () {
     }
 
 
+    // Formas de pagamento
+    const discountRadioButtons = document.querySelectorAll('input[name="discount"]');
+
+    discountRadioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function() {
+          const discountField = radioButton.parentElement;
+          const valueInput = discountField.querySelector('.discount-value-input');
+    
+          if (this.value === 'valor' || this.value === 'porcentagem') {
+            if (!valueInput) {
+              const input = document.createElement('input');
+              input.setAttribute('type', 'text');
+              input.setAttribute('name', 'discount_value');
+              input.classList.add('discount-value-input');
+    
+              if (this.value === 'valor') {
+                input.setAttribute('placeholder', 'R$0,00');
+                input.addEventListener('input', function() {
+                  this.value = formatCurrency(this.value);
+                });
+              } else if (this.value === 'porcentagem') {
+                input.setAttribute('placeholder', '0%');
+                input.addEventListener('input', function() {
+                  this.value = formatPercentage(this.value);
+                });
+              }
+    
+              discountField.appendChild(input);
+            }
+          } else {
+            if (valueInput) {
+              discountField.removeChild(valueInput);
+            }
+          }
+        });
+      });
+    
 
 
 
 
 
+
+
+
+
+
+
+    //fechamento final 
 
 });

@@ -3,7 +3,7 @@ import datetime
 from getpass import getuser
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .forms import BudgetsForm, ServicesForm, MaterialsForm, PaymentsForm
+from .forms import BudgetsForm, ServicesForm, MaterialsForm, PaymentsForm, TotalsForms
 from django.contrib.auth.decorators import login_required
 from .models import Budgets
 from django.contrib.auth import get_user_model
@@ -12,6 +12,8 @@ from django.contrib import messages
 
 from company.models import Clients
 from accounts.models import CustomUser
+
+from . import add_budget
 
 # Create your views here.
 
@@ -33,7 +35,7 @@ def listBudgets(request):
             
         
     elif filter:
-        budgets = Budgets.objects.filter(condition=filter, user=request.user)
+        budgets = Budgets.objects.filter(situation=filter, user=request.user).order_by('-create_at').filter(user = request.user)
         
         
         if not budgets: 
@@ -67,32 +69,41 @@ def listBudgets(request):
 @login_required
 def addBudgets(request):
     
+    
+        # Calculando totais
+    budget = Budgets.objects.get(id=19)
+
+    total_services = add_budget.total_services( budget.id)
+    total_materials = add_budget.total_materials(budget.id)
+    
     if (request.method == 'POST'):
         
         # Form dados basico
         form = BudgetsForm(request.user,request.POST)
 
         # Form services
-        service_form_count = int(request.POST.get('service_form-TOTAL_FORMS'))
+        service_form_count = int(request.POST.get('service_form-TOTAL_services'))
         
                                             
         service_forms = [ServicesForm(request.POST, prefix=f'service_form_{i+1}') for i in range((service_form_count))]    
           
           
         #  Form materials
-        material_form_count = int(request.POST.get('materials_form-TOTAL_FORMS'))
+        material_form_count = int(request.POST.get('materials_form-TOTAL_services'))
         
         material_forms = [MaterialsForm(request.POST, prefix=f'material_form_{i+1}') for i in range(material_form_count)]
 
         
         payment_forms = PaymentsForm(request.POST)
         
-                
+        
         if form.is_valid() :
             
             budget = form.save(commit=False)
-            budget.user_id = request.user                  
-            budget.save()
+            # budget.user = request.user 
+                         
+            # budget.save()
+            budget = Budgets.objects.get(id=19)
             
             service_objects = []
             service_forms_valid = True              
@@ -107,9 +118,12 @@ def addBudgets(request):
                     
 
             if service_forms_valid:
-                for service_form in service_objects:
+                for i, service_form in enumerate( service_objects):
                     service_form.id_budget = budget
-                    service_form.save()
+                    
+                    # service_form.save()
+                    
+                    print(f'service {i +1}: {service_form} ')
                             
             
                 #  Form budgets save
@@ -132,20 +146,25 @@ def addBudgets(request):
                         print('error')
 
                 if material_form_valid:
-                    for material_obj in material_objects:
+                    for i, material_obj in enumerate( material_objects):
                         material_obj.id_budget = budget
-                        material_obj.save()
                         
-        
+                        # material_obj.save()
+                        
+                        print(f'material {i +1}: {material_obj}')
                 
                     if payment_forms.is_valid():
                         payment = payment_forms.save(commit=False)
                                         
                         payment.id_budget = budget
-                        payment.save()
+                        
+                        # payment.save()
+                        
+                        print('pagamento: ',payment)
                         
         else:
             print('error')
+            
         return redirect('/budgets')
     
     else:
@@ -158,14 +177,15 @@ def addBudgets(request):
             
         payment_forms = PaymentsForm()
         
-    
+        
+        
     context = {
     'form': form,
     'service_forms': service_forms,        
     'material_forms': material_forms,
     'payment_forms': payment_forms,
-
-
+    'total_services': total_services,
+    'total_materials':total_materials,
     }   
     
     return render(request, 'addBudgets.html', context)
