@@ -76,6 +76,9 @@ def addBudgets(request):
     total_services = add_budget.total_services( budget.id)
     total_materials = add_budget.total_materials(budget.id)
     
+    print('material:',total_materials)
+    print('sevicos: ', total_services)
+    
     if (request.method == 'POST'):
         
         # Form dados basico

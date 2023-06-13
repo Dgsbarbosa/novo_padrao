@@ -18,6 +18,10 @@ $(document).ready(function () {
             $('.my_div').not(el).slideUp('hidden');
 
             $(el).slideToggle('hidden');
+            
+            if (el === '#minhaDiv5'){
+                totalBudget()
+            }
         });
     });
 
@@ -66,7 +70,7 @@ $(document).ready(function () {
             var mask = (phone[5] == "9") ? masks[1] : masks
             [0];
 
-            console.log("1:" + mask)
+            
             $('#id_telefone1').mask(mask, options);
             $('#id_phone1').mask(mask, options);
 
@@ -79,7 +83,6 @@ $(document).ready(function () {
             var mask2 = (phone[5] == "9") ? masks2[1] : masks2
             [0];
 
-            console.log("2" + mask2)
 
             $('#id_phone2').mask(mask2, options2);
         }
@@ -138,10 +141,20 @@ $(document).ready(function () {
             // mascaras de valores dos formulario criados
             if (name.includes('price')) {
                 $(this).maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
-                $(this).keypress(calculateTotal);
+                $(this).keypress(function () {
+                    calculateTotal('.service-item');
+
+
+
+                });
             } else if (name.includes('amount')) {
                 $(this).maskMoney({ allowNegative: true, thousands: '', decimal: ',', affixesStay: true });
-                $(this).keypress(calculateTotal);
+                $(this).keypress(function () {
+                    calculateTotal('.service-item');
+
+
+
+                });;
             }
         });
 
@@ -159,7 +172,6 @@ $(document).ready(function () {
             var $priceInput = $item.find('input[name*="price"]');
             var $amountInput = $item.find('input[name*="amount"]');
 
-            console.log('$priceInput' + $priceInput);
             var $totalInput = $item.find('input[name*="total"]');
 
             var price = parseFloat($priceInput.val().replace('R$ ', '').replace('.', '').replace(',', '.'));
@@ -371,14 +383,8 @@ $(document).ready(function () {
                 var name = $(this).attr('name');
                 var newName = name.replace(/material_form_[0-9]/, `material_form_${index + 1}`);
 
-
-                console.log('name: ' + name);
-
-
-
                 $(this).attr('name', newName);
 
-                console.log('newName: ' + newName);
 
                 var id = $(this).attr('id');
                 var newId = id.replace(/[0-9]+$/, "") + (index + 1);
@@ -389,42 +395,84 @@ $(document).ready(function () {
 
 
     // Formas de pagamento
-    const discountRadioButtons = document.querySelectorAll('input[name="discount"]');
+    $('input[name=discount]').on('change', function () {
+        var valueSelect = $(this).val()
+        $(this).closest('.form-group').find('#input_discount').remove();
 
-    discountRadioButtons.forEach(radioButton => {
-        radioButton.addEventListener('change', function() {
-          const discountField = radioButton.parentElement;
-          const valueInput = discountField.querySelector('.discount-value-input');
-    
-          if (this.value === 'valor' || this.value === 'porcentagem') {
-            if (!valueInput) {
-              const input = document.createElement('input');
-              input.setAttribute('type', 'text');
-              input.setAttribute('name', 'discount_value');
-              input.classList.add('discount-value-input');
-    
-              if (this.value === 'valor') {
-                input.setAttribute('placeholder', 'R$0,00');
-                input.addEventListener('input', function() {
-                  this.value = formatCurrency(this.value);
-                });
-              } else if (this.value === 'porcentagem') {
-                input.setAttribute('placeholder', '0%');
-                input.addEventListener('input', function() {
-                  this.value = formatPercentage(this.value);
-                });
-              }
-    
-              discountField.appendChild(input);
+        if (valueSelect === 'valor') {
+            var newInput = '<input type="text" id="input_discount" placeholder="Valor (R$ 0,00)" />';
+
+            $(this).closest('.form-check').after(newInput);
+
+            $("#input_discount").maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
+
+        } else if (valueSelect === 'porcentagem') {
+            var newInput = '<input type="text" id="input_discount" placeholder="Porcentagem (%)" />';
+            $(this).closest('.form-check').after(newInput);
+            $('#input_discount').mask('##000%', { reverse: true })
+        }
+
+        // Insere o novo input abaixo das opções de rádio
+
+
+
+    });
+
+    //condiçoes de pagamento
+
+    $('input[name=condition]').on('change', function () {
+
+        var valueSelect = $(this).val();
+
+        $(this).closest('.form-group').find('#input_condition').remove()
+        if (valueSelect === "sinal") {
+            var newElement = '<input class="form-control" type="text" id="input_condition" placeholder="Sinal de ..." style="width:50%"/>';
+
+            $(this).closest('.form-check').after(newElement)
+
+        }
+
+        else if (valueSelect === "parcelas") {
+
+            var newElement = '<select class="form-control" id="input_condition" style="width:50%">';
+
+            for (var i = 1; i <= 5; i++) {
+                newElement += '<option value="' + i + '">' + i + 'x' + '</option>';
             }
-          } else {
-            if (valueInput) {
-              discountField.removeChild(valueInput);
-            }
-          }
-        });
-      });
-    
+
+            newElement += '</select>';
+
+            $(this).closest('.form-check').after(newElement);
+        }
+
+    });
+
+
+    function totalBudget(){
+        
+        var services = document.querySelectorAll('input[id^="id_service_form_"][id$="-total"]')
+
+        var values = [];
+
+        services.forEach(service => {
+            valueTxt = service.value
+            service = valueTxt.replace("R$","").replace(".","").replace(",",".")
+            service = parseFloat(service)
+            values.push(service)
+
+            console.log( 'services: ' + service.value)
+        })
+
+        var result = values.reduce(function(acumulador, elemento) {
+            return acumulador + elemento;
+          }, 0);
+
+        console.log("total services: " + result);
+       
+    }
+
+
+
 
 
 
