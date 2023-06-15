@@ -18,9 +18,10 @@ $(document).ready(function () {
             $('.my_div').not(el).slideUp('hidden');
 
             $(el).slideToggle('hidden');
-            
-            if (el === '#minhaDiv5'){
-                totalBudget()
+
+            if (el === '#minhaDiv5') {
+                calculateTotalBudgets();
+                writeValuesHtml();
             }
         });
     });
@@ -70,7 +71,7 @@ $(document).ready(function () {
             var mask = (phone[5] == "9") ? masks[1] : masks
             [0];
 
-            
+
             $('#id_telefone1').mask(mask, options);
             $('#id_phone1').mask(mask, options);
 
@@ -323,6 +324,7 @@ $(document).ready(function () {
         newMaterialForm.find('input[name*=id]').val('');
         newMaterialForm.insertAfter($('.material-item').last());
         totalMaterials();
+        editCamposForm();
 
     }
 
@@ -387,7 +389,7 @@ $(document).ready(function () {
 
 
                 var id = $(this).attr('id');
-                var newId = id.replace(/[0-9]+$/, "") + (index + 1);
+                var newId = id.replace(id, newName);
                 $(this).attr('id', newId);
             });
         });
@@ -395,26 +397,24 @@ $(document).ready(function () {
 
 
     // Formas de pagamento
+
+    // desconto
     $('input[name=discount]').on('change', function () {
         var valueSelect = $(this).val()
         $(this).closest('.form-group').find('#input_discount').remove();
 
         if (valueSelect === 'valor') {
-            var newInput = '<input type="text" id="input_discount" placeholder="Valor (R$ 0,00)" />';
+            var newInput = '<input type="text" class="form-control form-control-input" id="input_discount" placeholder="Valor (R$ 0,00)" />';
 
             $(this).closest('.form-check').after(newInput);
 
             $("#input_discount").maskMoney({ prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: true });
 
         } else if (valueSelect === 'porcentagem') {
-            var newInput = '<input type="text" id="input_discount" placeholder="Porcentagem (%)" />';
+            var newInput = '<input type="text" class="form-control form-control-input" id="input_discount" placeholder="Porcentagem (%)" />';
             $(this).closest('.form-check').after(newInput);
             $('#input_discount').mask('##000%', { reverse: true })
         }
-
-        // Insere o novo input abaixo das opções de rádio
-
-
 
     });
 
@@ -426,7 +426,7 @@ $(document).ready(function () {
 
         $(this).closest('.form-group').find('#input_condition').remove()
         if (valueSelect === "sinal") {
-            var newElement = '<input class="form-control" type="text" id="input_condition" placeholder="Sinal de ..." style="width:50%"/>';
+            var newElement = '<input class="form-control form-control-input" type="text" id="input_condition" placeholder="Sinal de ..." />';
 
             $(this).closest('.form-check').after(newElement)
 
@@ -434,12 +434,15 @@ $(document).ready(function () {
 
         else if (valueSelect === "parcelas") {
 
-            var newElement = '<select class="form-control" id="input_condition" style="width:50%">';
+            var newElement = '<select class="form-control form-control-input" id="input_condition" >';
 
-            for (var i = 1; i <= 5; i++) {
-                newElement += '<option value="' + i + '">' + i + 'x' + '</option>';
+            for (var i = 1; i <= 12; i++) {
+                if (i === 1) {
+                    newElement += '<option value="' + i + '" selected>' + i + 'x' + '</option>';
+                } else {
+                    newElement += '<option value="' + i + '">' + i + 'x' + '</option>';
+                }
             }
-
             newElement += '</select>';
 
             $(this).closest('.form-check').after(newElement);
@@ -448,28 +451,145 @@ $(document).ready(function () {
     });
 
 
-    function totalBudget(){
-        
+    function totalValuesServices() {
+
         var services = document.querySelectorAll('input[id^="id_service_form_"][id$="-total"]')
 
         var values = [];
 
+        let control = 1
         services.forEach(service => {
             valueTxt = service.value
-            service = valueTxt.replace("R$","").replace(".","").replace(",",".")
-            service = parseFloat(service)
-            values.push(service)
+            if (valueTxt) {
 
-            console.log( 'services: ' + service.value)
-        })
+                service = valueTxt.replace("R$", "").replace(".", "").replace(",", ".")
+                service = parseFloat(service);
+            } else {
+                service = 0.00;
+            }
+            values.push(service);
 
-        var result = values.reduce(function(acumulador, elemento) {
+
+            console.log(`service: ${control}: ${service}`)
+
+            control++;
+        });
+
+        var result = values.reduce(function (acumulador, elemento) {
             return acumulador + elemento;
-          }, 0);
+        }, 0)
 
-        console.log("total services: " + result);
-       
+        return result
+
     }
+
+    function totalValuesMaterials() {
+        let control = 1
+        var materials = document.querySelectorAll('input[id^="material"][id$="-total"]')
+
+        var values = [];
+
+        materials.forEach(material => {
+            valueText = material.value
+            if (valueText) {
+                service = valueText.replace("R$", "").replace(".", "").replace(",", ".")
+                service = parseFloat(service)
+            } else {
+                service = 0
+            }
+            values.push(service)
+            console.log(`material ${control}: ${service}`);
+
+        });
+        var result = values.reduce(function (acumulador, elemento) {
+            return acumulador + elemento;
+        }, 0)
+
+
+
+        return result
+
+
+
+    }
+
+
+    // calcula o todal do orçamento
+
+    function calculateTotalBudgets() {
+        var totalServices = totalValuesServices();
+
+
+        var totalMaterials = totalValuesMaterials();
+
+        var totalBudgets = totalServices + totalMaterials;
+
+        var parcels = $("#input_condition").val() ?? "1";
+
+
+        var discountTxt = $("#input_discount").val();
+
+        var discount = 0;
+
+
+
+        if (discountTxt) {
+            if (discountTxt.includes("R$")) {
+                discount = discountTxt.replace('R$', "").replace(".", "").replace(",", ".")
+                discount = parseFloat(discount)
+
+                totalBudgets = totalBudgets - discount
+
+            }
+            else {
+                discount = discountTxt.replace("%", "");
+                discount = discount / 100;
+                totalBudgets = totalBudgets - (totalBudgets * discount)
+            }
+
+        }
+
+
+        console.log("total services: " + totalServices);
+        console.log("totalMaterials: " + totalMaterials);
+        console.log('discount: ' + discount);
+        console.log('parcelas: ' + parcels);
+
+        console.log("total do orçamento: " + totalBudgets);
+
+        return totalBudgets;
+
+    }
+
+    function writeValuesHtml() {
+
+        // escreve o valor total de serviços
+
+        var totalServices = totalValuesServices()
+        totalServices = parseFloat(totalServices).toFixed(2)
+        var formattedTotalServices = parseFloat(totalServices).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        $(".total-item").remove();
+
+        var writeTotalService = '' +
+
+            '<div class="total-item">' +
+
+                `<h2>Total Services: ${formattedTotalServices}</h2>` +
+            '</div>';
+
+        $("#minhaDiv5").append(writeTotalService);
+
+
+        // $("#minhaDiv5").maskMoney({ prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false });
+        var teste = $(".total-item").find("h2")
+        console.log('teste: ' + teste.text() + "teste");
+
+        console.log("writeValuesHtml: " + totalServices);
+    }
+
+
+
 
 
 
