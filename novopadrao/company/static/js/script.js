@@ -424,7 +424,8 @@ $(document).ready(function () {
 
         var valueSelect = $(this).val();
 
-        $(this).closest('.form-group').find('#input_condition').remove()
+        $(this).closest('.form-group').find('#input_condition').remove();
+
         if (valueSelect === "sinal") {
             var newElement = '<input class="form-control form-control-input" type="text" id="input_condition" placeholder="Sinal de ..." />';
 
@@ -524,9 +525,6 @@ $(document).ready(function () {
 
         var totalBudgets = totalServices + totalMaterials;
 
-        var parcels = $("#input_condition").val() ?? "1";
-
-
         var discountTxt = $("#input_discount").val();
 
         var discount = 0;
@@ -550,18 +548,17 @@ $(document).ready(function () {
         }
 
 
-        console.log("total services: " + totalServices);
-        console.log("totalMaterials: " + totalMaterials);
-        console.log('discount: ' + discount);
-        console.log('parcelas: ' + parcels);
-
-        console.log("total do orçamento: " + totalBudgets);
-
         return totalBudgets;
 
     }
 
+    // escreve os valores na aba total
+
     function writeValuesHtml() {
+
+        $(".total-item").remove();
+
+        var totalBudgets = calculateTotalBudgets();
 
         // escreve o valor total de serviços
 
@@ -569,23 +566,107 @@ $(document).ready(function () {
         totalServices = parseFloat(totalServices).toFixed(2)
         var formattedTotalServices = parseFloat(totalServices).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-        $(".total-item").remove();
 
         var writeTotalService = '' +
 
             '<div class="total-item">' +
 
-                `<h2>Total Services: ${formattedTotalServices}</h2>` +
+            `<h2>Total Services: ${formattedTotalServices}</h2>` +
             '</div>';
 
         $("#minhaDiv5").append(writeTotalService);
 
 
-        // $("#minhaDiv5").maskMoney({ prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false });
-        var teste = $(".total-item").find("h2")
-        console.log('teste: ' + teste.text() + "teste");
+        // ESCREVE O TOTAL DE MATERIAL
 
-        console.log("writeValuesHtml: " + totalServices);
+        var totalMaterials = totalValuesMaterials()
+        totalMaterials = parseFloat(totalMaterials).toFixed(2)
+        var formattedTotalMaterials = parseFloat(totalMaterials).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+
+        var writeTotalMaterials = '' +
+
+            '<div class="total-item" style="display:flex; justify-content: space-between;">' +
+
+            `<h2>Total Materials: <span> ${formattedTotalMaterials}</span></h2>` +
+            '</div>';
+
+        $("#minhaDiv5").append(writeTotalMaterials);
+
+        // escreve o desconto
+
+        var discount = $("#input_discount").val();
+
+        if (!discount) {
+            discount = "";
+        }
+
+
+        var writeDiscount = '' +
+
+            '<div class="total-item" style="display:flex; justify-content: space-between;">' +
+
+            `<h2>Desconto: <span> ${discount}</span></h2>` +
+            '</div>';
+
+        $("#minhaDiv5").append(writeDiscount);
+
+
+        // escreve a quantidade de parcelas
+
+        var conditionPay = $("#input_condition").val();
+        
+        var conditionSelected = $('input[name=condition]:checked').val();
+
+        var conditionText = ""
+        
+        
+        if (!conditionPay) {
+            conditionPay = ""
+        }
+
+        if (conditionSelected === "a vista"){
+            conditionText = "A vista"
+        }else if(conditionSelected === "sinal"){
+            conditionText = `Sinal de ${conditionPay}`
+
+        }else if(conditionSelected == "parcelas"){
+            var valueParcel = totalBudgets / conditionPay
+            valueParcel = parseFloat(valueParcel).toFixed(2)
+            var formatedValueParcel = parseFloat(valueParcel).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+            conditionText = `Parcelado em ${conditionPay}x de ${formatedValueParcel} `
+        }
+
+        var writeConditionPay = '' +
+
+            '<div class="total-item" style="display:flex; justify-content: space-between;">' +
+
+            `<h2>Condição de pagamento: <span>${conditionText} </span></h2>` +
+            '</div>';
+
+        $("#minhaDiv5").append(writeConditionPay);
+
+        console.log("condicao de pagamento: " + conditionText);
+
+        // total do orçamento
+
+        
+        totalBudgets = parseFloat(totalBudgets).toFixed(2)
+
+        var formatedTotalBudgets = parseFloat(totalBudgets).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+
+
+        var writeTotalBudgets = '' +
+
+            '<div class="total-item" style="display:flex; justify-content: space-between;">' +
+
+            `<h2>Total do orçamento: <span> ${formatedTotalBudgets}</span></h2>` +
+            '</div>';
+
+        $("#minhaDiv5").append(writeTotalBudgets);
+
     }
 
 
