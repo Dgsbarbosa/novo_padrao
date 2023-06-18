@@ -3,14 +3,16 @@ import datetime
 from getpass import getuser
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
+
 from .forms import BudgetsForm, ServicesForm, MaterialsForm, PaymentsForm, TotalsForms
 from django.contrib.auth.decorators import login_required
-from .models import Budgets, Totals
+from .models import Budgets, Materials, Payments, Services, Totals
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
 from django.contrib import messages
-
-from company.models import Clients
+from accounts.models import PerfilCompany
+from company.models import Clients, Address, Contacts
 from accounts.models import CustomUser
 
 from . import add_budget
@@ -205,3 +207,77 @@ def addBudgets(request):
     }   
     
     return render(request, 'addBudgets.html', context)
+
+
+def viewBudget(request, id):
+    
+    #get no perfil da empresa
+    try:
+        perfilCompany = PerfilCompany.objects.get(pk=request.user.id) 
+    except:
+        perfilCompany = "Orcamento de servicos"
+    
+    
+    # pega o orçamento
+    budget = Budgets.objects.get(pk=id)
+
+    #  pega o endereço do cliente
+    try:
+        addressClient = Address.objects.get(client_id=budget.client.id)
+    except:
+        addressClient = ""
+
+    #  pega o contato do cliente
+    try:
+        contactsClient = Contacts.objects.get(client_id = budget.client.id)
+    except:
+        contactsClient=""
+        
+    # pega os serviços
+    try:
+        services = Services.objects.filter(id_budget = budget.id)
+        
+        
+    except:
+        services = ""
+        
+        print('error')
+        
+    # pega os materiais
+    
+    try:    
+        materials = Materials.objects.filter(id_budget = budget.id)
+    except:
+        materials = ""
+        
+        
+    try:
+        total = Totals.objects.filter(id_budget = budget.id)
+    except:
+        total = ""
+        
+    payments = Payments.objects.filter(id_budget = budget.id)
+    print("id:",budget.id)
+
+        
+    print('perfilCompany: ', perfilCompany)
+    print("budget: ", budget)
+    print('addressClient:', addressClient)
+    print('contactsClient:', contactsClient)
+    print("services:", services)
+    print('materials:', materials)
+    print('total:', total)
+    print('payments:', payments)
+    
+    context = {
+        'perfilCompany': perfilCompany,
+        'budget': budget,
+        'addressClient': addressClient,
+        'contactsClient': contactsClient,
+        'services': services,
+        'materials': materials,
+        'total': total,
+        'payments': payments,
+        
+        }
+    return render(request, 'viewBudget.html',context)

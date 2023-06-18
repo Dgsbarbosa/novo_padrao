@@ -93,7 +93,7 @@
                 <tr>
                     <td>
                         <span class="">
-                            <a href="">{{budget.number_budgets}}
+                            <a href="/budgets/budget/{{budget.id}}">{{budget.number_budgets}}
 
                             </a>
                         </span>
@@ -102,9 +102,9 @@
                     <td>
                         <span class="">
                             <a href="">
-                                {% if budget.client%}
-                                {{budget.client}}
-                                {% endif%}
+                                
+                                {{budget.client.name}}
+                                
                             </a>
                         </span>
                     </td>

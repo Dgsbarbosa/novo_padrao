@@ -52,20 +52,25 @@ def listClients(request):
 def  clientView(request, id):
     
     client = Clients.objects.get(pk=id) 
-    print(client)
+    
     try:
         address = Address.objects.get(client_id=client)
+        
     except:
         address = ""
-    print(address)
+    
     try:
         contacts = Contacts.objects.get( client_id=client.id)
+        
     except:
         contacts = ""
 
+    print('client: ', client)
+    print('address: ', address)
+    print('contacts:',contacts )
     
     
-    print('error')
+    
     context = {
         'address':address,
         'contacts':contacts,
@@ -100,6 +105,9 @@ def newClient(request):
                 contacts = form_contacts.save(commit=False)
                 contacts.client_id = client
                 contacts.save()
+                
+            else:
+                print('error')
                 
             
         

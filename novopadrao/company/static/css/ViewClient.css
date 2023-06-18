@@ -3,6 +3,8 @@
 .div-view {
     margin-bottom: 30px;
     width: 100%;
+    color: #1a1169;
+    font-weight: bold;
     /* border: 1px dashed rgb(0, 0, 0); */
 }
 

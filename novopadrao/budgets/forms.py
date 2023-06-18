@@ -24,7 +24,7 @@ class BudgetsForm(forms.ModelForm):
             self.fields[i].required = False
 
             self.fields['client'].queryset = Clients.objects.filter(
-                user_id=user)
+                user_id=user).values_list('name', flat=True)
 
         def numberBudget():
 

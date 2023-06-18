@@ -12,7 +12,7 @@
 @import url(../css/addBudgets.css);
 @import url(../css/listBudgets.css);
 
-
+@import url(../css/viewBudget.css);
 body{
   width: 100%;
 }

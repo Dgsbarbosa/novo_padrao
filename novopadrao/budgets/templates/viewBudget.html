@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %} Clientes {% endblock %}
+
+{% block content %}
+<div class="div-view-budgets">
+    <!-- Nome da companhia no topo da pagina -->
+    <div>
+        {{ perfilCompany.name}}
+    </div>
+
+    <!-- Barra do numero do orçamento -->
+    <div style="border: 2px solid black;">
+        Orçamento : {{ budget.number_budgets}}
+        <br>
+        {{budget.reference }}
+    </div>
+
+    <!-- Informações do client -->
+    <div>
+        Cliente: {{budget.client|default_if_none:""}}
+        <br>
+        Endereço: {{ addressClient}}
+        <br>
+        Contatos: {{ contactsClient}}
+
+    </div>
+
+    <!-- Informações basicas -->
+    <div>
+        <h4>Informações Basicas</h4>
+        Validade do orçamento: {{ budget.validity|date:"d/m/Y"}},
+        <br>
+        Prazo de entrega: {{ budget.term}}
+    </div>
+
+    <!-- Serviços -->
+    <div>
+        <h4>Serviços</h4>
+        {% for service in services %}
+        {{service}}
+        <br>
+        {% endfor %}
+    </div>
+
+    <!-- Materiais -->
+    <div>
+        <h4>Materiais</h4>
+        {% for material in materials %}
+
+        {{ material}}
+        <br>
+        {%endfor %}
+    </div>
+
+    <!-- Totais -->
+    <div>
+        <h4>Totais</h4>
+        {% for t in total %}
+        {{t}}
+        {%endfor%}
+        <br>
+
+    </div>
+
+    
+    <!-- Pagamentos -->
+    <div>
+        <h4>Pagamento</h4>
+        {% for payment in payments%}
+
+        {{payment}}
+
+        {%endfor%}
+    </div>
+
+    
+    <!-- Informações Adicionais -->
+    <div style="margin-bottom: 50px;">
+        <h4>Informações Adicionais</h4>
+
+        Observação da tabela budget: {{ budget.obs}}
+
+    </div>
+</div>
+{% endblock %}

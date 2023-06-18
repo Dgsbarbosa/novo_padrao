@@ -16,14 +16,6 @@
 
         <div class=" div-view-item">
             <div>
-                <h6>ID Cliente: </h6>
-                <span>{{client.id }}</span>
-            </div>
-
-
-        </div>
-        <div class=" div-view-item">
-            <div>
                 <h6>Nome: </h6>
                 <span>{{client.name }}</span>
             </div>
@@ -39,12 +31,12 @@
         <div class=" div-view-item">
             <div>
                 <h6>Telefone: </h6>
-                <span>{{ contacts.telefone1 }}</span>
+                <span>{{ contacts.telefone1|default_if_none:'-' }}</span>
             </div>
 
             <div>
                 <h6>Telefone 2:</h6>
-                <span>{{contacts.telefone2 }}</span>
+                <span>{{contacts.telefone2|default_if_none:'-' }}</span>
             </div>
 
         </div>
@@ -52,7 +44,7 @@
         <div class=" div-view-item">
             <div>
                 <h6>Email: </h6>
-                <span>{{ contacts.email }}</span>
+                <span>{{ contacts.email|default_if_none:'-' }}</span>
             </div>
 
         </div>
@@ -60,12 +52,12 @@
         <div class=" div-view-item">
             <div>
                 <h6>Rua: </h6>
-                <span>{{ address.street }}</span>
+                <span>{{ address.street|default_if_none:'-' }}</span>
             </div>
 
             <div>
                 <h6>Bairro:</h6>
-                <span>{{address.bairro }}</span>
+                <span>{{address.bairro|default_if_none:'-' }}</span>
             </div>
 
         </div>
@@ -74,12 +66,12 @@
         <div class=" div-view-item">
             <div>
                 <h6>Cidade: </h6>
-                <span>{{ address.city }}</span>
+                <span>{{ address.city|default_if_none:'-' }}</span>
             </div>
 
             <div>
                 <h6>Estado:</h6>
-                <span>{{address.state }}</span>
+                <span>{{address|default_if_none:'-' }}</span>
             </div>
 
         </div>

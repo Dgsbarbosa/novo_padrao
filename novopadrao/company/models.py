@@ -62,9 +62,13 @@ class Clients(models.Model):
     update_at = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        if self.client_type == None:
-            self.client_type = ''
-        return '{} ' .format( self.name, self.client_type)
+        if self.client_type:          
+            
+            self.client_type = self.get_client_type_display()
+        else:
+            self.client_type = ""  
+            
+        return '{} - {}' .format( self.name,  self.client_type)
 
     
 class Address(models.Model):
@@ -98,18 +102,22 @@ class Contacts(models.Model):
     
     
     
-    telefone1 = models.CharField(max_length=15, unique=True, null=True, blank=True, ) 
+    telefone1 = models.CharField(max_length=30, unique=True, null=True, blank=True, ) 
        
-    telefone2 = models.CharField(max_length=15, unique=True, null=True, blank=True, ) 
+    telefone2 = models.CharField(max_length=30, unique=True, null=True, blank=True, ) 
     
     email = models.EmailField(max_length=255, unique=True,  null=True, blank=True)
     
     def __str__(self) -> str:
         
-        return '{} {} {}'.format( self.telefone1 , self.telefone2 , self.email) 
+        telefone1_str = str(self.telefone1) if self.telefone1 is not None else "" 
+        telefone2_str = str(self.telefone2) if self.telefone2  else "-" 
+        email_str = str(self.email) if self.email is not None else "-"
+                
+        return '{} {} {}'.format( telefone1_str, telefone2_str, email_str) 
     
-
-
+    
+   
 
     
 
