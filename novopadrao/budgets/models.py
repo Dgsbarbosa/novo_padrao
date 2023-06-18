@@ -60,7 +60,7 @@ class Services(models.Model):
     total = models.TextField(null=True,blank=True)
     def __str__(self) -> str:
         
-        return '{} {} {} {} {} {}'.format(self.id_budget.id, self.descript,self.details, self.price, self.amount, self.total)
+        return '{} - {} - {} - {} - {} - {}'.format(self.id_budget.id, self.descript,self.details, self.price, self.amount, self.total)
     
     
 class Materials(models.Model):
@@ -160,4 +160,4 @@ class Totals(models.Model):
         )
 
     def __str__(self) -> str:
-        return '{} - {} - {} - {} - {}'.format(self.total_services, self.total_materials, self.discount, self.parcels, self.total_final)
+        return '{} - {} - {} - {} - {} - {}'.format(self.id_budget.id, self.total_services, self.total_materials, self.discount, self.parcels, self.total_final)

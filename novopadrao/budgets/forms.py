@@ -100,7 +100,7 @@ class BudgetsForm(forms.ModelForm):
             }),
 
             "obs": forms.Textarea(
-                attrs={"cols": 80, "rows": 5}),
+                attrs={"cols": 80, "rows": 2}),
         }
 
 
@@ -302,7 +302,7 @@ class PaymentsForm(forms.ModelForm):
             'obs': forms.Textarea(
                 attrs={
                     'cols': 80,
-                    'rows': 5,
+                    'rows': 2,
                 }
             )
             

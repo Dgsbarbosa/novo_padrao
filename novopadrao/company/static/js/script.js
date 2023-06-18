@@ -8,6 +8,7 @@ $(document).ready(function () {
     var filter = $('#filter');
     var ocultDivBtn = $('#button_ocult');
 
+    writeValuesHtml();
     // botão que esconde items do orcamento
     $(function () {
 
@@ -17,12 +18,16 @@ $(document).ready(function () {
 
             $('.my_div').not(el).slideUp('hidden');
 
-            $(el).slideToggle('hidden');
+            
 
-            if (el === '#minhaDiv5') {
-                calculateTotalBudgets();
-                writeValuesHtml();
-            }
+            $(el).slideToggle('hidden', function () { 
+                if ($(this).is(':visible')){
+                    $(this).find('input[name$=descript]').focus();
+                }
+             });
+
+            writeValuesHtml();
+
         });
     });
 
@@ -161,6 +166,7 @@ $(document).ready(function () {
 
         newServiceForm.find('input[name$=id]').val('');
         newServiceForm.insertAfter($('.service-item').last());
+        newServiceForm.find('input[name*="descript"]').last().focus();
         totalServices();
 
     }
@@ -323,6 +329,7 @@ $(document).ready(function () {
 
         newMaterialForm.find('input[name*=id]').val('');
         newMaterialForm.insertAfter($('.material-item').last());
+        newMaterialForm.find('input[name*=descript]').last().focus();
         totalMaterials();
         editCamposForm();
 
@@ -558,7 +565,7 @@ $(document).ready(function () {
 
         $(".total-item").remove();
 
-        var totalBudgets = calculateTotalBudgets();
+        
 
         // escreve o valor total de serviços
 
@@ -571,7 +578,8 @@ $(document).ready(function () {
 
             '<div class="total-item">' +
 
-            `<h2>Total Services: ${formattedTotalServices}</h2>` +
+            `<h6>Total Serviços: </h6>` +`<span> ${formattedTotalServices}</span>` +
+            `<input type="hidden" name="total_services" value="${formattedTotalServices}">` +
             '</div>';
 
         $("#minhaDiv5").append(writeTotalService);
@@ -586,9 +594,12 @@ $(document).ready(function () {
 
         var writeTotalMaterials = '' +
 
-            '<div class="total-item" style="display:flex; justify-content: space-between;">' +
+            '<div class="total-item" >' +
 
-            `<h2>Total Materials: <span> ${formattedTotalMaterials}</span></h2>` +
+            `<h6>Total Materiais:</h6>` + 
+            ` <span > ${formattedTotalMaterials}</span>` +
+            
+            `<input type="hidden" name="total_materials" value="${formattedTotalMaterials}">` +
             '</div>';
 
         $("#minhaDiv5").append(writeTotalMaterials);
@@ -606,13 +617,16 @@ $(document).ready(function () {
 
             '<div class="total-item" style="display:flex; justify-content: space-between;">' +
 
-            `<h2>Desconto: <span> ${discount}</span></h2>` +
+            `<h6>Desconto: </h6>` +
+            `<span> ${discount}</span>` +
+            `<input type="hidden" name="total_discount" value="${discount}">` +
             '</div>';
 
         $("#minhaDiv5").append(writeDiscount);
 
 
         // escreve a quantidade de parcelas
+        var totalBudgets = calculateTotalBudgets();
 
         var conditionPay = $("#input_condition").val();
         
@@ -642,7 +656,9 @@ $(document).ready(function () {
 
             '<div class="total-item" style="display:flex; justify-content: space-between;">' +
 
-            `<h2>Condição de pagamento: <span>${conditionText} </span></h2>` +
+            `<h6>Condição de pagamento: </h6>`+
+            `<span>${conditionText} </span>` +
+            `<input type="hidden" name="total_condition" value="${conditionText}">` +
             '</div>';
 
         $("#minhaDiv5").append(writeConditionPay);
@@ -662,7 +678,9 @@ $(document).ready(function () {
 
             '<div class="total-item" style="display:flex; justify-content: space-between;">' +
 
-            `<h2>Total do orçamento: <span> ${formatedTotalBudgets}</span></h2>` +
+            `<h6>Total do orçamento: </h6>`+
+            `<span> ${formatedTotalBudgets}</span>` +
+            `<input type="hidden" name="total_budget" value="${formatedTotalBudgets}">` +
             '</div>';
 
         $("#minhaDiv5").append(writeTotalBudgets);
@@ -671,6 +689,12 @@ $(document).ready(function () {
 
 
 
+    $("#orcament-form").on("submit", function(event){
+        event.preventDefault();
+        writeValuesHtml()
+        console.log("entrou");
+        this.submit();
+    });
 
 
 

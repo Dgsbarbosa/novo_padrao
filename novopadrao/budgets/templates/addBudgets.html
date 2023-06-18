@@ -56,8 +56,14 @@
             <div id="servicos-container">
                 {% for service_form in service_forms %}
                 <div class="service-item">
-                    {{ service_form|crispy }}
-
+                    {{ service_form.descript|as_crispy_field }}
+                    {{ service_form.details|as_crispy_field }}
+                    
+                    <div class="item-price">
+                        {{ service_form.price|as_crispy_field }}
+                        {{ service_form.amount|as_crispy_field }}
+                    </div>
+                    {{ service_form.total|as_crispy_field }}
                     <div class="service-item-trash">
                         <a href="" class="service-delete-btn">
                             <span>
@@ -109,7 +115,14 @@
                 {% for material_form in material_forms %}
                 <div class="material-item">
 
-                    {{material_form|crispy }}
+                    {{material_form.descript|as_crispy_field }}
+                    {{ material_form.details|as_crispy_field }}
+
+                    <div class="item-price">
+                        {{material_form.price|as_crispy_field}}
+                        {{material_form.amount|as_crispy_field}}
+                    </div>
+                    {{material_form.total|as_crispy_field}}
 
                     <div class="material-item-trash">
                         <a href="" class="material-delete-btn">

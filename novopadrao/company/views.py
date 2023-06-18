@@ -51,35 +51,21 @@ def listClients(request):
 @login_required
 def  clientView(request, id):
     
-    client = get_object_or_404(Clients, pk=id)
+    client = Clients.objects.get(pk=id) 
+    print(client)
+    try:
+        address = Address.objects.get(client_id=client)
+    except:
+        address = ""
+    print(address)
+    try:
+        contacts = Contacts.objects.get( client_id=client.id)
+    except:
+        contacts = ""
+
     
-    address = get_object_or_404(Address, client_id=client)
-    contacts = get_object_or_404(Contacts, client_id=client.id)
-     
     
-    if client.client_type == None:        
-        client.client_type = ''
-        
-    if contacts.telefone1 == None:
-        contacts.telefone1 = ''
-        
-    if contacts.email == None:
-        contacts.email = ''
-        
-    if contacts.telefone2 == None:
-        contacts.telefone2 = ''
-        
-    if address.street == None:
-        address.street = ''
-        
-    if address.bairro == None:
-        address.bairro = ''
-        
-    if address.state == None:
-        address.state = ''
-        
-    if address.city == None:
-        address.city = ''
+    print('error')
     context = {
         'address':address,
         'contacts':contacts,
