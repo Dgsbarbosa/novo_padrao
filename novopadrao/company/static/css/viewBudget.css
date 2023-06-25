@@ -1,4 +1,262 @@
-.div-view-budgets{
+/* Area de print */
+.div-view-budget {
+    width: 210mm;
+    margin-top: 20px;
+    /* border: 10px solid black; */
+}
 
-    border: 10px solid black;
+/* Nome da empresa */
+#name-company {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Numero e referencia do orçamento */
+#number-budget {
+    width: 100%;
+    margin-top: 10px;
+    padding-left: 10px;
+    background-color: rgb(221, 217, 217);
+}
+
+#number-budget h4 {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+
+/* Informações dp cliente */
+.info-client {
+    margin-top: 10px;
+    display: flex;
+    align-items: baseline;
+
+    /* border: 5px solid black; */
+}
+
+.info-client-item:first-of-type {
+    max-width: max-content;
+    min-width: 50%;
+    padding-left: 10px;
+    margin-right: 40px;
+    /* border: 5px solid black; */
+}
+
+
+/* Nome do cliente */
+
+.view-client-name {
+    display: flex;
+    align-items: baseline;
+
+    font-weight: bold;
+    font-size: 18px;
+    padding-bottom: 0;
+    margin-bottom: 0px;
+    margin-right: 15px;
+    flex-wrap: wrap
+        /* border: 5px solid black; */
+
+
+}
+
+.view-client-name h5 {
+
+    margin-right: 5px;
+    margin-bottom: 0;
+    /* border: 5px solid black; */
+
+
+}
+
+
+/* Div do email e telefones */
+
+
+/* Span tipo de cliente */
+#info-client-item-tipo {
+    font-weight: bold;
+    /* border: 5px solid black; */
+
+}
+
+
+/* Informações basicas */
+.info-basics {
+    margin-top: 10px;
+
+}
+
+.info-basics-head {
+    background-color: rgb(241, 241, 241);
+    padding-left: 10px;
+}
+
+
+.info-basics-content {
+    display: flex;
+
+    padding-left: 10px;
+}
+
+.info-basics-content div {
+    width: 50%;
+}
+
+.info-basics-content h6 {
+    margin-bottom: 0;
+    /* border: 10px solid black; */
+}
+
+
+/* Serviços */
+
+.descript-service-head {
+    background-color: rgb(241, 241, 241);
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.descript-service-tableHead {
+    padding-left: 10px;
+    display: flex;
+    color: rgb(107, 106, 106);
+}
+
+#descript-service-tableHead-1 {
+    width: 80%;
+    
+    /* border: 2px solid black; */
+
+}
+
+#descript-service-tableHead-2 {
+    width: 20%;
+    text-align: right;
+    /* border: 2px solid black; */
+
+}
+
+.descript-service-content {
+    display: flex;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    /* border: 2px solid black; */
+}
+
+.descript-service-content-1{
+    width: 80%;
+}
+
+.descript-service-content-1 h6{
+    
+    margin-bottom: 0;
+}
+.descript-service-content-2{
+    text-align: right;
+    width: 20%;
+}
+
+/* Mateials */
+.descript-materials-head{
+    background-color: rgb(241, 241, 241);
+    padding-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+
+}
+
+.descript-material-tableHead{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    color: rgb(107, 106, 106);
+}
+
+.descript-material-content{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    margin-bottom: 10px;
+
+}
+
+.descript-material-content-1 h6{
+    margin:0;
+}
+
+
+
+
+
+
+
+
+
+/* Metodo imprimir */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .div-view-budget,
+    .div-view-budget * {
+        visibility: visible;
+    }
+
+    .div-view-budget {
+        position: absolute;
+
+        width: 100%;
+        margin-top: 200px;
+        padding: 10px 25px 20px 25px;
+
+    }
+
+    @page {
+        size: A4;
+        margin: 0;
+
+    }
+
+    /* Nome da empresa */
+
+}
+
+@media(max-width:600px) {
+    .div-view-budget {
+        width: 90%;
+    }
+
+    /* Nome da empresa */
+    #name-company {
+        font-size: 4vw;
+
+    }
+
+
+
+    #number-budget {
+        font-size: 4vw;
+        width: 100%;
+    }
+
+    #number-budget h3 {
+        font-size: 5vw;
+
+
+    }
+
+
+    /* Dados do cliente */
+
+    .info-client {
+        display: block;
+        padding: 0;
+    }
+
 }

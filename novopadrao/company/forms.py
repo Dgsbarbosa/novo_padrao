@@ -18,6 +18,7 @@ class AddressForm(forms.ModelForm):
                   'bairro',
                   'city',
                   'state',
+                  'cep'
                   )
         labels = {'street':('Rua'),
                   'city': ('Cidade'),

@@ -84,6 +84,7 @@ class Address(models.Model):
     
     city = models.CharField(max_length=255,null=True, blank=True)
     
+    cep = models.CharField(max_length=255,null=True, blank=True)
     state = models.CharField(
         max_length=25,
         choices=STATES,
@@ -92,7 +93,7 @@ class Address(models.Model):
         )
     
     def __str__(self) -> str:
-        return '{} - {} - {} - {}' .format( self.street, self.bairro, self.city, self.state)
+        return '{} - {} - {} - {} - {}' .format( self.street, self.bairro, self.city, self.state, self.cep)
 
 
 class Contacts(models.Model):

@@ -3,84 +3,278 @@
 {% block title %} Clientes {% endblock %}
 
 {% block content %}
-<div class="div-view-budgets">
-    <!-- Nome da companhia no topo da pagina -->
-    <div>
-        {{ perfilCompany.name}}
-    </div>
 
-    <!-- Barra do numero do orçamento -->
-    <div style="border: 2px solid black;">
-        Orçamento : {{ budget.number_budgets}}
-        <br>
-        {{budget.reference }}
-    </div>
+<!-- Div para impressao -->
+<div class="div-view-budget">
 
-    <!-- Informações do client -->
-    <div>
-        Cliente: {{budget.client|default_if_none:""}}
-        <br>
-        Endereço: {{ addressClient}}
-        <br>
-        Contatos: {{ contactsClient}}
+    <!-- Nome da companhia -->
+    <div id="name-company">
+        {% if perfilCompany.name%}
+
+        {{perfilCompany.name}}
+
+        {%else%}
+
+        {{ perfilCompany }}
+
+        {%endif%}
+
 
     </div>
 
-    <!-- Informações basicas -->
-    <div>
-        <h4>Informações Basicas</h4>
-        Validade do orçamento: {{ budget.validity|date:"d/m/Y"}},
-        <br>
-        Prazo de entrega: {{ budget.term}}
+    <!-- Numero do orçamento e referencia -->
+    <div id="number-budget">
+        <h4>Orçamento
+
+            {{ budget.number_budgets}}
+        </h4>
+
+        {% if budget.reference %}
+        <span>
+            {{ budget.reference }}
+        </span>
+        {% endif %}
+    </div>
+
+    <!-- Informações do cliente -->
+    <div class="info-client">
+
+        <!-- div de dados do cliente -->
+        <div class="info-client-item">
+            <div class="view-client-name">
+                {% if budget.client%}
+                <h5>Cliente: </h5>
+                <span>{{budget.client.name}}</span>
+
+                {% else %}
+                <h5>Cliente:</h5>
+                <span>Não há cliente associado a este orçamento</span>
+                {% endif %}
+            </div>
+
+
+            <!-- Endereço do cliente -->
+
+            {% if addressClient%}
+            <div class="view-client-address">
+
+                <!-- div rua e bairro -->
+                <div>
+
+                    <span>{{addressClient.street}}</span>
+
+
+                </div>
+
+                <!-- div bairro cidade estado -->
+
+                <div>
+
+                    <span>{{addressClient.bairro}}</span>
+
+                    {% if addressClient.bairro and addressClient.city %}
+                    <span>,</span>
+                    {% endif %}
+
+                    <span>{{addressClient.city}}</span>
+
+
+                    {% if addressClient.city and addressClient.state %}
+                    <span>/</span>
+
+                    {% elif addressClient.bairro and addressClient.state%}
+                    <span> - </span>
+                    {% endif %}
+
+                    <span>{{addressClient.state}}</span>
+
+
+                </div>
+
+                <!-- Cep do cliente -->
+                {%if addressClient.cep %}
+                <div>
+                    CEP <span>{{addressClient.cep}}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            {%endif%}
+
+
+        </div>
+
+        <!-- Div do email e telefone -->
+
+        <div class="info-client-item">
+
+            <!-- Tipo de cliente -->
+
+            {%if budget.client.client_type%}
+            <div>
+                <span id="info-client-item-tipo">Tipo de cliente: </span>
+                <span>{{budget.client.client_type}}</span>
+            </div>
+            {%endif%}
+
+            <!--  Email -->
+
+            {% if contactsClient.email %}
+            <div>
+                <span class="lowercase-text">
+                    <i class="fa-solid fa-envelope"></i>
+                    {{ contactsClient.email }}
+                </span>
+            </div>
+            {%endif%}
+
+            <!-- Telefones -->
+            <div>
+
+                {% if contactsClient.telefone1 %}
+                <div>
+                    <span>
+                        <i class="fa-solid fa-phone"></i>
+                        {{ contactsClient.telefone1}}
+                        <br>
+                    </span>
+                </div>
+                {%endif%}
+
+
+
+
+
+                {% if contactsClient.telefone2 %}
+                <div>
+                    <span>
+                        <i class="fa-solid fa-phone"></i>
+                        {{ contactsClient.telefone2}}
+                    </span>
+                </div>
+                {%endif%}
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <!-- Informações Basicas -->
+
+    <div class="info-basics">
+        <div class="info-basics-head">
+
+            <h5>Informações Básicas</h5>
+        </div>
+
+        <div class="info-basics-content">
+            {% if budget.validity%}
+            <div>
+                <h6>Validade do orçamento</h6>
+                <span>{{ budget.validity|date:"d/m/Y" }}</span>
+            </div>
+            {%endif%}
+
+            {% if budget.term %}
+            <div>
+                <h6>Prazo de execução</h6>
+                <span>{{ budget.term }}</span>
+            </div>
+            {%endif%}
+        </div>
     </div>
 
     <!-- Serviços -->
-    <div>
-        <h4>Serviços</h4>
-        {% for service in services %}
-        {{service}}
-        <br>
-        {% endfor %}
+    <div class="descript-services">
+        <div class="descript-service-head">
+            <h5>Serviços</h5>
+        </div>
+
+        <!-- Cabeçalho da tabela de serviços -->
+        <div class="descript-service-tableHead">
+            <div id="descript-service-tableHead-1">
+                <h6>Descrição</h6>
+
+            </div>
+            <div id="descript-service-tableHead-2">
+                <h6>Preço</h6>
+            </div>
+        </div>
+
+        <!-- Lista de serviços -->
+
+        {%for service in services%}
+        <div class="descript-service-content">
+
+            <div class="descript-service-content-1">
+                <h6> {{ service.descript}}</h6>
+                <span>{{ service.details}}</span>
+            </div>
+            <div class="descript-service-content-2">
+                <span>{{ service.total }}</span>
+            </div>
+
+
+        </div>
+        {%endfor%}
     </div>
 
     <!-- Materiais -->
-    <div>
-        <h4>Materiais</h4>
-        {% for material in materials %}
 
-        {{ material}}
-        <br>
-        {%endfor %}
-    </div>
+    <div class="descript-materials">
+        <div class="descript-materials-head">
+            <h5>Materiais</h5>
 
-    <!-- Totais -->
-    <div>
-        <h4>Totais</h4>
-        {% for t in total %}
-        {{t}}
+        </div>
+        <div class="descript-material-tableHead">
+            <div id="descript-material-tableHead-1">
+                <h6>Descrição</h6>
+
+            </div>
+            <div id="descript-material-tableHead-2">
+                <h6>Preço unitário</h6>
+            </div>
+            <div id="descript-material-tableHead-3">
+                <h6>Quantidade</h6>
+            </div>
+            <div id="descript-material-tableHead-4">
+                <h6>Total</h6>
+            </div>
+        </div>
+
+        <!-- Lista de materiais -->
+
+        {%for material in materials%}
+        <div class="descript-material-content">
+
+            <div class="descript-material-content-1">
+                <h6> {{ material.descript}}</h6>
+                <span>{{ material.details}}</span>
+            </div>
+            <div class="descript-material-content-2">
+                <span>{{ material.price}}</span>
+            </div>
+            <div class="descript-material-content-3">
+                <span>{{ material.amount }}</span>
+            </div>
+
+
+            <div class="descript-material-content-4">
+                <span>{{ material.total }}</span>
+            </div>
+
+
+        </div>
         {%endfor%}
-        <br>
+
+
+
+
+
+
 
     </div>
 
-    
-    <!-- Pagamentos -->
-    <div>
-        <h4>Pagamento</h4>
-        {% for payment in payments%}
-
-        {{payment}}
-
-        {%endfor%}
-    </div>
-
-    
-    <!-- Informações Adicionais -->
-    <div style="margin-bottom: 50px;">
-        <h4>Informações Adicionais</h4>
-
-        Observação da tabela budget: {{ budget.obs}}
-
-    </div>
-</div>
-{% endblock %}
+    {% endblock %}

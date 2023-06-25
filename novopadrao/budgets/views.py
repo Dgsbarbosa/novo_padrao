@@ -213,9 +213,9 @@ def viewBudget(request, id):
     
     #get no perfil da empresa
     try:
-        perfilCompany = PerfilCompany.objects.get(pk=request.user.id) 
+        perfilCompany = PerfilCompany.objects.get(user_id=request.user.id) 
     except:
-        perfilCompany = "Orcamento de servicos"
+        perfilCompany = "Orcamento de Servicos"
     
     
     # pega o orçamento
