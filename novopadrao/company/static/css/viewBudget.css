@@ -2,7 +2,10 @@
 .div-view-budget {
     width: 210mm;
     margin-top: 20px;
+    margin-bottom: 200px;
+
     /* border: 10px solid black; */
+
 }
 
 /* Nome da empresa */
@@ -112,6 +115,7 @@
 
 /* Serviços */
 
+
 .descript-service-head {
     background-color: rgb(241, 241, 241);
     padding-left: 10px;
@@ -127,7 +131,7 @@
 
 #descript-service-tableHead-1 {
     width: 80%;
-    
+
     /* border: 2px solid black; */
 
 }
@@ -136,6 +140,8 @@
     width: 20%;
     text-align: right;
     /* border: 2px solid black; */
+    padding-right: 10px;
+
 
 }
 
@@ -144,24 +150,35 @@
     padding-left: 10px;
     margin-bottom: 10px;
     text-transform: capitalize;
+    border-bottom: 1px solid rgb(241, 241, 241);
     /* border: 2px solid black; */
 }
+.descript-service-content:last-child {
 
-.descript-service-content-1{
+    border-bottom: none;
+
+
+}
+
+.descript-service-content-1 {
     width: 80%;
 }
 
-.descript-service-content-1 h6{
-    
+.descript-service-content-1 h6 {
+
     margin-bottom: 0;
 }
-.descript-service-content-2{
+
+.descript-service-content-2 {
     text-align: right;
     width: 20%;
+    padding-right: 10px;
+
+    /* border: 10px solid black; */
 }
 
 /* Mateials */
-.descript-materials-head{
+.descript-materials-head {
     background-color: rgb(241, 241, 241);
     padding-left: 10px;
     margin-top: 10px;
@@ -170,28 +187,136 @@
 
 }
 
-.descript-material-tableHead{
+.descript-material-tableHead {
     display: flex;
     justify-content: space-between;
     padding-left: 10px;
     color: rgb(107, 106, 106);
+
+
+    /* border: 5px solid black; */
+
 }
 
-.descript-material-content{
+
+#descript-material-tableHead-1 {
+    width: 30%;
+    padding-right: 10px;
+    /* border: 1px solid black; */
+}
+
+
+#descript-material-tableHead-2 {
+    width: 20%;
+    text-align: right;
+    /* border: 1px solid black; */
+
+}
+
+#descript-material-tableHead-3 {
+    width: 20%;
+    text-align: right;
+    /* border: 1px solid black; */
+}
+
+
+
+#descript-material-tableHead-4 {
+    width: 30%;
+    text-align: right;
+    padding-right: 10px;
+    /* border: 1px solid black; */
+
+
+}
+
+.descript-material-content {
     display: flex;
     justify-content: space-between;
     padding-left: 10px;
     margin-bottom: 10px;
+    text-transform: capitalize;
+    border-bottom: 1px solid rgb(241, 241, 241);
+
 
 }
 
-.descript-material-content-1 h6{
-    margin:0;
+.descript-material-content:last-child {
+
+    border-bottom: none;
+
+
+}
+
+.descript-material-content-1 h6 {
+    margin: 0;
+}
+
+.descript-material-content-1 {
+    width: 30%;
+
+    /* border: 10px solid black; */
+
+}
+
+.descript-material-content-2 {
+    width: 20%;
+
+    text-align: right;
+    /* border: 10px solid black; */
+
+}
+
+.descript-material-content-3 {
+    width: 20%;
+
+    /* border: 10px solid black; */
+    text-align: right;
+}
+
+.descript-material-content-4 {
+    width: 30%;
+    text-align: right;
+    padding-right: 10px;
 }
 
 
+/* Totals */
 
+.totals {
+    display: flex;
+    justify-content: right;
+    /* border: 10px solid black; */
 
+}
+
+.totals-container {
+    width: 50%;
+
+    float: right;
+    /* border: 10px solid red; */
+}
+
+.totals-container div{
+    background-color: rgb(241, 241, 241);
+    padding: 0px 10px 0px 10px;
+
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.totals-container div span:last-of-type{
+    width: max-content;
+    min-width: 50%;
+    text-align:end;
+    /* border: 10px solid black; */
+}
+#totals-container-totals {
+    
+    background-color: rgb(221, 217, 217);
+    font-weight: bold;    
+}
 
 
 

@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load custom_filters %}
+
+
+
+
 
 {% block title %} Clientes {% endblock %}
 
@@ -257,7 +262,7 @@
                 <span>{{ material.price}}</span>
             </div>
             <div class="descript-material-content-3">
-                <span>{{ material.amount }}</span>
+                <span>{{ material.amount|replace_decimal_amount }}</span>
             </div>
 
 
@@ -269,12 +274,33 @@
         </div>
         {%endfor%}
 
+        
+    </div>
 
+    <!-- Totais -->
+    <div class="totals">
+        <div class="totals-container">
+            {% for total in totals %}
+            <div id="totals-container-services">
+                
+                <span>Serviços</span>
+                <span>{{ total.total_services }}</span>
+            </div>
+            <div id="totals-container-materials">
+                <span>Materiais</span>
+                <span>{{ total.total_materials}} </span>
+            </div>
+            <div id="totals-container-totals">
+                <span>Total</span>
+                <span>{{ total.total_final }}</span>
 
-
-
-
+            </div>    
+            {% endfor %}
+        </div>
 
     </div>
 
-    {% endblock %}
+
+
+</div>
+{% endblock %}

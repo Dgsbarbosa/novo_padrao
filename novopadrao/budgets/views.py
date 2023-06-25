@@ -247,27 +247,32 @@ def viewBudget(request, id):
     
     try:    
         materials = Materials.objects.filter(id_budget = budget.id)
+        
     except:
         materials = ""
         
-        
+    # totais
     try:
-        total = Totals.objects.filter(id_budget = budget.id)
+        totals = Totals.objects.filter(id_budget = budget.id)
     except:
         total = ""
         
     payments = Payments.objects.filter(id_budget = budget.id)
     print("id:",budget.id)
 
-        
     print('perfilCompany: ', perfilCompany)
     print("budget: ", budget)
     print('addressClient:', addressClient)
     print('contactsClient:', contactsClient)
     print("services:", services)
     print('materials:', materials)
-    print('total:', total)
+    print('total:', totals)
     print('payments:', payments)
+    
+    for total in totals:
+        print("total:", total.total_materials)  # Imprime o objeto completo
+
+        
     
     context = {
         'perfilCompany': perfilCompany,
@@ -276,7 +281,7 @@ def viewBudget(request, id):
         'contactsClient': contactsClient,
         'services': services,
         'materials': materials,
-        'total': total,
+        'totals': totals,
         'payments': payments,
         
         }
