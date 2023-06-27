@@ -274,15 +274,16 @@
         </div>
         {%endfor%}
 
-        
+
     </div>
 
     <!-- Totais -->
     <div class="totals">
         <div class="totals-container">
+            {% if totals %}
             {% for total in totals %}
             <div id="totals-container-services">
-                
+
                 <span>Serviços</span>
                 <span>{{ total.total_services }}</span>
             </div>
@@ -294,8 +295,49 @@
                 <span>Total</span>
                 <span>{{ total.total_final }}</span>
 
-            </div>    
+            </div>
             {% endfor %}
+            {% else %}
+            <div id="totals-container-services">
+
+                <span>Serviços</span>
+                <span></span>
+            </div>
+            <div id="totals-container-materials">
+                <span>Materiais</span>
+                <span> </span>
+            </div>
+            <div id="totals-container-totals">
+                <span>Total</span>
+                <span></span>
+
+            </div>
+            {%endif%}
+
+        </div>
+
+    </div>
+    
+
+    <!-- Pagamento -->
+
+    <div class="div-pay">
+        <div id="pay-head">
+
+            <h5>Pagamentos</h5>
+
+
+        </div>
+        
+        <div id="pay-content">
+            <div id="pay-methods">
+                <h6>Meios de pagamento</h6>
+
+            </div>
+            <div id="pay-contition">
+                <h6>Condições de pagamento</h6>
+            </div>
+
         </div>
 
     </div>

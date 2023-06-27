@@ -71,11 +71,7 @@ def listBudgets(request):
 @login_required
 def addBudgets(request):
     
-    
-        # Calculando totais
-    budget = Budgets.objects.get(id=19)
-
-    
+        
     if (request.method == 'POST'):
         
         # Form dados basico
@@ -96,95 +92,109 @@ def addBudgets(request):
         
         payment_forms = PaymentsForm(request.POST)
         
-
+        all_forms_valid = True    
         
         if form.is_valid() :
             
             budget = form.save(commit=False)
             budget.user = request.user 
-                         
-            budget.save()
+
+                    
             
             print('budget:', budget)
-            
-            service_objects = []
-            service_forms_valid = True              
-                
-            for i, service_form in enumerate(service_forms):
-                if service_form.is_valid():
-                    service = service_form.save(commit=False)
-                    service_objects.append(service)
-                    
-                else:
-                    service_forms_valid = False
-                    
-
-            if service_forms_valid:
-                for i, service_form in enumerate( service_objects):
-                    service_form.id_budget = budget
-                    
-                    service_form.save()
-                    
-                    print(f'service {i +1}: {service_form} ')
-                            
-            
-                #  Form budgets save
-                material_objects = []
-                material_form_valid = True
-                
-                
-                for material_form in material_forms:
-                    
-                    if material_form.is_valid():
-                                            
-                        material = material_form.save(commit=False)
-                        
-                        material_objects.append(material)
-                        
-                        
-                    else:
-                        material_form_valid = False
-                        
-                        print('error')
-
-                if material_form_valid:
-                    for i, material_obj in enumerate( material_objects):
-                        material_obj.id_budget = budget
-                        
-                        material_obj.save()
-                        
-                        print(f'material {i +1}: {material_obj}')
-                
-                    if payment_forms.is_valid():
-                        payment = payment_forms.save(commit=False)
-                                        
-                        payment.id_budget = budget
-                        
-                        payment.save()
-                        
-                        print('pagamento: ',payment)
-                        
-                        
-                        total_services = request.POST.get('total_services')
-                        
-                        total_materials = request.POST.get('total_materials')
-                        total_discount = request.POST.get('total_discount')
-
-                        total_condition = request.POST.get('total_condition')
-                        
-                        total_budgets = request.POST.get('total_budget')
-                        
-                        # grava o valor de totais no banco de dados
-                        
-                        total = Totals(id_budget = budget, total_services = total_services, total_materials = total_materials, discount = total_discount, parcels = total_condition, total_final = total_budgets)
-                        total.save()
-                        print('total:', total)
-                    
         else:
-            print('error')
+            all_forms_valid = False 
+            messages.warning(request, "Erro no formulario de dados basicos") 
             
-        return redirect('/budgets')
+
+        service_objects = []
+        service_forms_valid = True              
+            
+        for i, service_form in enumerate(service_forms):
+            if service_form.is_valid():
+                service = service_form.save(commit=False)
+                service_objects.append(service)
+                
+            else:
+                
+                service_forms_valid = False
+                
+
+        if service_forms_valid:
+            for i, service_form in enumerate( service_objects):
+                service_form.id_budget = budget
+                
+                print(f'service {i +1}: {service_form} ')
+        else: 
+            all_forms_valid = False 
+            messages.warning(request,"Erro no formulario de servico, verifique e tente novamente")                
+        
     
+        material_objects = []
+        material_form_valid = True
+        
+        
+        for material_form in material_forms:
+            
+            if material_form.is_valid():
+                                    
+                material = material_form.save(commit=False)
+                
+                material_objects.append(material)
+                
+                
+            else:
+                material_form_valid = False
+                all_forms_valid = False 
+                messages.warning(request, "Erro no formulario de materiais, verifique e tente novamente")
+        
+        if material_form_valid:
+            for i, material_obj in enumerate( material_objects):
+                material_obj.id_budget = budget
+                
+                
+                print(f'material {i +1}: {material_obj}')
+        
+        if payment_forms.is_valid():
+                    payment = payment_forms.save(commit=False)
+                                    
+                    payment.id_budget = budget
+                    
+                    print('pagamento: ',payment)
+        else:
+            all_forms_valid = False 
+            messages.warning(request, "Erro no formulario de pagamento, verifique e tente novamente")
+
+        total_services = request.POST.get('total_services')
+        
+        total_materials = request.POST.get('total_materials')
+        total_discount = request.POST.get('total_discount')
+
+        total_condition = request.POST.get('total_condition')
+        
+        total_budgets = request.POST.get('total_budget')
+    
+        # grava o valor de totais no banco de dados
+        
+        total = Totals(id_budget = budget, total_services = total_services, total_materials = total_materials, discount = total_discount, parcels = total_condition, total_final = total_budgets)
+        
+        if all_forms_valid:
+            print("valid")
+            
+        else:
+            print('invalid')
+        # salva os orçamentos
+        
+        # budget.save()
+        # service_form.save()
+                
+        # material_obj.save()
+                    
+        # payment.save()
+                
+        # total.save()
+        print('total:', total)
+        
     else:
         form = BudgetsForm(request.user)
         
