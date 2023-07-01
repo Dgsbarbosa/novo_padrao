@@ -214,8 +214,8 @@
         <div class="descript-service-content">
 
             <div class="descript-service-content-1">
-                <h6> {{ service.descript}}</h6>
-                <span>{{ service.details}}</span>
+                <h6> {{ service.descript|default_if_none:""}}</h6>
+                <span>{{ service.details|default_if_none:""}}</span>
             </div>
             <div class="descript-service-content-2">
                 <span>{{ service.total }}</span>

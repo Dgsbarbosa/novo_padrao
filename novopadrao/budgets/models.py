@@ -68,7 +68,7 @@ class Materials(models.Model):
 
     id_budget = models.ForeignKey(Budgets,  on_delete=models.CASCADE)
 
-    descript = models.CharField(max_length=500, null=True, blank=True)
+    descript = models.CharField(max_length=500, null=True, blank=True, default="")
 
     details = models.TextField(null=True, blank=True)
 
@@ -84,13 +84,6 @@ class Materials(models.Model):
 
 class Payments(models.Model):
 
-    METHODS = [
-        ("dinheiro", "Dinheiro"), 
-        ("pix", "Pix"),        
-        ("tranferencia", "Tranferencia"),
-        ("credito", "Cartao de Credito"),    
-        ("debito", "Cartao de Debito"),
-    ]
 
     DISCOUNT = (('none', 'Sem desconto'), ('valor', 'Valor'),
                 ('porcentagem', 'Porcentagem'))
@@ -116,7 +109,7 @@ class Payments(models.Model):
 
     methods = models.CharField(
         max_length=500,
-        choices=METHODS,
+        
         null=True,
         blank=True,
     )

@@ -8,4 +8,6 @@ urlpatterns = [
     path('budgets/newBudget/', views.addBudgets, name='budgets-list'),
 
     path('budgets/budget/<int:id>', views.viewBudget, name='view-budget'),
+    
+    path('budgets/delete/<int:id>', views.deleteBudget, name='delete-budget'),
 ]

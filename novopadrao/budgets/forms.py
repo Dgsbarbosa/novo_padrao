@@ -248,10 +248,19 @@ class MaterialsForm(forms.ModelForm):
 
     
 class PaymentsForm(forms.ModelForm):
+    METHODS = (
+        ("dinheiro", "Dinheiro"), 
+        ("pix", "Pix"),        
+        ("tranferencia", "Tranferencia"),
+        ("credito", "Cartao de Credito"),    
+        ("debito", "Cartao de Debito"),
+    )
+
     methods = forms.MultipleChoiceField(
-        choices=Payments.METHODS,
+        choices=METHODS,
         widget=forms.CheckboxSelectMultiple,
         required=False,
+        label="Meios de pagamento"
     )
     
     def __init__(self, *args, **kwargs):
@@ -271,19 +280,13 @@ class PaymentsForm(forms.ModelForm):
         )
         self.fields['condition'].initial = 'a vista'
         
-        # self.fields['methods'].choices = (
-        #     ('dinheiro','Dinheiro'),
-        #     ('pix','Pix'),
-        #     ('tranferencia','Tranferencia'),
-        #     ('credito','Cartao de credito'),
-        #     ('debito','Cartao de debito'),
-        # )
+        
         self.fields['methods'].initial = 'dinheiro'
     
-    # def clean_methods(self):
-    #     methods = self.cleaned_data['methods']
-        
-    #     return ', '.join(methods)    
+    def clean_methods(self):
+        methods = self.cleaned_data['methods']
+        # print('methods:', methods)
+        return ', '.join(methods)    
     class Meta:
         model = Payments
         fields = '__all__'
@@ -292,7 +295,7 @@ class PaymentsForm(forms.ModelForm):
         labels = {
             'discount': "Desconto",
             'condition': 'Condicao de pagamento',
-            'methods': "Metodos de pagamento"
+            
         }
         
         widgets = {

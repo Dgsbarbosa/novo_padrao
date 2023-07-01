@@ -97,11 +97,10 @@ def addBudgets(request):
         if form.is_valid() :
             
             budget = form.save(commit=False)
-            budget.user = request.user 
-
-                    
+            budget.user_id = request.user.id 
             
             print('budget:', budget)
+
         else:
             all_forms_valid = False 
             messages.warning(request, "Erro no formulario de dados basicos") 
@@ -178,23 +177,30 @@ def addBudgets(request):
         
         total = Totals(id_budget = budget, total_services = total_services, total_materials = total_materials, discount = total_discount, parcels = total_condition, total_final = total_budgets)
         
-        if all_forms_valid:
-            print("valid")
-            
-        else:
-            print('invalid')
-        # salva os orçamentos
-        
-        # budget.save()
-        # service_form.save()
-                
-        # material_obj.save()
-                    
-        # payment.save()
-                
-        # total.save()
         print('total:', total)
         
+        
+        # salva os orçamentos
+
+        if all_forms_valid:
+                    
+            budget.save()
+            
+            service_form.save()
+                    
+            material_obj.save()
+                        
+            payment.save()
+                    
+            total.save()
+        
+            print("valid")
+            return redirect('/budgets/')
+               
+        else:
+            print('invalid')
+        
+                
     else:
         form = BudgetsForm(request.user)
         
@@ -216,7 +222,7 @@ def addBudgets(request):
     # 'total_materials':total_materials,
     }   
     
-    return render(request, 'addBudgets.html', context)
+    return render(request,'addBudgets.html', context)
 
 
 def viewBudget(request, id):
@@ -296,3 +302,19 @@ def viewBudget(request, id):
         
         }
     return render(request, 'viewBudget.html',context)
+
+
+@login_required
+def deleteBudget(request, id):
+    
+    
+    
+    try:
+        budget = Budgets.objects.get(pk=id)
+        budget.delete()
+        print('deleteBudget: ',budget)
+        messages.info(request, "Usuario deletado com sucesso")
+    except:
+        messages.warning(request, "Ocorreu uma falha ao deletar o cliente")
+    
+    return redirect('/budgets')
